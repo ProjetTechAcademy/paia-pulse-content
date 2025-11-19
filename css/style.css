@@ -1,0 +1,244 @@
+/* ========= PALETTE PAÏA ========= */
+/* Jaune Moutarde  */ /* #D9A526 */
+/* Bleu Nuit       */ /* #0F2C48 */
+/* Ocre Bronze     */ /* #B4792A */
+/* Ivoire          */ /* #F6F2E8 */
+/* Noir Profond    */ /* #0A0A0A */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+    background-color: #F6F2E8;
+    color: #0A0A0A;
+}
+
+/* PAGE */
+
+.fiche-page {
+    max-width: 1100px;
+    margin: 2rem auto 3rem;
+    padding: 1.5rem;
+}
+
+/* HEADER */
+
+.fiche-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.fiche-logo-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0.75rem;
+}
+
+.fiche-logo {
+    width: 72px;
+    height: 72px;
+    border-radius: 16px;
+    object-fit: contain;
+    box-shadow: 0 6px 14px rgba(15, 44, 72, 0.25);
+    background: #fff;
+}
+
+.fiche-surtitre {
+    font-size: 0.9rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #0F2C48;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+}
+
+.fiche-sous-titre {
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 0.3rem;
+}
+
+.fiche-meta {
+    font-size: 0.8rem;
+    color: #777;
+    margin-bottom: 0.9rem;
+}
+
+.fiche-titre-principal {
+    font-size: 1.8rem;
+    color: #0F2C48;
+    margin: 0.3rem 0;
+}
+
+.fiche-titre-explication {
+    font-size: 0.95rem;
+    color: #555;
+}
+
+/* MAIN / CARTE GLOBALE */
+
+.fiche-main {
+    background-color: #ffffff;
+    border-radius: 18px;
+    box-shadow: 0 14px 40px rgba(15, 44, 72, 0.15);
+    border: 3px solid #0F2C48;
+    padding: 1.8rem 1.8rem 2rem;
+}
+
+/* ACCORDÉON PAR LIGNE */
+
+.accordion-section {
+    border-bottom: 1px solid #eee;
+}
+
+.accordion-section:last-of-type {
+    border-bottom: none;
+}
+
+.accordion-toggle {
+    width: 100%;
+    border: none;
+    outline: none;
+    background: #F6F2E8;
+    color: #0F2C48;
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 0.8rem 1rem;
+    border-radius: 12px;
+    margin-bottom: 0.6rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease;
+}
+
+.accordion-section.open .accordion-toggle {
+    background: #0F2C48;
+    color: #F6F2E8;
+    box-shadow: 0 6px 16px rgba(15, 44, 72, 0.3);
+    transform: translateY(-1px);
+}
+
+.accordion-chevron {
+    font-size: 1.1rem;
+    transition: transform 0.2s ease;
+}
+
+.accordion-section.open .accordion-chevron {
+    transform: rotate(180deg);
+}
+
+.accordion-panel {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.3s ease;
+    margin-bottom: 0.9rem;
+}
+
+.accordion-section.open .accordion-panel {
+    /* hauteur gérée en JS via scrollHeight */
+}
+
+/* GRILLE DE CARTES */
+
+.fiche-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+    padding-top: 0.4rem;
+}
+
+/* CARTES */
+
+.fiche-card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 0.9rem 0.9rem 1rem;
+    box-shadow: 0 4px 10px rgba(15, 44, 72, 0.08);
+    border-top: 3px solid #D9A526;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    font-size: 0.9rem;
+}
+
+.fiche-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(15, 44, 72, 0.15);
+}
+
+.fiche-card:nth-child(2) {
+    border-top-color: #0F2C48;
+}
+
+.fiche-card:nth-child(3) {
+    border-top-color: #B4792A;
+}
+
+.fiche-card-titre {
+    margin: 0 0 0.4rem;
+    font-size: 0.95rem;
+    color: #0F2C48;
+    font-weight: 700;
+}
+
+.fiche-card-texte {
+    margin: 0 0 0.35rem;
+    color: #333;
+}
+
+.fiche-card-note {
+    margin: 0;
+    font-size: 0.8rem;
+    color: #777;
+}
+
+.fiche-card-liste {
+    margin: 0.25rem 0 0;
+    padding-left: 1.1rem;
+    font-size: 0.8rem;
+    color: #555;
+}
+
+/* FOOTER */
+
+.fiche-footer {
+    margin-top: 1.2rem;
+    font-size: 0.78rem;
+    color: #555;
+    text-align: center;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 900px) {
+    .fiche-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 640px) {
+    .fiche-page {
+        margin: 1rem auto 2rem;
+        padding: 0.8rem;
+    }
+
+    .fiche-main {
+        padding: 1.2rem 1rem 1.4rem;
+        border-radius: 14px;
+    }
+
+    .fiche-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .accordion-toggle {
+        font-size: 0.9rem;
+        padding-inline: 0.7rem;
+    }
+}

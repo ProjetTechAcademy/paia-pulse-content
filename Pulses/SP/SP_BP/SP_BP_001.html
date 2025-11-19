@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>💫 PAÏA Pulse – SP_BP_001 – Règles générales relatives au bulletin de paie</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Police Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* PALETTE PAÏA */
+        :root {
+            --paia-yellow: #D9A526;
+            --paia-blue: #0F2C48;
+            --paia-bronze: #B4792A;
+            --paia-ivory: #F6F2E8;
+            --paia-black: #0A0A0A;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 2rem 1rem 3rem;
+            font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--paia-ivory);
+            color: var(--paia-black);
+        }
+
+        .fiche-wrapper {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        /* Bandeau haut */
+        .fiche-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .logo-wrapper {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .logo-wrapper img {
+            width: 80px;
+            height: 80px;
+            border-radius: 16px;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+        }
+
+        .fiche-header-title {
+            font-size: 1.9rem;
+            font-weight: 800;
+            color: var(--paia-blue);
+            margin: 0.3rem 0;
+        }
+
+        .fiche-header-subtitle {
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        .fiche-header-note {
+            font-size: 0.8rem;
+            color: #777;
+            margin-top: 0.3rem;
+        }
+
+        /* Carte principale */
+        .fiche-card {
+            background-color: #fff;
+            border-radius: 18px;
+            border: 3px solid var(--paia-blue);
+            box-shadow: 0 16px 35px rgba(15,44,72,0.15);
+            padding: 2rem 1.8rem 2.2rem;
+        }
+
+        .fiche-code {
+            text-align: center;
+            font-size: 0.75rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #888;
+            margin-bottom: 0.7rem;
+        }
+
+        .fiche-main-title {
+            text-align: center;
+            font-size: 1.7rem;
+            font-weight: 800;
+            color: var(--paia-yellow);
+            margin: 0.4rem 0 0.3rem;
+        }
+
+        .fiche-main-sub {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 1.7rem;
+        }
+
+        /* Grille des blocs QQOQCCP */
+        .fiche-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1rem;
+        }
+
+        @media (max-width: 900px) {
+            .fiche-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding: 1.5rem 0.75rem 2.5rem;
+            }
+            .fiche-card {
+                padding: 1.4rem 1.1rem 1.8rem;
+            }
+            .fiche-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .bloc {
+            background-color: #fff;
+            border-radius: 14px;
+            padding: 0.9rem 0.95rem 1rem;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.04);
+            border-top: 4px solid #ddd;
+        }
+
+        .bloc-title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.45rem;
+        }
+
+        .bloc-title span.emoji {
+            margin-right: 0.35rem;
+            font-size: 1.1rem;
+        }
+
+        .bloc-content {
+            font-size: 0.8rem;
+            line-height: 1.4rem;
+            color: #444;
+        }
+
+        .bloc-content ul {
+            padding-left: 1.1rem;
+            margin: 0.25rem 0 0;
+        }
+
+        .bloc-content li {
+            margin-bottom: 0.2rem;
+        }
+
+        .bloc-qui      { border-top-color: var(--paia-blue); }
+        .bloc-quoi     { border-top-color: var(--paia-yellow); }
+        .bloc-ou       { border-top-color: var(--paia-bronze); }
+        .bloc-quand    { border-top-color: var(--paia-yellow); }
+        .bloc-comment  { border-top-color: var(--paia-blue); }
+        .bloc-combien  { border-top-color: var(--paia-bronze); }
+        .bloc-pourquoi { border-top-color: var(--paia-blue); }
+        .bloc-retenir  { border-top-color: var(--paia-yellow); }
+        .bloc-sources  { border-top-color: var(--paia-bronze); }
+
+        .highlight {
+            font-weight: 600;
+            color: var(--paia-blue);
+        }
+        .highlight-yellow {
+            font-weight: 600;
+            color: var(--paia-yellow);
+        }
+
+        /* Bas de page */
+        .fiche-footer {
+            font-size: 0.75rem;
+            color: #666;
+            text-align: center;
+            margin-top: 1.7rem;
+        }
+
+        .fiche-footer strong {
+            font-weight: 700;
+            color: var(--paia-blue);
+        }
+    </style>
+</head>
+<body>
+<div class="fiche-wrapper">
+
+    <!-- Bandeau haut -->
+    <header class="fiche-header">
+        <div class="logo-wrapper">
+            <!-- adapte le chemin si ton logo est ailleurs -->
+            <img src="/paia-pulse-content/asset/Logo Paia Pulse.jpg" alt="Logo PAÏA Pulse">
+        </div>
+        <h1 class="fiche-header-title">💫 PAÏA Pulse – Fiche Métier : Bulletin de Paie</h1>
+        <p class="fiche-header-subtitle">
+            Plateforme d’Actualisation & d’Information (IA)
+        </p>
+        <p class="fiche-header-note">
+            Utilisation interne PAÏA Pulse – Référence : SP_BP_001
+        </p>
+    </header>
+
+    <!-- Carte principale -->
+    <main class="fiche-card">
+
+        <div class="fiche-code">
+            CODE FICHE INTERNE&nbsp;: <strong>SP_BP_001</strong>
+        </div>
+
+        <h2 class="fiche-main-title">Règles générales relatives au bulletin de paie</h2>
+        <p class="fiche-main-sub">
+            Fiche de synthèse : obligation de remise, mentions obligatoires, modèle réglementaire, affichage du montant net social et règles de présentation.
+        </p>
+
+        <!-- Grille QQOQCCP -->
+        <section class="fiche-grid">
+
+            <!-- QUI ? -->
+            <article class="bloc bloc-qui">
+                <h3 class="bloc-title"><span class="emoji">👥</span> QUI ?</h3>
+                <div class="bloc-content">
+                    <ul>
+                        <li><span class="highlight">Tous les employeurs</span> qui versent une rémunération (entreprises privées, associations, certains employeurs publics).</li>
+                        <li><span class="highlight">Tous les salariés</span> liés par un contrat de travail (CDI, CDD, temps partiel, alternance, intérim, apprentis…).</li>
+                        <li>Employeurs publics : obligation d’afficher le <span class="highlight-yellow">montant net social</span> pour leurs agents.</li>
+                    </ul>
+                </div>
+            </article>
+
+            <!-- QUOI ? -->
+            <article class="bloc bloc-quoi">
+                <h3 class="bloc-title"><span class="emoji">📄</span> QUOI ?</h3>
+                <div class="bloc-content">
+                    <ul>
+                        <li>Le bulletin de paie est un <span class="highlight">document légal obligatoire</span> remis au salarié à chaque paie.</li>
+                        <li>Il récapitule salaire brut, cotisations, retenues fiscales, montant net social et net payé.</li>
+                        <li>C’est une <span class="highlight">preuve des droits sociaux</span> (retraite, chômage, aides…).</li>
+                        <li>Interdit d’y mentionner la <span class="highlight">grève</span> ou l’activité de représentation des salariés.</li>
+                    </ul>
+                </div>
+            </article>
+
+            <!-- OÙ ? -->
+            <article class="bloc bloc-ou">
+                <h3 class="bloc-title"><span class="emoji">📍</span> OÙ ?</h3>
+                <div class="bloc-content">
+                    <ul>
+                        <li>Application à tous les employeurs établis en <span class="highlight">France</span> (métropole et DOM).</li>
+                        <li>Concerne le secteur <span class="highlight">privé</span> et certains employeurs <span class="highlight">publics</span>.</li>
+                    </ul>
+                </div>
+            </article>
+
+            <!-- QUAND ? -->
+            <article class="bloc bloc-quand">
+                <h3 class="bloc-title"><span class="emoji">⏰</span> QUAND ?</h3>
+                <div class="bloc-content">
+                    <ul>
+                        <li>Remis au salarié <span class="highlight">à chaque paiement du salaire</span>.</li>
+                        <li>L’employeur conserve un double pendant <span class="highlight-yellow">5 ans</span>.</li>
+                        <li>Le salarié est invité à conserver ses bulletins <span class="highlight">sans limitation de durée</span>.</li>
+                        <li>Nouveau modèle avec <span class="highlight-yellow">montant net social</span> applicable aux paies émises depuis le <strong>1ᵉʳ juillet 2023</strong>, modèle provisoire utilisable jusqu’au <strong>31 décembre 2026</strong>.</li>
+                    </ul>
+                </div>
+            </article>
+
+            <!-- COMMENT ? -->
+            <article class="bloc bloc-comment">
+                <h3 class="bloc-title"><span class="emoji">⚙️</span> COMMENT ?</h3>
+                <div class="bloc-content">
+                    <ul>
+                        <li>Remise possible en <span class="highlight">papier</span> ou en <span class="highlight">dématérialisé</span>.</li>
+                        <li>En cas de dématérialisation, l’employeur doit garantir <span class="highlight">accès, intégrité, confidentialité</span> et disponibilité du document.</li>
+                        <li>Le salarié peut <span class="highlight-yellow">s’opposer à tout moment</span> au format dématérialisé par un moyen donnant date certaine (mail, courrier…).</li>
+                        <li>L’ordre des rubriques et le regroupement des informations sont fixés réglementairement pour assurer la comparabilité.</li>
+                    </ul>
+                </div>
+            </article>
+
+            <!-- COMBIEN ? -->
+            <article class="bloc bloc-combien">
+                <h3 class="bloc-title"><span class="emoji">💶</span> COMBIEN ?</h3>
+                <div class="bloc-content">
+                    <ul>
+                        <li>Doit faire apparaître notamment :</li>
+                        <li>• <span class="highlight">Salaire brut</span> et montant <span class="highlight">effectivement payé</span>.</li>
+                        <li>• <span class="highlight-yellow">Montant net social</span>, <span class="highlight">net imposable</span> et retenue à la source (PAS).</li>
+                        <li>• Assiettes, taux et montants des cotisations et contributions sociales obligatoires.</li>
+                        <li>• Montant total des exonérations / allègements de cotisations le cas échéant.</li>
+                    </ul>
+                </div>
+            </article>
+
+            <!-- POURQUOI ? -->
+            <article class="bloc bloc-pourquoi">
+                <h3 class="bloc-title"><span class="emoji">🎯</span> POURQUOI ?</h3>
+                <div class="bloc-content">
+                    <ul>
+                        <li>Informer le salarié sur la <span class="highlight">composition de sa rémunération</span>.</li>
+                        <li>Garantir la <span class="highlight">transparence</span> des cotisations et impôts prélevés.</li>
+                        <li>Permettre le calcul et le contrôle des <span class="highlight">droits sociaux</span> (retraite, chômage, aides…).</li>
+                        <li>Constituer une <span class="highlight">preuve en cas de litige</span> (prud’hommes, suivi de carrière…).</li>
+                    </ul>
+                </div>
+            </article>
+
+            <!-- À RETENIR -->
+            <article class="bloc bloc-retenir">
+                <h3 class="bloc-title"><span class="emoji">⭐</span> À RETENIR</h3>
+                <div class="bloc-content">
+                    <ul>
+                        <li>Le bulletin de paie est la <span class="highlight">pièce centrale</span> qui relie salaire, droits sociaux et fiscalité.</li>
+                        <li>L’absence de remise ou un bulletin incomplet expose l’employeur à des <span class="highlight-yellow">sanctions</span> et à des risques de contentieux.</li>
+                        <li>Le <span class="highlight-yellow">montant net social</span> est la référence pour le RSA, la prime d’activité et d’autres prestations.</li>
+                        <li>Le salarié doit conserver ses bulletins sans limite de durée : ils servent pour la retraite, les droits sociaux et la preuve de l’activité.</li>
+                    </ul>
+                </div>
+            </article>
+
+            <!-- SOURCES OFFICIELLES -->
+            <article class="bloc bloc-sources">
+                <h3 class="bloc-title"><span class="emoji">📚</span> SOURCES OFFICIELLES</h3>
+                <div class="bloc-content">
+                    <ul>
+                        <li>Code du travail : articles <strong>L.3243-1 à L.3243-4</strong>, <strong>R.3243-1</strong> et <strong>R.3243-2</strong>.</li>
+                        <li>Arrêté du <strong>25 février 2016</strong> modifié + arrêté du <strong>31 janvier 2023</strong> (modèle de bulletin et montant net social).</li>
+                        <li>Fiche « Règles générales relatives au bulletin de paie » – <strong>service-public.fr</strong>.</li>
+                    </ul>
+                </div>
+            </article>
+
+        </section>
+    </main>
+
+    <!-- Signature -->
+   <footer class="fiche-footer">
+    💫 PAÏA Pulse – Plateforme d’Actualisation & d’Information (IA) | 
+    By Mathilde Martine PAISLEY | © 2025 Tous droits réservés – 
+    Création : 17/11/2025 – Dernière mise à jour : 01/09/2025
+</footer>
+
+
+</div>
+</body>
+</html>
