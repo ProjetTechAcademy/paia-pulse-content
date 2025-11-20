@@ -9,5 +9,8 @@
 			"path": ".."
 		}
 	],
-	"settings": {}
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "paia-pulse-content",
+		"liveServer.settings.port": 5501
+	}
 }
