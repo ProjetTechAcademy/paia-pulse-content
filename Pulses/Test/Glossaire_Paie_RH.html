@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glossaire de la Paie et RH - Votre Compagnon Expert</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #EBF2FA; /* Bleu très pâle mais distinct */
+            color: #3d4f60; /* Bleu-gris foncé pour le texte général */
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        /* Nouvelle couleur de fond pour la navigation en mode clair */
+        nav {
+            background-color: #FDFDF5; /* Ecru très clair pour la barre de navigation en mode clair */
+        }
+        .glossary-container {
+            background-color: #F8FCFF; /* Fond légèrement plus foncé pour les définitions en mode clair */
+            border-radius: 0.75rem;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.18), 0 8px 8px rgba(0, 0, 0, 0.12);
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+        details {
+            border: 1px solid #E0EBF5; /* Bordure légère pour les sections de lettres */
+            border-radius: 0.5rem;
+            margin-bottom: 0.75rem;
+            background-color: #F8FCFF; /* Fond très léger pour chaque section de lettre */
+        }
+        summary {
+            font-weight: 700;
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            outline: none;
+            color: #1A3B5A; /* Bleu nuit premium pour les titres de lettres */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        summary::-webkit-details-marker {
+            display: none; /* Cache le marqueur par défaut sur Webkit */
+        }
+        summary::after {
+            content: '+';
+            font-size: 1.5rem;
+            transition: transform 0.2s;
+        }
+        details[open] summary::after {
+            content: '-';
+            transform: rotate(0deg); /* Réinitialise la rotation pour le signe moins */
+        }
+        details[open] summary {
+            background-color: #E0F2FE; /* Bleu très léger pour la section ouverte */
+            border-bottom: 1px solid #1A3B5A; /* Bordure plus forte quand ouvert */
+        }
+        ul {
+            padding: 1rem 1.5rem;
+            list-style: none; /* Supprime les puces par défaut */
+        }
+        li {
+            margin-bottom: 0.75rem;
+            line-height: 1.5;
+            color: #3d4f60; /* Texte général pour les définitions */
+            position: relative;
+            padding-left: 1.5rem; /* Pour l'icône de puce personnalisée */
+            transition: background-color 0.2s ease; /* Transition pour le survol */
+        }
+        li:last-child {
+            margin-bottom: 0;
+        }
+        li::before {
+            content: '•'; /* Puce personnalisée */
+            color: #1A3B5A; /* Couleur de la puce */
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1.5em;
+            position: absolute;
+            left: 0;
+        }
+        li:hover { /* Effet de survol pour les définitions en mode clair */
+            background-color: #F0F4F8; /* Couleur claire au survol */
+            border-radius: 0.25rem;
+        }
+        strong {
+            color: #1A3B5A; /* Bleu nuit premium pour les termes dans les définitions */
+        }
+        a {
+            color: #2A527B; /* Bleu plus clair pour les liens */
+            text-decoration: none; /* Retirer le soulignement par défaut des liens */
+        }
+        a:hover {
+            color: #1A3B5A; /* Changement de couleur au survol */
+        }
+
+        /* Dark Theme Overrides */
+        body.dark-theme {
+            background-color: #0F172A; /* slate-900 */
+            color: #E2E8F0; /* slate-200 */
+        }
+        body.dark-theme nav { /* Garde le fond sombre pour la nav en mode sombre */
+            background-color: #1E293B; /* slate-800 */
+        }
+        body.dark-theme .glossary-container {
+            background-color: #1E293B; /* slate-800 */
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.45), 0 8px 8px rgba(0, 0, 0, 0.25);
+        }
+        body.dark-theme h1 { /* Style pour le titre en mode sombre */
+            color: #FFFFFF; /* Blanc pur pour le titre en mode sombre */
+        }
+        body.dark-theme details {
+            border-color: #334155; /* slate-700 */
+            background-color: #2D3748; /* Darker background for sections */
+        }
+        body.dark-theme summary {
+            color: #60A5FA; /* blue-400 for summary titles */
+        }
+        body.dark-theme details[open] summary {
+            background-color: #1E3A8A; /* blue-800 when open */
+            border-bottom-color: #60A5FA;
+        }
+        body.dark-theme ul {
+            border-top: 1px solid #334155; /* Slate-700 pour le séparateur de liste */
+        }
+        body.dark-theme li {
+            color: #CBD5E1; /* Light gray for list items */
+        }
+        body.dark-theme li::before {
+            color: #60A5FA; /* Blue-400 for custom bullet */
+        }
+        body.dark-theme li:hover { /* Effet de survol pour les définitions en mode sombre */
+            background-color: #334155; /* Couleur plus foncée au survol en mode sombre */
+        }
+        body.dark-theme strong {
+            color: #93C5FD; /* Blue-300 for bold terms */
+        }
+        body.dark-theme a {
+            color: #93C5FD; /* Blue-300 for links in dark theme */
+        }
+        body.dark-theme a:hover {
+            color: #60A5FA; /* Blue-400 on hover in dark theme */
+        }
+        .search-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid #CBD5E1; /* Light gray border */
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            color: #3d4f60; /* Dark text for input in light theme */
+            background-color: #FFFFFF; /* White background for input in light theme */
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
+            transition: all 0.2s ease-in-out;
+        }
+        .search-input:focus {
+            outline: none;
+            border-color: #60A5FA; /* Blue-400 on focus */
+            box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.3); /* Soft blue ring on focus */
+        }
+        body.dark-theme .search-input {
+            background-color: #2D3748; /* Darker background for input in dark theme */
+            border-color: #4A5568; /* Darker border */
+            color: #E2E8F0; /* Light text for input in dark theme */
+        }
+        body.dark-theme .search-input::placeholder {
+            color: #A0AEC0; /* Lighter placeholder text in dark theme */
+        }
+        /* Styles spécifiques pour la navigation */
+        .nav-link {
+            display: block;
+            padding: 0.75rem 1.5rem; /* Ajuster le padding pour une meilleure ergonomie */
+            border-radius: 9999px; /* Boutons pill-shaped */
+            font-weight: 600;
+            font-size: 1.125rem; /* Taille de police légèrement plus grande */
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .nav-link:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
+        }
+        /* Couleurs pour les onglets */
+        .link-programme {
+            background-color: #10B981; /* emerald-500 */
+            color: white;
+        }
+        .link-programme:hover {
+            background-color: #059669; /* emerald-600 */
+        }
+        .link-competences {
+            background-color: #8B5CF6; /* violet-500 */
+            color: white;
+        }
+        .link-competences:hover {
+            background-color: #7C3AED; /* violet-600 */
+        }
+        .link-revision {
+            background-color: #F97316; /* orange-500 */
+            color: white;
+        }
+        .link-revision:hover {
+            background-color: #EA580C; /* orange-600 */
+        }
+        .link-acronymes {
+            background-color: #EC4899; /* pink-500 */
+            color: white;
+        }
+        .link-acronymes:hover {
+            background-color: #DB2777; /* pink-600 */
+        }
+        .link-lives-paie {
+            background-color: #EF4444; /* red-500 */
+            color: white;
+        }
+        .link-lives-paie:hover {
+            background-color: #DC2626; /* red-600 */
+        }
+        .link-lives-chef {
+            background-color: #6366F1; /* indigo-500 */
+            color: white;
+        }
+        .link-lives-chef:hover {
+            background-color: #4F46E5; /* indigo-600 */
+        }
+
+        /* Dark mode for tab colors */
+        body.dark-theme .nav-link.link-programme {
+            background-color: #34D399; /* emerald-400 */
+            color: #1F2937; /* gray-800 */
+        }
+        body.dark-theme .nav-link.link-programme:hover {
+            background-color: #10B981; /* emerald-500 */
+        }
+        body.dark-theme .nav-link.link-competences {
+            background-color: #A78BFA; /* violet-400 */
+            color: #1F2937; /* gray-800 */
+        }
+        body.dark-theme .nav-link.link-competences:hover {
+            background-color: #8B5CF6; /* violet-500 */
+        }
+        body.dark-theme .nav-link.link-revision {
+            background-color: #FB923C; /* orange-400 */
+            color: #1F2937; /* gray-800 */
+        }
+        body.dark-theme .nav-link.link-revision:hover {
+            background-color: #F97316; /* orange-500 */
+        }
+        body.dark-theme .nav-link.link-acronymes {
+            background-color: #F472B6; /* pink-400 */
+            color: #1F2937; /* gray-800 */
+        }
+        body.dark-theme .nav-link.link-acronymes:hover {
+            background-color: #EC4899; /* pink-500 */
+        }
+        body.dark-theme .nav-link.link-lives-paie {
+            background-color: #F87171; /* red-400 */
+            color: #1F2937; /* gray-800 */
+        }
+        body.dark-theme .nav-link.link-lives-paie:hover {
+            background-color: #EF4444; /* red-500 */
+        }
+        body.dark-theme .nav-link.link-lives-chef {
+            background-color: #818CF8; /* indigo-400 */
+            color: #1F2937; /* gray-800 */
+        }
+        body.dark-theme .nav-link.link-lives-chef:hover {
+            background-color: #6366F1; /* indigo-500 */
+        }
+
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="container mx-auto p-4 md:p-8 max-w-5xl">
+        <header class="text-center mb-8">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-800">📖 Glossaire de la Paie et RH</h1>
+            <p class="text-lg text-gray-500 mt-2">Votre compagnon expert pour maîtriser la terminologie</p>
+            <button id="theme-toggle" class="mt-4 bg-gray-700 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded-lg shadow-md transition-all duration-300 flex items-center justify-center mx-auto gap-2">
+                Thème Sombre/Clair ☀️
+            </button>
+        </header>
+
+        <!-- Nouveaux onglets de navigation -->
+        <nav class="flex flex-wrap justify-center gap-4 mb-8 p-4 rounded-lg shadow-xl dark:bg-slate-800">
+            <a href="https://projettechacademy.github.io/Suivi-et-Revision-des-Competences-Gestionnaire-de-Paie/" class="nav-link link-programme">Programme Paie (Bac+2)</a>
+            <a href="https://projettechacademy.github.io/Competences-Epreuve-Gestionnaire-Paie/" class="nav-link link-competences">Compétences 🎓</a>
+            <a href="https://projettechacademy.github.io/Programme-de-Revision-Gestionnaire-de-Paie/" class="nav-link link-revision">Révision 🔄</a>
+            <a href="https://projettechacademy.github.io/Planning-des-Lives-/" class="nav-link link-lives-paie">Lives Paie RH Admn 🎤</a>
+            <a href="https://projettechacademy.github.io/Acronyme-Paie-Academy---Guide-Ultime/" class="nav-link link-acronymes">Acronymes 🚀</a>
+            <a href="https://projettechacademy.github.io/Planning-des-Lives-chef-de-projet/" class="nav-link link-lives-chef">Lives Chef(fe) De Projet🎤</a>
+        </nav>
+
+        <div class="glossary-container">
+            <div class="mb-6">
+                <input type="text" id="search-glossary" class="search-input" placeholder="Rechercher un terme...">
+            </div>
+
+            <div id="glossary-content">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const glossaryData = {
+            "A": {
+                "Abandon de poste": "Rupture non officielle du contrat de travail par le salarié, souvent considérée comme une démission en cas d'absence injustifiée prolongée.",
+                "Abattement de 1,75% (CSG/CRDS)": "Réduction appliquée sur le salaire brut pour le calcul de la CSG déductible et non déductible, et de la CRDS non déductible.",
+                "Absences non rémunérées": "Périodes où le salarié n'est pas payé, telles que les congés sans solde, les prolongations injustifiées d'absence après un congé ou les absences sans motif légitime.",
+                "Absences non rémunérées (exemples)": "Entrée/sortie en cours de mois, retard, grève, raisons personnelles non justifiées, congés sans solde, mise à pied disciplinaire.",
+                "Absences partiellement rémunérées": "Principalement les absences médicales (maladie, accident du travail) pour lesquelles la loi impose un maintien de salaire partiel sous conditions d'ancienneté et de durée d'absence.",
+                "Absences rémunérées": "Absences pour lesquelles l'employeur maintient la rémunération (ex: congés payés, événements familiaux, jours de repos, CET, rendez-vous médicaux obligatoires).",
+                "Acompte sur salaire": "Paiement anticipé d'une partie du salaire dû pour un travail déjà effectué. Peut être demandé à partir du 15 du mois et l'employeur est tenu d'y répondre favorablement.",
+                "Activité partielle (chômage partiel ou technique)": "Dispositif permettant à une entreprise en difficulté de réduire ou suspendre temporairement l'activité de ses salariés, avec une indemnisation partielle de ces derniers.",
+                "Activité partielle indemnisée": "Période assimilée à du temps de travail effectif pour le calcul du droit aux congés payés, mais exclue du décompte des heures supplémentaires.",
+                "Affichage obligatoire": "Informations légales que l'employeur doit afficher dans les locaux de l'entreprise (ex : coordonnées de l'Inspection du travail, consignes de sécurité).",
+                "Affiliation et cotisations sociales des artistes auteurs": "Régimes spécifiques de sécurité sociale et de cotisations pour les artistes auteurs.",
+                "AGIRC-ARRCO": "Régime de retraite complémentaire obligatoire pour les salariés du secteur privé.",
+                "AGS (Association pour la gestion du régime de Garantie des Salaires)": "Cotisation finançant le fonds de solidarité des employeurs, protégeant les salaires en cas de défaillance de l'entreprise.",
+                "Allocation logement": "Aide financière destinée à réduire le montant du loyer ou de la redevance pour les personnes aux ressources modestes.",
+                "Aménagement du temps de travail": "Dispositifs permettant d'organiser le temps de travail des salariés sur une période supérieure à la semaine (ex : annualisation du temps de travail).",
+                "ANACT (Agence Nationale pour l'Amélioration des Conditions de Travail)": "Organisme public qui accompagne les entreprises dans l'amélioration des conditions de travail.",
+                "Ancienneté": "Durée de présence d'un salarié dans l'entreprise, ayant des incidences sur la rémunération (primes), les congés ou les indemnités de licenciement.",
+                "APEC (Association Pour l'Emploi des Cadres)": "Cotisation spécifique aux cadres finançant les services de l'APEC, collectée avec les cotisations de retraite complémentaire.",
+                "Assiette de cotisations": "Montant de la rémunération ou des gains sur lequel sont calculées les cotisations sociales.",
+                "Assiette de cotisation (AGIRC-ARRCO)": "Base de calcul des cotisations de retraite complémentaire, sur le salaire brut (limité à 8 PMSS pour la plupart) et répartie entre Tranche 1 et Tranche 2.",
+                "Assiette de cotisations (Livre de paie)": "Bases essentielles à l'établissement des cotisations sociales, que le livre de paie doit mettre en évidence.",
+                "Assiette de la Taxe sur les Salaires (TS)": "Identique à l'assiette de la CSG, hors prestations de sécurité sociale employeur et abattement de 1,75% pour frais professionnels sur la CSG.",
+                "Assiette brute déplafonnée (DSN)": "Correspond au brut du bulletin de salaire et est déclarée une seule fois dans la DSN pour toutes les cotisations basées sur ce montant.",
+                "Assiette brute plafonnée (DSN)": "Correspond à la Tranche 1 du bulletin de salaire et est déclarée dans la DSN.",
+                "Assiette de la Contribution Sociale Généralisée (CSG)": "Base sur laquelle la CSG/CRDS est calculée. Sa base de calcul est (brut x 98,25%) + contribution patronale aux garanties frais de santé et prévoyance.",
+                "Assiette des contributions d'Assurance Chômage (DSN)": "Base de la cotisation d'assurance chômage/AGS, déclarée dans la DSN.",
+                "Assiette du forfait social (DSN)": "Base du forfait social, déclarée dans la DSN.",
+                "Assiette de la Taxe d'Apprentissage (TA)": "Base de calcul identique à celle des cotisations de sécurité sociale (salaires, indemnités, primes, gratifications, avantages en argent ou en nature, pourboires, rémunérations des mandataires sociaux).",
+                "Assurance chômage": "Cotisation finançant les prestations de chômage.",
+                "Assurance maladie, maternité, invalidité, décès (Sécurité sociale)": "Cotisations de sécurité sociale couvrant ces risques.",
+                "Astreintes": "Périodes pendant lesquelles le salarié, sans être sur son lieu de travail ni à la disposition immédiate de l'employeur, doit être en mesure d'intervenir pour accomplir un travail. Le temps d'astreinte n'est pas considéré comme du travail effectif s'il n'y a pas d'activité demandée.",
+                "Attestation employeur (mensuelle ou de fin de contrat)": "Document remis par l'employeur au salarié pour Pôle Emploi, attestant de la période d'emploi et des salaires perçus, pour le calcul des droits au chômage.",
+                "Attestations de sous-traitance (EA, ESAT, TIH)": "Documents délivrés par les Entreprises Adaptées (EA), Établissements et Services d'Aide par le Travail (ESAT) et Travailleurs Indépendants Handicapés (TIH) aux entreprises clientes, permettant une déduction sur la contribution Agefiph (30% du coût de la main d'œuvre).",
+                "Audit de paie": "Examen approfondi des processus et des données de paie pour vérifier leur conformité légale et conventionnelle, ainsi que leur fiabilité.",
+                "Augmentation salariale": "Révision à la hausse du salaire de base d'un salarié.",
+                "Avance sur salaire": "Somme versée au salarié pour un travail non encore effectué, qui peut être refusée par l'employeur.",
+                "Avantages en nature": "Biens ou services fournis par l'employeur à un salarié gratuitement ou à un prix inférieur à leur valeur réelle, et considérés comme un complément de rémunération soumis à cotisations sociales. Ils sont à inclure dans le calcul du SMIC.",
+                "Avenant au contrat de travail (temps partiel)": "Document signé pour augmenter temporairement le temps de travail d'un salarié à temps partiel. Les heures prévues par l'avenant sont rémunérées au taux normal.",
+                "Avertissement au travail": "Sanction disciplinaire mineure donnée par l'employeur au salarié en cas de faute légère."
+            },
+            "B": {
+                "Barème progressif (Taxe sur les Salaires)": "Le calcul de la taxe s'effectue sur les rémunérations brutes individuelles décomposées en tranches avec des taux progressifs (ex: 4,25%, 8,50%, 13,60%).",
+                "Base de calcul (heures supplémentaires)": "Comprend le salaire de base et les primes ou éléments ayant le caractère d'une contrepartie directe du travail effectué.",
+                "Base de Données Économiques Sociales et Environnementales (BDESE)": "Outil centralisé d'informations que l'employeur met à disposition des représentants du personnel pour les consultations obligatoires.",
+                "Base assujettie (DSN)": "Somme des montants assujettis de manière homogène à une ou plusieurs cotisations sociales, renseignée dans la structure S21.G00.78 de la DSN.",
+                "Bénéfices sociaux": "Dispositifs complémentaires à la rémunération de base (ex: assurances santé, retraite complémentaire, congés payés) visant à améliorer l'attractivité de l'entreprise.",
+                "Bilan de compétences": "Dispositif permettant à un salarié d'analyser ses compétences professionnelles et personnelles, ses aptitudes et ses motivations en vue de définir un projet professionnel.",
+                "Bilan social": "Document récapitulatif annuel des données chiffrées sur la situation sociale de l'entreprise (emploi, rémunérations, conditions de travail, formation, etc.).",
+                "Blocs DSN": "La DSN fonctionne par 'blocs' (ex: émetteur, contact, déclaration, entreprise, établissement, salarié, contrat, versement, prévoyance, etc.) alimentés par la saisie d'informations dans le logiciel de paie et mis à jour régulièrement.",
+                "Bulletin de paie": "Document obligatoire remis par l'employeur au salarié, détaillant sa rémunération brute, les cotisations sociales, les retenues fiscales et le salaire net.",
+                "Bulletin de paie clarifié/simplifié": "Modèle de bulletin de paie obligatoire depuis le 1er janvier 2018 (pour toutes les entreprises) ou le 1er janvier 2017 (pour les entreprises de 300+ salariés). Il regroupe les mentions relatives au financement de la protection sociale par risque.",
+                "Bulletin récapitulatif de paie": "Document regroupant l'ensemble des rubriques utilisées durant la période, consolidant les bases et montants de tous les bulletins de salaire. Il offre une vue d'ensemble complète et est essentiel pour les audits."
+            },
+            "C": {
+                "Carence (complément employeur)": "Période pendant laquelle le salarié ne bénéficie pas encore du complément de salaire par son employeur (7 jours calendaires pour maladie non professionnelle, pas de carence pour AT/MP).",
+                "Carence (IJSS maladie non pro)": "Période de 3 jours sans indemnisation, appliquée avant le versement des IJSS maladie non professionnelle.",
+                "Certificats de qualifications professionnelles (CQP)": "Certifications qui attestent des compétences acquises par le salarié et qui sont reconnues au niveau d'une branche professionnelle.",
+                "Cession sur salaire": "Procédure par laquelle une partie du salaire est directement versée par l'employeur à un créancier du salarié.",
+                "Charges sociales patronales": "Cotisations sociales obligatoires payées par l'employeur, calculées sur la base des salaires bruts.",
+                "Chèque Emploi Associatif (CEA)": "Dispositif simplifiant les formalités d'embauche et de gestion de la paie pour les associations.",
+                "Chèque Emploi Service Universel (CESU)": "Moyen de paiement simplifiant la déclaration et le paiement des services à la personne.",
+                "Chèques vacances": "Titres de paiement préfinancés par l'employeur pour les salariés, utilisables pour les dépenses de vacances et de loisirs.",
+                "Classification du bulletin (simplifié)": "Le bulletin simplifié est classifié en 7 zones: identification, salaire, cotisations, net à payer et net imposable, montant net social, impôt sur le revenu, mentions finales.",
+                "Classification du salarié": "Position hiérarchique du salarié dans l'entreprise, souvent déterminée par la convention collective et ayant un impact sur la rémunération.",
+                "Clôture de paie": "Opération marquant la fin de la période de paie et la validation des éléments de rémunération pour le calcul des salaires.",
+                "Code APE": "Code de l'Activité Principale Exercée, attribué par l'INSEE à chaque entreprise ou établissement, indiquant son secteur d'activité.",
+                "Codes Types de Personnel (CTP) URSSAF": "Codification propre à l'URSSAF pour les cotisations sociales qu'elle recouvre, permettant de faire le rapprochement entre les rubriques de paie et la DSN.",
+                "Coffre-fort numérique": "Espace sécurisé en ligne permettant de stocker des documents électroniques sensibles des salariés (bulletins de paie, contrats de travail, etc.). Il offre sécurité, confidentialité, accessibilité et économies de coûts. Son utilisation doit se conformer au RGPD.",
+                "Collecte de données": "Consiste à rassembler des informations afin que ces dernières puissent être exploitables de façon simple et optimale par l'entreprise.",
+                "Comité d'hygiène, de sécurité et des conditions de travail (CHSCT)": "Instance représentative du personnel chargée de contribuer à la protection de la santé et de la sécurité des salariés (remplacé par le CSE pour ses missions spécifiques).",
+                "Comité social et économique (CSE)": "Instance de représentation du personnel obligatoire dans les entreprises de 11 salariés et plus, fusionnant les anciennes instances représentatives (DP, CE, CHSCT). Les heures supplémentaires au-delà du contingent annuel doivent faire l'objet d'une consultation du CSE si l'effectif est supérieur à 20 salariés.",
+                "Commissions": "Rémunération variable, généralement versée aux commerciaux, calculée en pourcentage des ventes ou des objectifs atteints.",
+                "Commissions (calcul)": "Élément de rémunération calculé sur le chiffre d'affaires réalisé par le salarié, pouvant être mensuel ou périodique, et calculé selon un barème à taux progressif.",
+                "Compensation totale": "Ensemble des éléments de rémunération d'un salarié, incluant salaire de base, primes, bonus, avantages sociaux, etc.",
+                "Compétences fondamentales (Déclarations sociales)": "Incluent le calcul des charges et cotisations, la gestion des déclarations, l'établissement des tableaux de bord, la gestion des relations avec les organismes sociaux, et le contrôle des versements.",
+                "Complémentaire incapacité-invalidité-décès": "Cotisations complémentaires facultatives visant à compenser la perte de revenus.",
+                "Complémentaire santé (mutuelle)": "Cotisations finançant la mutuelle, mise en place obligatoirement dans l'entreprise avec une prise en charge minimale de 50% par l'employeur.",
+                "Complément employeur (légal)": "Part du salaire que l'employeur s'engage à verser au salarié en arrêt de travail, en complément des IJSS, pour assurer un revenu stable. Soumis à conditions d'ancienneté (min 1 an) et justification médicale.",
+                "Compte d'Engagement Citoyen (CEC)": "Dispositif permettant de cumuler des droits à la formation pour les activités bénévoles ou de volontariat.",
+                "Compte épargne-temps (CET)": "Consiste à capitaliser des jours de congés annuels et des jours de repos non pris, ainsi que des éléments de rémunération comme les primes.",
+                "Compte personnel de formation (CPF)": "Droits à la formation acquis par tout actif tout au long de sa vie professionnelle, utilisables pour financer des actions de formation. La DSN alimente le CPF.",
+                "Congé de présence parentale": "Congé permettant à un salarié de s'absenter pour s'occuper d'un enfant malade ou handicapé.",
+                "Congé sabbatique": "Congé de longue durée, non rémunéré, permettant au salarié de réaliser un projet personnel.",
+                "Congés acquis par les salariés à temps partiel": "Les salariés à temps partiel ont les mêmes droits à congés payés que les salariés à temps plein (2,5 jours ouvrables ou 2,08 jours ouvrés par mois), sans proratisation de leur acquis en fonction de leur temps partiel.",
+                "Congés acquis en cas de mois de travail incomplet": "Calculés au prorata de la durée de présence du salarié en cas d'embauche ou d'absence non considérée comme travail effectif.",
+                "Congés pour événements familiaux": "Absences autorisées par le Code du travail (mariage, naissance, décès, etc.) considérées comme du temps de travail effectif pour le calcul du droit à congés payés et rémunérées, mais pas pour l'ouverture des droits à repos compensateur ou RTT.",
+                "Congés payés": "Jours de repos rémunérés accordés annuellement aux salariés (5 semaines par an, soit 30 jours ouvrables ou 25 jours ouvrés).",
+                "Congés payés (délai de conservation)": "L'employeur doit les conserver 5 ans (Code du travail) ou 10 ans (Code de commerce). Les salariés sont recommandés de les conserver à vie pour la retraite.",
+                "Congés payés (décompte en jours ouvrables)": "Tous les jours de la semaine sauf le dimanche et les jours fériés non travaillés (généralement du lundi au samedi inclus).",
+                "Congés payés (décompte en jours ouvrés)": "Jours effectivement travaillés (généralement du lundi au vendredi inclus).",
+                "Congés payés (prise)": "La période principale (4 semaines) doit être prise entre le 1er mai et le 31 octobre. La 5ème semaine peut être dissociée.",
+                "Congés payés (report)": "Généralement non admis sauf cas particuliers (5ème semaine pour congé sabbatique, maternité, accident de travail, ou si accord collectif le prévoit).",
+                "Congés payés (suite à arrêt maladie non professionnelle)": "Depuis le 24 avril 2024, les salariés en arrêt maladie non professionnelle acquièrent des droits à congés (2 jours ouvrables par mois).",
+                "Congés payés supplémentaires (fractionnement)": "Jours de congés supplémentaires accordés si une partie du congé principal est prise en dehors de la période légale (1er mai-31 octobre), sous certaines conditions.",
+                "Contrat d'apprentissage": "Contrat de travail par lequel l'employeur s'engage à assurer à l'apprenti une formation professionnelle complète et gratuite, et l'apprenti s'engage à travailler pour l'employeur et à suivre la formation prévue.",
+                "Contrat de travail": "Convention par laquelle une personne s'engage à travailler pour le compte d'une autre sous sa direction, moyennant rémunération.",
+                "Contrat de travail temporaire": "Contrat conclu entre une entreprise de travail temporaire et un salarié, mis à disposition d'une entreprise utilisatrice pour une mission limitée.",
+                "Contingent annuel d'heures supplémentaires": "Nombre maximal d'heures supplémentaires qu'un salarié peut effectuer par an (220 heures par défaut, sauf accord).",
+                "Contrepartie obligatoire en repos (COR)": "Repos attribué aux salariés effectuant des heures supplémentaires au-delà du contingent annuel (50% de majoration pour les entreprises de 0 à 20 salariés, 100% au-delà de 20 salariés).",
+                "Contrepartie obligatoire en repos (JOR)": "Jours de repos supplémentaires attribués en compensation d'un temps de travail majoré, à ne pas confondre avec les RTT.",
+                "Contribution à la formation professionnelle continue": "Cotisation obligatoire versée par les employeurs pour financer la formation professionnelle de leurs salariés.",
+                "Contribution à la formation professionnelle CDD": "Contribution spécifique de 1% du salaire brut du CDD, déclarée mensuellement à l'URSSAF via DSN, dont les rémunérations des alternants sont exclues.",
+                "Contribution au dialogue social": "Contribution financière des employeurs pour financer les organisations syndicales et patronales.",
+                "Contribution d'équilibre général (CEG)": "Composante de la retraite complémentaire AGIRC-ARRCO.",
+                "Contribution d'équilibre technique (CET)": "Composante de la retraite complémentaire AGIRC-ARRCO.",
+                "Contribution unique à la formation professionnelle et à l'alternance (Cufpa)": "Regroupe la taxe d'apprentissage et la contribution à la formation professionnelle (créée en 2019).",
+                "Contribution solidarité autonomie (CSA)": "Contribution due par les employeurs pour financer des actions en faveur de l'autonomie des personnes âgées ou handicapées.",
+                "Contribution Supplémentaire à l'Apprentissage (CSA)": "Due par les entreprises de 250 salariés et plus soumises à la TA, si le nombre d'alternants est inférieur à 5% de l'effectif total. Taux dégressif (0,005% à 0,6%). Déclarée annuellement via DSN de mars N+1 et réglée en avril N+1.",
+                "Contribution unique de l'employeur à la formation professionnelle et à l'alternance": "Contribution à la charge de l'employeur.",
+                "Contrôle M/M-1": "Comparaison des valeurs du mois en cours avec celles du mois précédent, appliquée à des rubriques spécifiques ou à l'ensemble du brut/net à payer, avec un coefficient d'écart acceptable.",
+                "Contrôle des effectifs payés": "Vérification de la cohérence entre le nombre de salariés payés et le nombre de salariés sous contrat de travail, prenant en compte les mouvements de personnel (entrées/sorties) et les paies de rappel.",
+                "Convention collective": "Accord négocié entre les organisations syndicales de salariés et d'employeurs d'un secteur d'activité, adaptant le Code du travail aux spécificités de ce secteur.",
+                "Cotisation AGS": "Cotisation au régime de garantie des salaires, permettant d'indemniser les salariés en cas de défaillance de leur employeur.",
+                "Cotisations salariales": "Contributions obligatoires prélevées sur le salaire brut du salarié pour financer le système de protection sociale.",
+                "Cotisations statutaires ou prévues par la convention collective": "Cotisations spécifiques à certains secteurs (ex: caisses de congés payés dans le BTP, cotisations de formation dans l'agriculture).",
+                "Crédit d'Impôt pour la Compétitivité et l'Emploi (CICE)": "Aide fiscale aux entreprises (supprimée fin 2018 et remplacée par un allègement de cotisations).",
+                "CRM (Compte Rendu Métier)": "Informations renvoyées par l'URSSAF et la DGFIP après exploitation des données de la DSN, pouvant contenir des erreurs à corriger. La DGFIP transmet les taux PAS via CRM.",
+                "CSG (Contribution Sociale Généralisée)": "Impôt destiné à financer la protection sociale, prélevé sur la quasi-totalité des revenus.",
+                "Cumul d'emplois": "Situation où un salarié exerce plusieurs emplois simultanément, sous certaines conditions.",
+                "CVAE (Cotisation sur la Valeur Ajoutée des Entreprises)": "Impôt local dû par les entreprises."
+            },
+            "D": {
+                "Date de paiement": "Date à laquelle le salaire est versé au salarié.",
+                "Décalage de paie": "Pratique consistant à verser les salaires le mois suivant celui de l'activité. Depuis le 1er janvier 2018, les taux de cotisations et le PSS sont ceux de la période d'emploi, non de la date de versement.",
+                "Déclaration de la Taxe sur les Salaires (TS)": "Sousscrite par télédéclaration N° 2502, au plus tard le 15 janvier de l'année suivante (tolérance au 31 janvier).",
+                "Déclarations sociales": "Obligations légales et sociales de déclarer l'activité et les charges des salariés, essentielles pour la justesse des cotisations et la conformité réglementaire.",
+                "Déclaration Sociale Nominative (DSN)": "Simplifie et remplace la majorité des déclarations sociales. Procédé obligatoire depuis le 1er janvier 2017. Elle est un fichier issu de la paie destiné aux organismes sociaux et fiscaux.",
+                "Décote (Taxe sur les Salaires)": "Appliquée si la taxe dépasse 1200€ mais n'excède pas 2040€ (formule: 75% x (2040 - montant TS)).",
+                "Déduction forfaitaire TEPA": "Réduction de cotisations patronales pour les heures supplémentaires payées et les jours de repos auxquels le salarié a renoncé (si forfait jours), applicable aux entreprises de moins de 250 salariés.",
+                "Déduction Forfaitaire Spécifique (DFS)": "Permet à l'employeur de déduire une partie du salaire brut pour frais professionnels, réduisant ainsi l'assiette de calcul des cotisations sociales.",
+                "Déduction salariale (HS/HC)": "Réduction des cotisations salariales (plafonnée à 11,31%) sur les heures supplémentaires et complémentaires majorées au taux légal.",
+                "Dématérialisation du bulletin de paie": "La distribution par voie électronique est le principe depuis 2017, avec accord présumé du salarié (qui peut s'y opposer).",
+                "Démission": "Acte unilatéral par lequel le salarié manifeste de façon claire et non équivoque sa volonté de mettre fin au contrat de travail.",
+                "Déplacement anormalement long": "Trajet domicile-travail qui doit être compensé (financièrement ou par repos) mais n'est pas considéré comme temps de travail effectif.",
+                "Déplacements professionnels (temps de travail effectif)": "Un trajet entre le domicile et le lieu de travail n'est généralement pas rémunéré ni considéré comme temps de travail effectif, sauf exceptions (ex: travaux en route, déplacement entre deux lieux de travail sous directives de l'employeur).",
+                "Dépenses déductibles (OETH)": "6 types de dépenses pouvant être déduites de la contribution Agefiph (ex: diagnostics d'accessibilité, maintien dans l'emploi, prestations d'accompagnement, promotion de l'emploi TH).",
+                "DGFIP (Direction Générale des Finances Publiques)": "Voir SIE.",
+                "DOETH (Déclaration Obligatoire d'Emploi des Travailleurs Handicapés)": "Réalisée mensuellement via la DSN pour toutes les entreprises, et annuellement pour celles de 20 salariés et plus pour calculer la contribution.",
+                "Dommages-intérêts (contentieux)": "Normalement non soumis à cotisations ni à l'impôt, sauf si leur montant, ajouté à d'autres indemnités, dépasse 2 plafonds annuels de sécurité sociale (PASS) ou 10 PASS.",
+                "Droit du travail": "Branche du droit qui réglemente les relations entre employeurs et salariés, qu'il s'agisse des relations individuelles issues du contrat de travail ou des relations collectives de travail.",
+                "Droit social": "Branche du droit autonome qui se compose de deux éléments, le droit du travail et le droit de la sécurité sociale.",
+                "DSN événementielle": "Déclaration contenant les informations relatives à un événement particulier, comme un signalement d'arrêt de travail, de reprise anticipée, ou de fin de contrat.",
+                "DSN mensuelle": "Déclaration mensuelle regroupant les données de l'état civil, du contrat de travail et du bulletin de paie des salariés, ainsi que les informations sociales et fiscales relatives à la paie.",
+                "Durée minimale contractuelle (temps partiel)": "Fixée à 24 heures par semaine (ou 104 heures mensuelles moyennes) par la loi, sauf dérogations."
+            },
+            "E": {
+                "Effectif d'assujettissement (OETH)": "Moyenne des effectifs présents chaque mois de l'année N-1 (excluant apprentis, pro, CIE, CAE, CDD de remplacement).",
+                "Effectif BOETH (Besoin en OETH)": "Nombre de travailleurs handicapés que l'entreprise est tenue d'employer (effectif d'assujettissement x 6%, arrondi à l'entier inférieur).",
+                "Éléments variables de paie": "Composantes de la rémunération qui varient d'un mois à l'autre (heures supplémentaires, primes, absences, etc.).",
+                "Équivalent Temps Plein (ETP)": "Unité de mesure qui permet de comparer le temps de travail d'un salarié à temps partiel à celui d'un salarié à temps plein, utilisée pour le calcul des effectifs.",
+                "Équivalences (temps de travail)": "Système pour certains emplois avec périodes d'inactivité rémunérées comme temps de travail effectif mais avec une rémunération 'équivalente' (ex: 35h rémunérées pour 42h travaillées).",
+                "Équité externe": "Concept RH visant à assurer la compétitivité de la rémunération des collaborateurs par rapport au marché du travail.",
+                "État des charges": "Document récapitulant l'intégralité des bases de calcul des cotisations appliquées sur les bulletins de salaire, avec des bases et taux strictement identiques. Sert à visualiser la cohérence des bases de calcul des cotisations.",
+                "Externalisation de la paie": "Déléguer la gestion de la paie à un prestataire externe."
+            },
+            "F": {
+                "Fériés et chômés (temps de travail effectif)": "Ces jours ne sont pas considérés comme du temps de travail effectif pour le calcul des heures supplémentaires, même s'ils sont rémunérés.",
+                "Fiches de paie (ou bulletins de salaire)": "Documents officiels récapitulant les éléments de la rémunération du salarié.",
+                "FNAL (Fonds National d'Aide au Logement)": "Organisme contribuant au financement des aides personnelles au logement.",
+                "Forfait annuel d'heures": "Organisation du temps de travail selon une convention individuelle avec une durée annuelle de travail définie (ex: 1607 heures), souvent pour les salariés autonomes.",
+                "Forfait jours": "Convention individuelle annuelle en jours, souvent pour les cadres autonomes, où la durée hebdomadaire du travail ne s'applique pas. Le salarié se voit attribuer un nombre de jours annuels travaillés (max 218 jours sans majoration). Ne donne pas droit aux heures supplémentaires, mais aux 'jours de repos'.",
+                "Forfait mobilités durables": "Allocation forfaitaire que l'employeur peut verser aux salariés qui utilisent un moyen de transport durable pour les trajets domicile-lieu de travail.",
+                "Forfait social": "Contribution à la charge de l'employeur, prélevée sur les rémunérations ou gains exclus de l'assiette des cotisations de sécurité sociale mais assujettis à la CSG. Taux possibles : 8%, 10%, 16%, 20%.",
+                "Formation (temps de travail effectif)": "Une formation pendant les heures de travail est considérée comme temps de travail effectif. Hors des heures normales, elle ne l'est pas.",
+                "Franchise en base de TVA (Taxe sur les Salaires)": "Employeurs dont le CA de l'année précédente ne dépasse pas la limite de la franchise en base TVA n'acquittent pas la taxe sur les salaires."
+            },
+            "G": {
+                "Gestion de la paie internalisée/externalisée": "Choix pour l'entreprise de gérer la paie en interne ou de la confier à un prestataire externe.",
+                "Gestion des Ressources Humaines (GRH)": "Fonction de l'entreprise qui s'est professionnalisée pour gérer l'ensemble des aspects liés aux ressources humaines, de l'administration du personnel à la stratégie RH.",
+                "Grand déplacement (indemnités)": "Se caractérise par l'impossibilité, pour le salarié en situation de déplacement, de regagner son domicile chaque jour, couvrant les frais supplémentaires de nourriture et de logement.",
+                "Gratification (stagiaire)": "Paiement versé au stagiaire, non considéré comme un salaire, et obligatoire pour les stages de plus de deux mois.",
+                "Grève": "Cessation collective et concertée du travail pour des motifs d'ordre professionnel.",
+                "Grille de salaires conventionnelle": "Minimums de salaires fixés par la convention collective selon la position du salarié."
+            },
+            "H": {
+                "Habillage et déshabillage (temps de travail effectif)": "Considéré comme temps de travail effectif si le salarié est sous l'autorité de l'employeur, la tenue est imposée, et l'action s'effectue sur les lieux de travail.",
+                "Heures complémentaires (définition)": "Heures effectuées par un salarié à temps partiel au-delà de la durée du travail stipulée dans son contrat, mais en dessous de la durée légale (35h/semaine).",
+                "Heures complémentaires (limite)": "Ne peuvent normalement pas dépasser 10% du temps contractuel, mais un accord peut porter cette limite à 1/3 de la durée contractuelle. Elles ne peuvent pas porter la durée de travail au niveau de la durée légale.",
+                "Heures complémentaires (majoration)": "Majoration de 10% pour les heures dans la limite de 1/10e du contrat, puis 25% au-delà (si accord l'autorise).",
+                "Heures supplémentaires": "Toute heure de travail accomplie, à la demande de l'employeur, au-delà de la durée légale de 35 heures (ou de la durée équivalente).",
+                "Heures supplémentaires (autres modes de rémunération)": "Outre la majoration, elles peuvent être compensées par un repos compensateur équivalent (repos majoré en temps).",
+                "Heures supplémentaires (décompte)": "Se décomptent par semaine civile (du lundi 0h au dimanche 24h), sauf accord contraire. Les jours fériés et les congés payés ne sont pas considérés comme du temps de travail effectif pour le calcul des heures supplémentaires majorées.",
+                "Heures supplémentaires (majoration)": "Majoration de 25% de la 36ème à la 43ème heure, puis 50% au-delà (dans la limite de 48h/semaine)."
+            },
+            "I": {
+                "Impôt sur le revenu": "Impôt progressif prélevé sur l'ensemble des revenus d'un foyer fiscal.",
+                "Impôt sur le revenu prélevé à la source (PAS)": "Montant de l'impôt sur le revenu prélevé directement sur le salaire net imposable. Les taux sont transmis par la DGFIP via CRM.",
+                "Indemnité de congés payés (calcul)": "Deux méthodes : le 10ème (10% de la rémunération brute de référence) et le maintien (rémunération qui aurait été perçue si le salarié avait travaillé). La plus favorable est appliquée.",
+                "Indemnités journalières de sécurité sociale (IJSS)": "Prestations versées par l'Assurance Maladie aux salariés en cas d'incapacité de travail (maladie, accident du travail, MP, maternité, mi-temps thérapeutique) pour compenser la perte de salaire. Calculées et versées sur la base de jours calendaires.",
+                "Indemnités kilométriques": "Remboursement des frais de déplacement du salarié utilisant son véhicule personnel.",
+                "Information": "Ensemble de données qui prend du sens par l'interprétation qui en est faite.",
+                "Inspection du travail": "Organisme chargé de veiller à l'application du droit du travail dans les entreprises."
+            },
+            "J": {
+                "Jour de repos (forfait jours)": "Jours de repos attribués aux salariés en forfait jours, distincts des RTT, pour compenser un temps de travail supérieur à la durée légale.",
+                "Journée de solidarité": "Journée de travail non rémunérée (dans la limite de 7h) pour le salarié, mais l'employeur s'acquitte d'une contribution solidarité autonomie (0,30% du salaire brut).",
+                "Jours fériés (prise de congés)": "Un jour férié chômé inclus dans une période de congé prolonge celle-ci d'autant (il n'est pas compté comme un jour de congé payé pris).",
+                "Jours fériés et chômés (temps de travail effectif)": "Ces jours ne sont pas considérés comme du temps de travail effectif pour le calcul des heures supplémentaires, même s'ils sont rémunérés."
+            },
+            "L": {
+                "Livre de paie": "Document édité chaque fin de mois (généralement) récapitulant les grandes masses des bulletins de salaire, avec des données nominatives par salarié. Il sert au contrôle interne (vérification des calculs) et externe (vérification des assiettes déclarées).",
+                "Logiciel de paie": "Programme informatique dédié à la gestion des salaires, des cotisations et des déclarations sociales. La DSN rend impossible la production de bulletin de paie sans logiciel de paie.",
+                "Lock-out": "Fermeture de l'entreprise par l'employeur en réponse à un mouvement de grève.",
+                "Loi de mensualisation de 1978": "Fixe le principe de la rémunération mensuelle des salariés sur un horaire mensuel moyen, indépendamment du nombre de jours réels du mois.",
+                "Loi des 35 heures (loi Aubry I)": "A fixé la durée légale hebdomadaire du travail à 35 heures et a ouvert la voie à diverses possibilités d'aménagement du temps de travail."
+            },
+            "M": {
+                "Maintien de salaire (absences)": "L'employeur procède à une retenue pour absence (déduction) qui est compensée par une indemnité équivalente. Concerne les congés payés, événements familiaux, jours de repos, CET, rendez-vous médicaux obligatoires.",
+                "Maladie professionnelle": "Maladie directement causée par l'exercice du travail, survenant dans le cadre professionnel.",
+                "Masse salariale": "Somme de toutes les rémunérations brutes et charges sociales versées par l'employeur sur une période donnée.",
+                "Mentions obligatoires (bulletin de paie)": "Raison sociale employeur, adresse, code NAF/APE, Siret, convention collective, nom salarié, emploi, période de travail, date de paiement, heures décomposées, rémunération brute, forfait (si applicable), assiette/taux/montant cotisations (regroupées), montant net imposable, PAS, montant net social, autres retenues, éléments s'ajoutant à rémunération, sommes effectivement reçues, dates/montants congés pris, heures COR acquises, prise en charge transport, prévoyance/retraite complémentaire, mention de conservation, rubrique service-public.fr.",
+                "Mi-temps thérapeutique": "Reprise progressive de l'activité professionnelle après un arrêt, avec perception d'IJSS pour compenser la réduction de temps de travail et de salaire.",
+                "Montant net imposable": "Salaire net qui sert de base de calcul au salaire à imposer lors du calcul de l'impôt sur le revenu.",
+                "Montant net social": "Représente les revenus à déclarer aux organismes sociaux (CAF, MSA) pour le calcul de prestations (prime d'activité, RSA), et doit apparaître sur le bulletin de paie depuis le 1er juillet 2023.",
+                "Mutuelle santé obligatoire": "Contrat collectif imposé par la loi pour tous les salariés, cofinancé par l'employeur (min 50%).",
+                "Mutation": "Changement temporaire ou définitif du lieu de travail."
+            },
+            "N": {
+                "Numéro de Sécurité sociale (NIR)": "Numéro d'identification unique attribué à chaque personne et utilisé dans les relations avec les organismes de protection sociale.",
+                "Numéro Technique Temporaire (NTT)": "Identifiant unique permettant de déclarer un individu sans numéro de sécurité sociale définitif dans la DSN pour un temps limité."
+            },
+            "O": {
+                "Obligation d'Emploi des Travailleurs Handicapés (OETH)": "Disposition légale imposant aux entreprises de 20 salariés et plus d'employer un nombre de personnes handicapées correspondant à 6% de leur effectif total.",
+                "Obligation de sécurité (employeur)": "Obligation de l'employeur de prendre toutes les mesures nécessaires pour assurer la sécurité des salariés et protéger leur santé tant physique que mentale.",
+                "Organismes collecteurs": "Entités recevant les déclarations sociales (ex: URSSAF, MSA, France Travail, AGIRC-ARRCO, organismes de prévoyance/mutuelle, OPCO, SIE/DGFIP, Action Logement).",
+                "Organismes sociaux": "Entités collectrices des cotisations sociales avec lesquelles les entreprises doivent entretenir une relation continue et digitalisée.",
+                "OPCO (Opérateurs de Compétences)": "Financent les contrats d'apprentissage et de professionnalisation, appuient les branches professionnelles, et accompagnent les entreprises en matière de formation professionnelle."
+            },
+            "P": {
+                "Paramétrage DSN": "Travail technique de renseignement des informations société, organismes et salariés dans le logiciel de paie pour la génération correcte des DSN (blocs 'émetteur', 'contact', 'déclaration', 'entreprise', 'établissement', 'prévoyance', 'versement', 'salariés', 'contrat').",
+                "Participation à l'effort de construction (PEEC)": "Obligation pour les entreprises de 50 salariés et plus de contribuer au logement des salariés (0,45% du brut). Peut se faire via investissements directs ou versements à Action Logement Services.",
+                "PEEC (Participation des Employeurs à l'Effort de Construction)": "Contribution à la charge de l'employeur.",
+                "Période d'acquisition (congés payés)": "Période pendant laquelle le salarié acquiert des droits à congés payés (généralement du 1er juin N-1 au 31 mai N).",
+                "Période de référence (aménagement du temps de travail)": "Période sur laquelle est répartie la durée du travail, ne pouvant excéder un an (ou trois ans si accord de branche l'autorise).",
+                "Période d'essai": "Permet à l'employeur d'évaluer les compétences du salarié dans son travail, notamment au regard de son expérience professionnelle.",
+                "Permanence (temps de travail effectif)": "S'effectue dans les locaux de l'entreprise et est rémunérée comme temps de travail effectif.",
+                "Plafond de la Sécurité Sociale (PSS)": "Montant maximum en euros des rémunérations mensuelles ou gains à prendre en compte pour le calcul de certaines cotisations.",
+                "Prélèvement à la source (PAS)": "Mode de recouvrement de l'impôt qui consiste à faire prélever le montant de l'impôt par un tiers au moment du versement des revenus imposables.",
+                "Prescription (paiement salaire)": "La demande de paiement ou de restitution d'un salaire est soumise à un délai de prescription de trois ans.",
+                "Prime": "Surcroît de rémunération versé au salarié à certaines occasions prévues par un accord collectif, un usage professionnel ou le contrat de travail.",
+                "Primes (conditions d'attribution)": "Obligatoires si prévues par contrat, accord collectif, usage non dénoncé ou engagement unilatéral de l'employeur.",
+                "Primes (impact des absences)": "Peuvent être réduites ou supprimées en cas d'absence si elles sont liées à une condition de présence effective ou d'activité du salarié.",
+                "Primes (types)": "Annuelles (fin d'année, 13ème mois, vacances), liées au coût de la vie (vie chère, productivité), qualités personnelles (assiduité, ponctualité, ancienneté), conditions de travail (pénibilité, dangereux, astreinte).",
+                "Primes de performance / sur objectif": "Concerne majoritairement les salariés ayant des responsabilités, où des objectifs sont fixés et leur réalisation quantifiée.",
+                "Prévoyance (cadres/non-cadres)": "Obligatoire pour les cadres (garantie décès min.) financée par l'employeur. Facultative pour les non-cadres, sauf si la convention collective l'impose.",
+                "Prévoyance (organismes)": "Recouvrent les cotisations de prévoyance et gèrent les contrats collectifs d'assurance sur les risques de maladie, incapacité, invalidité, dépendance ou décès.",
+                "Prévoyance (cotisation)": "Liée à un contrat de prévoyance qui détermine les bases et les taux. Obligatoire pour les cadres (1,5% de T1, 100% employeur).",
+                "Proratisation des jours de RTT (absences)": "En cas d'absence non rémunérée, le nombre de RTT acquis peut être réduit proportionnellement, selon l'accord collectif.",
+                "Protection sociale": "Ensemble des mécanismes de prévoyance collective qui permettent aux individus de faire face aux conséquences financières des risques sociaux (maladie, vieillesse, chômage, etc.)."
+            },
+            "R": {
+                "Rappels de salaire": "Sommes dues au salarié suite à une erreur ou une décision de justice. Ils doivent être soumis aux taux et plafonds de la période d'emploi correspondante, mais entrent dans le revenu de l'année de versement pour l'impôt sur le revenu.",
+                "Réduction générale des cotisations patronales (RGCP)": "Mesure 'zéro cotisation URSSAF' pour favoriser l'emploi, s'appliquant aux salaires inférieurs à 1,6 SMIC.",
+                "Réduction du Temps de Travail (RTT)": "Système mis en place pour compenser un horaire hebdomadaire supérieur à 35 heures par des jours ou demi-journées de repos. Les heures qui donnent lieu à RTT ne sont pas rémunérées car elles donnent lieu à absence ultérieure.",
+                "Réduction salariale (HS/HC)": "Réduction des cotisations salariales (plafonnée à 11,31%) sur les heures supplémentaires et complémentaires majorées au taux légal.",
+                "Régime social et fiscal des IJSS": "Les IJSS sont exonérées de cotisations sociales mais assujetties à la CSG (6,2%) et CRDS (0,5%) sur la totalité de leur montant.",
+                "Règlementaire de paie": "Ensemble des règles légales, conventionnelles et internes régissant la paie au sein d'une entreprise.",
+                "Règlement Général sur la Protection des Données (RGPD)": "Le coffre-fort numérique doit s'y conformer, garantissant les droits d'accès, rectification et suppression des données des salariés.",
+                "Repos compensateur (heures supplémentaires)": "Repos accordé en remplacement du paiement des heures supplémentaires, sur la base d'une durée majorée.",
+                "Repos quotidien/hebdomadaire": "Repos minimum de 11 heures entre deux jours de travail, et 35 heures entre deux semaines (24h de repos + 11h de repos quotidien).",
+                "Rescrit handicap": "Procédure administrative gratuite et confidentielle permettant à une entreprise d'obtenir une position officielle de l'administration sur l'application de la réglementation OETH, sécurisant sa situation juridique.",
+                "Retenue pour absence": "Déduction opérée sur le salaire brut en cas d'absence du salarié. Elle est 'transparente' si l'absence est rémunérée (compensée par une indemnité).",
+                "Retenue pour absence (calcul)": "Plusieurs méthodes possibles (jours calendaires, jours ouvrables/ouvrés moyens ou réels, heures réelles ou mensualisées). La méthode de l'horaire réel est préconisée par la Cour de cassation pour les absences non rémunérées.",
+                "Rupture conventionnelle": "Rupture du contrat de travail à l'amiable entre l'employeur et le salarié.",
+                "RTT (Réduction du Temps de Travail)": "Jours de repos supplémentaires accordés aux salariés dont la durée de travail est supérieure à 35 heures hebdomadaires."
+            },
+            "S": {
+                "Salaire brut": "Rémunération totale du salarié avant déduction des cotisations sociales et de l'impôt sur le revenu.",
+                "Salaire de base": "Rémunération calculée sur la durée mensuelle moyenne (151,67 heures pour 35h/semaine), ou basée sur d'autres éléments (tâche, commission).",
+                "Salaire Journalier de Référence (SJR)": "Base de calcul des IJSS, déterminé sur les 3 derniers mois de salaires bruts divisés par 91,25 (maladie non pro) ou le salaire brut du mois précédent divisé par 30,42 (AT/MP).",
+                "Salaire net": "Correspond au salaire brut dont sont déduites les cotisations sociales salariales.",
+                "Salaire net à payer": "Montant que le salarié perçoit réellement après toutes les déductions (cotisations, impôt à la source, etc.) et l'ajout d'éventuels remboursements ou déductions portés dans le bulletin de salaire.",
+                "Salaire net imposable": "Salaire net qui sert de base de calcul au salaire à imposer lors du calcul de l'impôt sur le revenu.",
+                "Salaire Minimum Interprofessionnel de Croissance (SMIC)": "Revalorisé chaque année, minimum légal de rémunération. Certains éléments de rémunération sont inclus ou exclus pour sa vérification.",
+                "Salaire rétabli": "Salaire que le salarié aurait perçu s'il n'avait pas été absent. Sert de base au calcul des indemnités compensatrices et garantit le maintien des droits sociaux.",
+                "Sanctions (bulletin de paie)": "Le non-respect des dispositions relatives au bulletin de paie est puni d'une amende de 3ème classe (450 €).",
+                "Sanctions (OETH)": "Les entreprises ne respectant pas le quota d'emploi TH sont sujettes à des contributions majorées à l'Agefiph.",
+                "Santé (cotisations)": "Cotisations finançant l'assurance maladie, maternité, invalidité, décès, et la complémentaire santé.",
+                "Saisonniers / Travailleurs temporaires / Intermittents / Salariés à domicile": "Peuvent être payés plus fréquemment (au moins deux fois par mois).",
+                "Saisie sur salaire": "Procédure par laquelle une partie du salaire est directement retenue par l'employeur pour rembourser une dette du salarié. L'employeur peut récupérer un trop-perçu sur le salaire, dans la limite de 10% du salaire net mensuel.",
+                "Sécurité sociale": "Organisme public gérant la protection sociale obligatoire en France.",
+                "Service des Impôts des Entreprises (SIE)": "Service des Finances Publiques en charge du recouvrement des impôts et taxes.",
+                "SIRH (Système d'Information des Ressources Humaines)": "Interface entre la Gestion des Ressources Humaines (GRH) et les Techniques de l'Information et de la Communication (TIC).",
+                "SMIC (Salaire Minimum Interprofessionnel de Croissance)": "Salaire horaire minimum légal en France.",
+                "Solde de tout compte (SDTC)": "Document remis au salarié à la fin de son contrat de travail, récapitulant les sommes qui lui sont dues.",
+                "Statut de cadre dirigeant": "Ne sont pas soumis à la législation sur le temps de travail. Doivent remplir 3 conditions cumulatives (indépendance totale, autonomie de décision, rémunération la plus élevée) et avoir un réel pouvoir de direction.",
+                "Subrogation (IJSS)": "Dispositif permettant à l'employeur de percevoir directement les IJSS destinées au salarié en arrêt de travail, pour ensuite les lui verser, assurant la continuité du revenu.",
+                "Subrogation": "Permet à l'employeur de percevoir directement, en lieu et place du salarié, les indemnités journalières qui lui sont dues par sa caisse d'Assurance Maladie."
+            },
+            "T": {
+                "Tableaux de bord (salaires)": "Outils liés aux salaires dont l'établissement et la gestion sont des compétences fondamentales pour le contrôle des déclarations sociales.",
+                "Taxe d'Apprentissage (TA)": "Taux de 0,68%, divisée en part principale (0,59% pour financement de l'apprentissage, versée mensuellement à l'URSSAF via DSN) et solde (0,09% pour formations initiales, versée annuellement en mai N+1 à l'URSSAF via DSN, affectable via SOLTÉA).",
+                "Taxe sur les salaires (TS)": "Concerne les entreprises hors champ d'application de la TVA, ou y entrant pour moins de 90% de leur activité. Assise sur les rémunérations brutes individuelles.",
+                "Télétravail": "Nouvelle forme d'organisation du travail utilisant les technologies de l'information et de la communication, permettant au salarié d'accomplir son travail hors des locaux de l'entreprise.",
+                "Temps de douche (temps de travail effectif)": "Rémunéré en heures normales sans être considéré comme travail effectif si l'entreprise est en milieu salissant/insalubre et met des douches à disposition.",
+                "Temps de travail effectif (définition)": "Temps pendant lequel le salarié est à la disposition de l'employeur et doit se conformer à ses directives sans pouvoir vaquer librement à ses occupations personnelles. Rémunéré, et pris en compte pour les heures supplémentaires et le respect des limites de temps de travail.",
+                "Temps de travail effectif (distinction)": "La notion de temps de travail effectif pour les heures supplémentaires diffère de celle pour le droit aux congés payés.",
+                "Temps partiel": "Travail dont la durée est inférieure à la durée légale (35h hebdomadaires, 151,67h mensuelles, 1607h annuelles).",
+                "Territorialité (Taxe sur les Salaires)": "L'employeur est soumis à la taxe sur les salaires uniquement s'il est établi en France.",
+                "Titres restaurant": "Système facultatif pour l'employeur permettant une prise en charge partielle des frais de repas des salariés sédentaires.",
+                "Trop-perçus": "L'employeur qui a versé par erreur un trop-perçu peut demander au salarié de le rembourser dans les 3 ans suivant la découverte de l'erreur.",
+                "Travail de nuit": "Travail effectué au cours d'une période d'au moins 9 heures consécutives comprenant l'intervalle entre minuit et 5 heures (commence au plus tôt à 21h, se termine au plus tard à 7h). Doit être exceptionnel et justifié."
+            },
+            "U": {
+                "URSSAF": "Organisme de recouvrement des cotisations et contributions de Sécurité Sociale et d'Allocations Familiales, collectant les cotisations maladie, AT/MP, vieillesse, allocations familiales, CSA, CSG/CRDS, chômage/AGS, FNAL, dialogue social, versement mobilité, forfait social, contribution spécifique (rupture conventionnelle, stock-options, retraites chapeaux, AGA), formation professionnelle, taxe d'apprentissage.",
+                "Usage d'entreprise": "Pratique spontanée qui s'est mise en place à l'initiative de l'employeur, sans obligation, et qui constitue un avantage pour les salariés."
+            },
+            "V": {
+                "Veille": "Activité continue en grande partie itérative visant à une surveillance active de l'environnement technologique, commercial, etc., pour en anticiper les évolutions.",
+                "Veille juridique": "Recherche et identification, grâce à des informations de diverses sources, de toutes dispositions juridiques actuelles ou en cours d'élaboration, assurant la conformité aux normes.",
+                "Veille permanente (RH/Paie)": "Nécessité de se tenir informé des évolutions sociales et juridiques pour maîtriser le domaine des déclarations sociales et anticiper les impacts sur l'entreprise.",
+                "Versement mobilité": "Participation des employeurs occupant 11 salariés et plus au financement des transports en commun.",
+                "VRP (Voyageurs Représentants Placiers)": "Salariés qui bénéficient d'un statut particulier, défini à l'article L7311-3 du code du travail, caractérisé par une activité exclusive et constante de représentation commerciale."
+            }
+        };
+
+        function renderGlossary() {
+            const glossaryContent = document.getElementById('glossary-content');
+            glossaryContent.innerHTML = ''; // Nettoie le contenu existant
+
+            const sortedLetters = Object.keys(glossaryData).sort();
+
+            sortedLetters.forEach(letter => {
+                const termsForLetter = glossaryData[letter];
+                if (Object.keys(termsForLetter).length > 0) {
+                    const detailsElement = document.createElement('details');
+                    const summaryElement = document.createElement('summary');
+                    summaryElement.textContent = letter;
+                    detailsElement.appendChild(summaryElement);
+
+                    const ulElement = document.createElement('ul');
+                    const sortedTerms = Object.keys(termsForLetter).sort();
+
+                    sortedTerms.forEach(term => {
+                        const liElement = document.createElement('li');
+                        liElement.innerHTML = `<strong>${term}</strong> : ${termsForLetter[term]}`;
+                        ulElement.appendChild(liElement);
+                    });
+
+                    detailsElement.appendChild(ulElement);
+                    glossaryContent.appendChild(detailsElement);
+                }
+            });
+        }
+
+        function searchGlossary() {
+            const searchTerm = document.getElementById('search-glossary').value.toLowerCase();
+            const detailsElements = document.querySelectorAll('#glossary-content details');
+
+            detailsElements.forEach(details => {
+                const terms = details.querySelectorAll('li');
+                let hasVisibleTerms = false;
+
+                terms.forEach(li => {
+                    const termText = li.textContent.toLowerCase();
+                    if (termText.includes(searchTerm)) {
+                        li.style.display = ''; // Affiche le terme
+                        hasVisibleTerms = true;
+                    } else {
+                        li.style.display = 'none'; // Cache le terme
+                    }
+                });
+
+                // Si un terme est visible dans cette section ou si la recherche est vide, ouvre/affiche la section
+                if (hasVisibleTerms || searchTerm === '') {
+                    details.style.display = ''; // Affiche la section de lettre
+                    if (searchTerm !== '') {
+                        details.open = true; // Ouvre la section si un terme correspond à la recherche
+                    } else {
+                        details.open = false; // Ferme toutes les sections si la recherche est vide
+                    }
+                } else {
+                    details.style.display = 'none'; // Cache la section de lettre entière
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderGlossary();
+            document.getElementById('search-glossary').addEventListener('input', searchGlossary);
+
+            // Gérer le thème (copié depuis votre main index.html)
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            if (themeToggleBtn) {
+                themeToggleBtn.addEventListener('click', toggleTheme);
+                loadTheme(); // Charge le thème au démarrage
+            }
+        });
+
+        function toggleTheme() {
+            document.body.classList.toggle('dark-theme');
+            const isDark = document.body.classList.contains('dark-theme');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            document.getElementById('theme-toggle').innerHTML = isDark ? 'Thème Sombre/Clair 🌙' : 'Thème Sombre/Clair ☀️';
+        }
+
+        function loadTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-theme');
+                document.getElementById('theme-toggle').innerHTML = 'Thème Sombre/Clair 🌙';
+            } else {
+                document.body.classList.remove('dark-theme');
+                document.getElementById('theme-toggle').innerHTML = 'Thème Sombre/Clair ☀️';
+            }
+        }
+    </script>
+</body>
+</html>

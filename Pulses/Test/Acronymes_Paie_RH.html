@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acronyme Paie Academy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #EBF2FA; /* Bleu très pâle mais distinct */
+            color: #3d4f60; /* Bleu-gris foncé pour le texte général */
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .glossary-container {
+            background-color: #FFFFFF; /* Blanc pur pour le conteneur principal */
+            border-radius: 0.75rem;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.18), 0 8px 8px rgba(0, 0, 0, 0.12);
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+        details {
+            border: 1px solid #E0EBF5; /* Bordure légère pour les sections de lettres */
+            border-radius: 0.5rem;
+            margin-bottom: 0.75rem;
+            background-color: #F8FCFF; /* Fond très léger pour chaque section de lettre */
+        }
+        summary {
+            font-weight: 700;
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            outline: none;
+            color: #1A3B5A; /* Bleu nuit premium pour les titres de lettres */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        summary::-webkit-details-marker {
+            display: none; /* Cache le marqueur par défaut sur Webkit */
+        }
+        summary::after {
+            content: '+';
+            font-size: 1.5rem;
+            transition: transform 0.2s;
+        }
+        details[open] summary::after {
+            content: '-';
+            transform: rotate(0deg); /* Réinitialise la rotation pour le signe moins */
+        }
+        details[open] summary {
+            background-color: #E0F2FE; /* Bleu très léger pour la section ouverte */
+            border-bottom: 1px solid #1A3B5A; /* Bordure plus forte quand ouvert */
+        }
+        ul {
+            padding: 1rem 1.5rem;
+            list-style: none; /* Supprime les puces par défaut */
+        }
+        li {
+            margin-bottom: 0.75rem;
+            line-height: 1.5;
+            color: #3d4f60; /* Texte général pour les définitions */
+            position: relative;
+            padding-left: 1.5rem; /* Pour l'icône de puce personnalisée */
+        }
+        li:last-child {
+            margin-bottom: 0;
+        }
+        li::before {
+            content: '•'; /* Puce personnalisée */
+            color: #1A3B5A; /* Couleur de la puce */
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1.5em;
+            position: absolute;
+            left: 0;
+        }
+        strong {
+            color: #1A3B5A; /* Bleu nuit premium pour les termes dans les définitions */
+        }
+        a {
+            color: #2A527B; /* Bleu plus clair pour les liens */
+            text-decoration: underline;
+        }
+        a:hover {
+            color: #1A3B5A; /* Changement de couleur au survol */
+        }
+
+        /* Dark Theme Overrides */
+        body.dark-theme {
+            background-color: #0F172A; /* slate-900 */
+            color: #E2E8F0; /* slate-200 */
+        }
+        body.dark-theme .glossary-container {
+            background-color: #1E293B; /* slate-800 */
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.45), 0 8px 8px rgba(0, 0, 0, 0.25);
+        }
+        body.dark-theme details {
+            border-color: #334155; /* slate-700 */
+            background-color: #2D3748; /* Darker background for sections */
+        }
+        body.dark-theme summary {
+            color: #60A5FA; /* blue-400 for summary titles */
+        }
+        body.dark-theme details[open] summary {
+            background-color: #1E3A8A; /* blue-800 when open */
+            border-bottom-color: #60A5FA;
+        }
+        body.dark-theme ul {
+            border-top: 1px solid #334155; /* Slate-700 pour le séparateur de liste */
+        }
+        body.dark-theme li {
+            color: #CBD5E1; /* Light gray for list items */
+        }
+        body.dark-theme li::before {
+            color: #60A5FA; /* Blue-400 for custom bullet */
+        }
+        body.dark-theme strong {
+            color: #93C5FD; /* Blue-300 for bold terms */
+        }
+        body.dark-theme a {
+            color: #93C5FD; /* Blue-300 for links in dark theme */
+        }
+        body.dark-theme a:hover {
+            color: #60A5FA; /* Blue-400 on hover in dark theme */
+        }
+        .search-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid #CBD5E1; /* Light gray border */
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            color: #3d4f60; /* Dark text for input in light theme */
+            background-color: #FFFFFF; /* White background for input in light theme */
+            box-shadow: inset 0 1px 2px rgba(0,0,0,0.05);
+            transition: all 0.2s ease-in-out;
+        }
+        .search-input:focus {
+            outline: none;
+            border-color: #60A5FA; /* Blue-400 on focus */
+            box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.3); /* Soft blue ring on focus */
+        }
+        body.dark-theme .search-input {
+            background-color: #2D3748; /* Darker background for input in dark theme */
+            border-color: #4A5568; /* Darker border */
+            color: #E2E8F0; /* Light text for input in dark theme */
+        }
+        body.dark-theme .search-input::placeholder {
+            color: #A0AEC0; /* Lighter placeholder text in dark theme */
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="container mx-auto p-4 md:p-8 max-w-4xl">
+        <header class="text-center mb-8">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-800">Acronyme Paie Academy - Guide Ultime 🚀</h1>
+            <p class="text-lg text-gray-500 mt-2">Décryptez la puissance de votre connaissance !</p>
+             <button id="theme-toggle" class="mt-4 bg-gray-700 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded-lg shadow-md transition-all duration-300 flex items-center justify-center mx-auto gap-2">
+                Thème Sombre/Clair ☀️
+            </button>
+        </header>
+
+        <div class="glossary-container">
+            <div class="mb-6">
+                <input type="text" id="search-acronyms" class="search-input" placeholder="Rechercher un sigle ou un acronyme...">
+            </div>
+
+            <div id="acronyms-content">
+                </div>
+             <p class="mt-8 text-center text-gray-500 text-sm">Total des acronymes recensés : <span id="acronym-count">0</span></p>
+        </div>
+    </div>
+
+    <script>
+        const acronymsData = {
+            "A": {
+                "ACC (Assurance Chômage)": "Cotisation finançant les allocations chômage. Son recouvrement a été transféré à l'URSSAF ou la MSA.",
+                "ACPM (Accident du Travail - Maladie Professionnelle)": "Régime de sécurité sociale couvrant les risques d'accidents survenus par le fait ou à l'occasion du travail et les maladies directement causées par l'exercice du travail. Les IJSS AT/MP sont versées dès le premier jour suivant l'accident ou la constatation de la maladie professionnelle, sans période de carence.",
+                "AE (Attestation Employeur)": "Document remis par l'employeur au salarié pour Pôle Emploi, attestant de la période d'emploi et des salaires perçus, pour le calcul des droits au chômage.",
+                "AF (Allocations Familiales)": "Cotisations finançant les prestations familiales versées par les Caisses d'Allocations Familiales (Caf).",
+                "AFPA (Association nationale pour la formation professionnelle des adultes)": "Organisme de formation professionnelle qualifiante.",
+                "AGEFIPH (Association de Gestion du Fonds pour l'Insertion Professionnelle des Personnes Handicapées)": "Organisme finançant l'insertion professionnelle des personnes handicapées. La contribution est due par les entreprises qui ne respectent pas le quota d'emploi des travailleurs handicapés.",
+                "AGFF (Association pour la Gestion du Fonds de Financement de la Retraite)": "Ancien organisme lié à la retraite complémentaire, fusionné avec l'AGIRC et l'ARRCO.",
+                "AGIRC (Association Générale des Institutions de Retraite des Cadres)": "Ancien régime de retraite complémentaire pour les cadres, fusionné avec l'ARRCO pour former l'AGIRC-ARRCO.",
+                "AGIRC-ARRCO": "Régime de retraite complémentaire obligatoire et unique pour les salariés du secteur privé (fusion AGIRC et ARRCO en 2019). Il recouvre les cotisations de retraite complémentaire, la CEG, la CET, et l'APEC. Il calcule les droits à la retraite et verse les pensions.",
+                "AGS (Association pour la gestion du régime de Garantie des Salaires)": "Cotisation finançant le fonds de solidarité des employeurs, protégeant les salaires en cas de défaillance de l'entreprise. Son recouvrement a été transféré à l'URSSAF ou la MSA.",
+                "ALD (Affection Longue Durée)": "Cas où les règles de calcul des IJSS peuvent varier, permettant une prise en charge à 100% du SJR et une durée de versement plus longue.",
+                "ANACT (Agence Nationale pour l'Amélioration des Conditions de Travail)": "Organisme public qui accompagne les entreprises dans l'amélioration des conditions de travail.",
+                "APEC (Association Pour l'Emploi des Cadres)": "Cotisation spécifique aux cadres finançant les services de l'APEC, collectée avec les cotisations de retraite complémentaire. A pour objectif d'accompagner les cadres dans leur recherche d'emploi.",
+                "APE (Activité Principale Exercée)": "Code attribué par l'INSEE à chaque entreprise ou établissement, indiquant son secteur d'activité.",
+                "ARRCO (Association pour le Régime de Retraite COmplémentaire)": "Ancien régime de retraite complémentaire gérant la retraite des non-cadres et une partie de celle des cadres, fusionné avec l'AGIRC en 2019.",
+                "ASC (Activités Sociales et Culturelles)": "Activités proposées par le CSE aux salariés (ex: billetterie, voyages).",
+                "AT (Accident du Travail)": "Accident survenu par le fait ou à l'occasion du travail. Les IJSS AT/MP sont versées dès le premier jour suivant l'accident ou la constatation de la maladie professionnelle, sans période de carence."
+            },
+            "B": {
+                "BA (Bénéfices Agricoles)": "Catégorie fiscale des revenus. Les entreprises soumises aux BA sont généralement exonérées de la taxe d'apprentissage.",
+                "BDD (Base de Données)": "Ensemble des données stockées nécessaires à une entreprise.",
+                "BDES (Base de Données Économiques et Sociales)": "Ancienne dénomination de la BDESE.",
+                "BDESE (Base de Données Économiques Sociales et Environnementales)": "Outil centralisé d'informations que l'employeur met à disposition des représentants du personnel pour les consultations obligatoires.",
+                "BIC (Bénéfices Industriels et Commerciaux)": "Catégorie fiscale des revenus. Les entreprises exerçant des activités soumises aux BIC sont concernées par la taxe d'apprentissage.",
+                "BOETH (Bénéficiaire de l'Obligation d'Emploi des Travailleurs Handicapés)": "Nombre de travailleurs handicapés que l'entreprise est tenue d'employer. Calculé en appliquant le taux de 6% à l'effectif d'assujettissement, arrondi à l'entier inférieur.",
+                "BOSS (Bulletin Officiel de la Sécurité Sociale)": "Référence officielle pour les règles d'assujettissement et de calcul des cotisations sociales.",
+                "BSE (Bulletin de Salaire Électronique)": "Bulletin de paie dématérialisé."
+            },
+            "C": {
+                "CAE (Contrat d'Accompagnement dans l'Emploi)": "Type de contrat de travail dont les titulaires ne sont pas pris en compte dans le calcul de l'effectif d'assujettissement à l'OETH.",
+                "Caf (Caisses d'Allocations Familiales)": "Organisme versant les prestations familiales et recevant les déclarations sociales.",
+                "CARSAT (Caisse d'Assurance Retraite et de la Santé au Travail)": "Organisme de sécurité sociale qui notifie le taux d'accident du travail à l'entreprise.",
+                "CDC (Caisse des Dépôts et Consignations)": "Organisme gérant le solde de la taxe d'apprentissage et son transfert vers les écoles bénéficiaires via SOLTÉA.",
+                "CDD (Contrat à Durée Déterminée)": "Contrat de travail conclu pour une durée limitée.",
+                "CDI (Contrat à Durée Indéterminée)": "Forme normale et générale du contrat de travail, sans limitation de durée.",
+                "CEA (Chèque Emploi Associatif)": "Dispositif simplifiant les formalités d'embauche et de gestion de la paie pour les associations.",
+                "CEC (Compte d'Engagement Citoyen)": "Dispositif permettant de cumuler des droits à la formation pour les activités bénévoles ou de volontariat.",
+                "CET (Compte Épargne Temps)": "Dispositif permettant au salarié d'accumuler des droits à congé rémunéré ou de bénéficier d'une rémunération, en contrepartie de périodes de congé ou de repos non prises.",
+                "CESU (Chèque Emploi Service Universel)": "Moyen de paiement simplifiant la déclaration et le paiement des services à la personne.",
+                "CFA (Centre de Formation d'Apprentis)": "Établissement de formation. Les dépenses de financement de matériels pour les CFA d'entreprise sont déductibles de la part principale de la taxe d'apprentissage.",
+                "CFTC (Confédération Française des Travailleurs Chrétiens)": "Organisation syndicale de salariés.",
+                "CGI (Code Général des Impôts)": "Référence légale pour la taxe sur les salaires.",
+                "CGT (Confédération Générale du Travail)": "Organisation syndicale de salariés.",
+                "CHSCT (Comité d'Hygiène, de Sécurité et des Conditions de Travail)": "Ancienne instance représentative du personnel chargée de contribuer à la protection de la santé et de la sécurité des salariés, remplacée par le CSE.",
+                "CIBTP (Caisses de Congés Intempéries Bâtiment et Travaux Publics)": "Caisse des congés payés pour les entreprises du BTP, gérant la période de référence d'acquisition des congés payés des salariés.",
+                "CICE (Crédit d'Impôt pour la Compétitivité et l'Emploi)": "Aide fiscale aux entreprises (supprimée fin 2018 et remplacée par un allègement de cotisations).",
+                "CIF (Congé Individuel de Formation)": "Ancien dispositif de formation, devenu Transitions Pro (CPF de transition professionnelle).",
+                "CIE (Contrat Initiative Emploi)": "Type de contrat de travail dont les titulaires ne sont pas pris en compte dans le calcul de l'effectif d'assujettissement à l'OETH.",
+                "CNAM (Caisse Nationale d'Assurance Maladie)": "Organisme déclarant les IJSS à l'administration fiscale et chargé du Prélèvement à la Source (PAS) sur les IJSS si elles sont versées directement au salarié.",
+                "CNAV (Caisse Nationale d'Assurance Vieillesse)": "Organisme gérant la retraite de base du régime général.",
+                "CPAM (Caisse Primaire d'Assurance Maladie)": "Organisme gestionnaire de l'assurance maladie, versant les indemnités journalières et recevant les déclarations sociales.",
+                "CPF (Compte Personnel de Formation)": "Droits à la formation acquis par tout actif tout au long de sa vie professionnelle, utilisables pour financer des actions de formation. La DSN alimente le CPF.",
+                "CPOM (Contrat Pluriannuel d'Objectifs et de Moyens)": "Contrat définissant les objectifs et les moyens pour les structures médico-sociales (ex: ESAT).",
+                "CPP (Compte Professionnel de Prévention)": "Compte permettant de cumuler des points en cas d'exposition à des facteurs de risques professionnels, pour bénéficier de formation, temps partiel ou retraite anticipée. La DSN alimente le C2P.",
+                "CQP (Certificats de Qualifications Professionnelles)": "Certifications qui attestent des compétences acquises par le salarié et qui sont reconnues au niveau d'une branche professionnelle.",
+                "CRDS (Contribution au Remboursement de la Dette Sociale)": "Impôt destiné à financer la protection sociale, prélevé sur la quasi-totalité des revenus, assujetti aux IJSS et à d'autres revenus de remplacement.",
+                "CRM (Compte Rendu Métier)": "Informations renvoyées par l'URSSAF et la DGFIP après exploitation des données de la DSN, pouvant contenir des erreurs à corriger. La DGFIP transmet les taux PAS via CRM.",
+                "CSA (Contribution Solidarité Autonomie)": "Contribution due par les employeurs pour financer des actions en faveur de l'autonomie des personnes âgées ou handicapées (contribution versée lors de la Journée de Solidarité).",
+                "CSA (Contribution Supplémentaire à l'Apprentissage)": "Due par les entreprises de 250 salariés et plus soumises à la TA, si le nombre d'alternants est inférieur à 5% de l'effectif total. Taux dégressif (0,005% à 0,6%). Déclarée annuellement via DSN de mars N+1 et réglée en avril N+1.",
+                "CSE (Comité Social et Économique)": "Instance de représentation du personnel obligatoire dans les entreprises de 11 salariés et plus, fusionnant les anciennes instances représentatives (DP, CE, CHSCT). Doit être informé de la déclaration annuelle OETH.",
+                "CSEC (Comité Social et Économique Central)": "Instance mise en place dans les entreprises d'au moins deux établissements distincts ayant leur propre CSE.",
+                "CSSCT (Commission Santé, Sécurité et Conditions de Travail)": "Commission spécifique obligatoire au sein du CSE dans les entreprises de 300 salariés et plus (ou dans certains secteurs à risques), qui reprend les missions de l'ancien CHSCT.",
+                "CSS (Code de la Sécurité Sociale)": "Recueil des textes législatifs et réglementaires relatifs à la sécurité sociale. L'article L. 242-1 du CSS concerne l'exonération des IJSS de cotisations sociales.",
+                "CTP (Codes Types de Personnel) URSSAF": "Codification propre à l'URSSAF pour les cotisations sociales qu'elle recouvre, permettant de faire le rapprochement entre les rubriques de paie et la DSN.",
+                "CUFPA (Contribution Unique à la Formation Professionnelle et à l'Alternance)": "Regroupe la taxe d'apprentissage et la contribution à la formation professionnelle (créée en 2019)."
+            },
+            "D": {
+                "DADS-U (Déclaration Annuelle de Données Sociales Unifiée)": "Ancienne déclaration annuelle récapitulative des salaires et des rémunérations, remplacée progressivement par la DSN et définitivement au 1er janvier 2019.",
+                "DG (Directeur Général)": "Dirigeant d'entreprise.",
+                "DGE (Direction Générale des Entreprises)": "Service du ministère de l'Économie en charge des politiques économiques.",
+                "DGFIP (Direction Générale des Finances Publiques)": "Administration fiscale française, responsable de la collecte des impôts et de la transmission des taux de PAS aux employeurs (via CRM).",
+                "DIR (Direction)": "Service ou fonction de direction (ex: Direction des Ressources Humaines).",
+                "DIRECCTE (Directions Régionales des Entreprises, de la Concurrence, de la Consommation, du Travail et de l'Emploi)": "Anciennes directions régionales interministérielles chargées de politiques publiques, notamment en matière de travail et d'emploi, remplacées par les DREETS.",
+                "DIRH (Directeur des Ressources Humaines)": "Responsable de la fonction RH au sein d'une entreprise.",
+                "DOETH (Déclaration Obligatoire d'Emploi des Travailleurs Handicapés)": "Déclaration qui permet de calculer la contribution Agefiph due par les entreprises de 20 salariés et plus qui ne remplissent pas leur obligation d'emploi de 6% de travailleurs handicapés. Réalisée mensuellement via la DSN et annuellement pour le calcul de la contribution.",
+                "DOM (Départements d'Outre-Mer)": "Territoires français d'outre-mer. Les règles fiscales et sociales peuvent y avoir des spécificités (ex: taux de taxe d'apprentissage).",
+                "DP (Délégué du Personnel)": "Ancien représentant élu du personnel chargé de présenter les réclamations individuelles et collectives des salariés, fusionné dans le CSE en 2018.",
+                "DPAE (Déclaration Préalable À l'Embauche)": "Formalité obligatoire pour l'employeur lors de l'embauche d'un salarié, qui doit être effectuée avant la prise de poste.",
+                "DREETS (Directions Régionales de l'Économie, de l'Emploi, du Travail et des Solidarités)": "Nouvelles directions régionales, issues de la fusion de plusieurs services, dont les ex-DIRECCTE. Elles sont les interlocuteurs principaux des entreprises pour les questions de travail, d'emploi et de formation.",
+                "DS (Délégué Syndical)": "Représentant syndical désigné par un syndicat représentatif dans l'entreprise, chargé de négocier les accords collectifs.",
+                "DSN (Déclaration Sociale Nominative)": "Procédé obligatoire depuis le 1er janvier 2017 remplaçant la majorité des déclarations sociales. Fichier issu de la paie destiné aux organismes sociaux (URSSAF, France Travail, caisses de retraite...) et fiscaux (DGFIP).",
+                "DSN-FPOC (DSN Fiches de Paramétrage des Organismes Complémentaires)": "Outil d'aide et de contrôle des données DSN spécifiques aux organismes de prévoyance, mutuelle ou retraite supplémentaire, garantissant la conformité des déclarations.",
+                "DSN-Val (Validation DSN)": "Outil permettant de contrôler en local les fichiers DSN avant leur émission officielle vers les organismes, pour détecter et corriger les erreurs de conformité et les anomalies techniques.",
+                "DUE (Décision Unilatérale de l'Employeur)": "Document écrit par lequel l'employeur s'engage envers ses salariés dans le cadre de son pouvoir de Direction (ex: pour la mise en place d'un régime de frais de santé ou d'une prime).",
+                "DUCS (Déclaration Unifiée des Cotisations Sociales)": "Ancienne déclaration récapitulative des cotisations sociales, remplacée par la DSN depuis le 1er janvier 2019.",
+                "DUERP (Document Unique d'Évaluation des Risques Professionnels)": "Document obligatoire qui recense l'ensemble des risques professionnels (physiques et psychosociaux) auxquels sont exposés les salariés de l'entreprise, et les mesures de prévention associées.",
+                "DUP (Délégation Unique du Personnel)": "Ancienne instance représentative du personnel qui regroupait les Délégués du Personnel et le Comité d'Entreprise dans les entreprises de moins de 300 salariés, fusionnée dans le CSE."
+            },
+            "E": {
+                "EA (Entreprises Adaptées)": "Entreprises employant une majorité de travailleurs handicapés dans un environnement de travail adapté. Les attestations de sous-traitance avec elles permettent des déductions sur la contribution Agefiph.",
+                "ECAP (Emplois Exigeant des Conditions d'Aptitude Particulières)": "Catégories d'emploi spécifiques (ex: certaines professions artistiques, sportives) pour lesquelles des règles spécifiques peuvent s'appliquer en matière de cotisations ou de déductions sur la contribution Agefiph.",
+                "EEE (Espace Économique Européen)": "Zone économique regroupant les pays de l'Union Européenne et l'Islande, le Liechtenstein et la Norvège. Pour bénéficier du complément employeur, le salarié doit être soigné en France ou dans un État membre de l'EEE ou en Suisse.",
+                "EPS (Entreprises de Portage Salarial)": "Entreprises qui permettent à des professionnels indépendants (les 'salariés portés') de bénéficier du statut de salarié tout en conservant une autonomie. Leurs contrats d'achat de biens et services sont pris en compte pour la déduction Agefiph si le salarié porté est bénéficiaire de l'obligation d'emploi.",
+                "ESAT (Établissements et Services d'Aide par le Travail)": "Structures médico-sociales qui offrent aux personnes handicapées des activités professionnelles et un soutien médico-social. Les attestations de sous-traitance avec elles permettent des déductions sur la contribution Agefiph.",
+                "ETP (Équivalent Temps Plein)": "Unité de mesure qui permet de comparer le temps de travail d'un salarié à temps partiel à celui d'un salarié à temps plein. Utilisée pour le calcul des effectifs de l'entreprise (ex: 2 mi-temps = 1 ETP)."
+            },
+            "F": {
+                "FNAL (Fonds National d'Aide au Logement)": "Organisme contribuant au financement des aides personnelles au logement et de la politique du logement social. Les employeurs cotisent au FNAL sur les salaires.",
+                "FNEC (Fédération Nationale de l'Enseignement et de la Culture)": "Organisation syndicale (ici, un exemple d'organisation liée à la formation).",
+                "FO (Force Ouvrière)": "Organisation syndicale de salariés (Confédération Générale du Travail - Force Ouvrière), l'une des principales en France.",
+                "FONGECIF (Fonds de Gestion des Congés Individuels de Formation)": "Ancien organisme paritaire collecteur et gestionnaire des fonds de formation (notamment du CIF), remplacé par les associations Transitions Pro depuis le 1er janvier 2020.",
+                "FPOC (Fiches de Paramétrage des Organismes Complémentaires)": "Fichiers standardisés contenant les règles de calcul et de déclaration des cotisations destinées aux organismes complémentaires (prévoyance, mutuelle, retraite supplémentaire). Ce sont des outils clés pour la conformité de la DSN."
+            },
+            "G": {
+                "GRH (Gestion des Ressources Humaines)": "Fonction de l'entreprise qui s'est professionnalisée pour gérer l'ensemble des aspects liés aux ressources humaines, de l'administration du personnel (paie, contrats) à la stratégie RH (recrutement, formation, gestion de carrière).",
+                "GPEC (Gestion Prévisionnelle des Emplois et des Compétences)": "Démarche prospective visant à anticiper les évolutions des métiers et à adapter les compétences des collaborateurs aux besoins futurs de l'entreprise. Sa négociation est obligatoire pour les entreprises de plus de 300 salariés.",
+                "GMP (Garantie Minimale de Points)": "Ancienne cotisation AGIRC (retraite complémentaire cadres) qui garantissait un nombre minimum de points de retraite aux cadres dont le salaire était inférieur au plafond AGIRC. Supprimée au 1er janvier 2019 avec la fusion AGIRC-ARRCO."
+            },
+            "H": {
+                "HC (Heures Complémentaires)": "Heures effectuées par un salarié à temps partiel au-delà de la durée du travail stipulée dans son contrat, mais en dessous de la durée légale de 35 heures hebdomadaires. Elles sont majorées.",
+                "HCM (Human Capital Management)": "Gestion du Capital Humain. Terme anglophone désignant une approche stratégique et technologique de la gestion des ressources humaines, souvent via des SIRH.",
+                "HR (Human Resources)": "Ressources Humaines (terme anglophone).",
+                "HS (Heures Supplémentaires)": "Heures de travail accomplies à la demande de l'employeur, au-delà de la durée légale de 35 heures hebdomadaires (ou de la durée équivalente). Elles donnent lieu à une majoration de salaire ou à un repos compensateur."
+            },
+            "I": {
+                "IBAN (International Bank Account Number)": "Numéro de compte bancaire international standardisé utilisé pour identifier un compte bancaire dans la zone SEPA, facilitant les virements et prélèvements.",
+                "IDCC (Identifiant de la Convention Collective)": "Numéro d'identification unique à 4 chiffres attribué à chaque convention collective nationale étendue, permettant de la retrouver facilement.",
+                "IJSS (Indemnités Journalières de Sécurité Sociale)": "Prestations versées par l'Assurance Maladie (CPAM) aux salariés en cas d'incapacité temporaire de travail (maladie, accident du travail, maladie professionnelle, maternité, paternité, mi-temps thérapeutique) pour compenser la perte de salaire. Elles sont calculées et versées sur la base de jours calendaires.",
+                "INSEE (Institut National de la Statistique et des Études Économiques)": "Organisme public de statistiques en France, chargé notamment de produire et d'analyser les données économiques et sociales. C'est l'INSEE qui attribue le code APE aux entreprises.",
+                "IR (Impôt sur le Revenu)": "Impôt progressif prélevé sur l'ensemble des revenus des personnes physiques (salaires, pensions, revenus fonciers...). Les entreprises assujetties à l'IR sont concernées par certaines spécificités fiscales, notamment la taxe d'apprentissage si elles n'acquittent pas la TVA.",
+                "IRCANTEC (Institution de Retraite Complémentaire des Agents Non Titulaires de l'État et des Collectivités Publiques)": "Caisse de retraite complémentaire pour les agents non titulaires de la fonction publique (contractuels, vacataires...).",
+                "IRP (Instances Représentatives du Personnel)": "Terme générique désignant l'ensemble des organes de représentation du personnel au sein de l'entreprise (aujourd'hui principalement le CSE et les Délégués Syndicaux).",
+                "IS (Impôt sur les Sociétés)": "Impôt sur les bénéfices réalisé par les sociétés et autres personnes morales. Les entreprises soumises à l'IS sont également concernées par la taxe d'apprentissage."
+            },
+            "J": {
+                "JDC (Journée Défense et Citoyenneté)": "Journée à laquelle tous les jeunes Français doivent participer. Le temps passé à la JDC par un salarié mineur ou majeur est assimilé à du temps de travail effectif pour l'acquisition des congés payés et est rémunéré.",
+                "JO (Journal Officiel)": "Abréviation de Journal Officiel de la République Française, où sont publiés les lois, décrets, arrêtés, et où sont étendues les conventions collectives.",
+                "JOR (Jours de Repos)": "Terme générique pour les jours de repos accordés au salarié, souvent utilisé pour les jours supplémentaires octroyés dans le cadre d'un forfait jours ou pour compenser un travail majoré (à ne pas confondre avec les RTT, bien que similaires).",
+                "JRTT (Journées de Réduction du Temps de Travail)": "Jours de repos supplémentaires accordés aux salariés dont la durée de travail hebdomadaire est supérieure à 35 heures, en compensation des heures effectuées au-delà de cette durée légale, dans le cadre d'un accord d'aménagement du temps de travail."
+            },
+            "L": {
+                "Logement (Action Logement)": "Organisme collecteur et gestionnaire de la Participation des Employeurs à l'Effort de Construction (PEEC). Il construit et finance des logements sociaux et intermédiaires, et accompagne les salariés dans leur mobilité résidentielle et professionnelle. (Note: Le terme 'Logement' seul n'est pas un acronyme, mais 'Action Logement' est souvent référé ainsi).",
+                "Logiciel de paie": "Programme informatique spécialisé indispensable pour la gestion et le traitement des salaires, l'édition des bulletins de paie conformes à la législation, et la génération automatique des déclarations sociales nominatives (DSN)."
+            },
+            "M": {
+                "MP (Maladie Professionnelle)": "Maladie directement causée par l'exercice habituel du travail du salarié, reconnue comme telle par la Sécurité Sociale (listes de maladies professionnelles). Les IJSS AT/MP sont versées sans délai de carence.",
+                "MSA (Mutuelle Sociale Agricole)": "Le régime de protection sociale obligatoire des exploitants et salariés agricoles. C'est l'interlocuteur unique pour l'ensemble des prestations sociales (santé, famille, retraite) du régime agricole, ainsi que pour le recouvrement des cotisations."
+            },
+            "N": {
+                "Net-Entreprises.fr": "Site internet officiel et plateforme unique pour les déclarations sociales et fiscales des employeurs du secteur privé et public. C'est le portail par lequel les DSN sont transmises aux différents organismes de protection sociale et à l'administration fiscale.",
+                "NIR (Numéro d'Inscription au Répertoire)": "Communément appelé numéro de Sécurité Sociale, il s'agit de l'identifiant unique à 13 chiffres (plus une clé de contrôle de 2 chiffres) attribué à chaque individu né ou résidant en France, utilisé pour toutes les démarches de protection sociale.",
+                "NSA (Net Social)": "Montant net social. Représente le revenu net après déduction de l'ensemble des prélèvements sociaux obligatoires. Il doit figurer sur le bulletin de paie depuis le 1er juillet 2023 et sert de référence pour le calcul des prestations sociales (Prime d'activité, RSA).",
+                "NSF (Nomenclature des Spécialités de Formation)": "Code de spécialité de formation, utilisé pour classer les formations professionnelles et diplômes. Utile dans le cadre de la formation et des déclarations associées.",
+                "NTT (Numéro Technique Temporaire)": "Identifiant unique temporaire attribué à un individu dans la DSN lorsqu'il ne dispose pas encore d'un numéro de Sécurité Sociale définitif (NIR). Il permet de déclarer l'individu pendant une période limitée en attendant son immatriculation définitive."
+            },
+            "O": {
+                "OETH (Obligation d'Emploi des Travailleurs Handicapés)": "Disposition légale imposant aux entreprises de 20 salariés et plus d'employer un nombre de personnes handicapées correspondant à 6% de leur effectif total. Le non-respect de cette obligation entraîne le paiement d'une contribution à l'AGEFIPH.",
+                "OIT (Organisation Internationale du Travail)": "Agence spécialisée des Nations Unies, dont la mission est de promouvoir les droits au travail, encourager les opportunités d'emplois décents, renforcer la protection sociale et le dialogue sur les questions liées au travail.",
+                "OPCO (Opérateurs de Compétences)": "Organismes agréés chargés de financer l'apprentissage et les contrats de professionnalisation, d'apporter un appui technique aux branches professionnelles pour l'ingénierie des certifications et d'accompagner les entreprises (notamment les PME) en matière de formation professionnelle.",
+                "OPCA (Organisme Paritaire Collecteur Agréé)": "Anciens organismes collecteurs de fonds de formation professionnelle. Ils ont été remplacés par les OPCO dans le cadre de la réforme de la formation professionnelle de 2018.",
+                "ONU (Organisation des Nations Unies)": "Organisation internationale dont la mission est de maintenir la paix et la sécurité internationales, développer les relations amicales entre les nations, réaliser la coopération internationale et être un centre où s'harmonise les efforts des nations."
+            },
+            "P": {
+                "PAS (Prélèvement à la Source)": "Mode de recouvrement de l'impôt sur le revenu qui consiste à faire prélever le montant de l'impôt directement par le tiers versant les revenus (l'employeur pour les salaires) au moment du paiement. Les taux PAS sont transmis quotidiennement à l'employeur par la DGFIP via les Comptes Rendus Métier (CRM) de la DSN.",
+                "PEA (Plan d'Épargne en Actions)": "Produit d'épargne permettant d'investir en actions d'entreprises européennes, avec un cadre fiscal avantageux après 5 ans.",
+                "PEA-PME (Plan d'Épargne en Actions destiné au financement des Petites et Moyennes Entreprises et des Entreprises de Taille Intermédiaire)": "Un sous-compartiment du PEA, spécifiquement dédié à l'investissement dans des PME et ETI. Certaines sommes placées sur des dispositifs d'épargne salariale (PERCO, PERE-CO) et investies en PEA-PME peuvent bénéficier d'un taux réduit de forfait social.",
+                "PEEC (Participation des Employeurs à l'Effort de Construction)": "Obligation pour les entreprises de 50 salariés et plus de contribuer au financement du logement des salariés (historiquement 0,45% de la masse salariale brute). Cette contribution est généralement versée à Action Logement Services.",
+                "PEI (Plan d'Épargne Interentreprises)": "Dispositif d'épargne salariale qui peut être mis en place par plusieurs entreprises, permettant aux salariés d'épargner des sommes avec un cadre fiscal avantageux.",
+                "PER (Plan d'Épargne Retraite)": "Nouveau produit d'épargne retraite créé par la loi PACTE en 2019, qui remplace et unifie les anciens dispositifs (PERP, Madelin, PERCO, article 83). Il existe en version individuelle et collective (PERE-CO).",
+                "PERCO (Plan d'Épargne pour la Retraite Collectif)": "Ancien dispositif d'épargne salariale destiné à la retraite, permettant aux salariés de se constituer une épargne avec l'aide de l'entreprise. Les sommes placées sur un PERCO sont soumises au forfait social (taux de 16% pour les versements unilatéraux de l'employeur).",
+                "PERE-CO (Plan d'Épargne Retraite d'Entreprise Collectif)": "Nouveau dispositif d'épargne retraite collectif, remplaçant le PERCO. Similaire au PERCO, certaines sommes placées sur un PERE-CO sont soumises au forfait social au taux de 16% (pour les abondements de l'employeur).",
+                "PI (Propriété Intellectuelle)": "Domaine juridique qui protège les créations de l'esprit (brevets, marques, droits d'auteur...).",
+                "PMSS (Plafond Mensuel de la Sécurité Sociale)": "Montant de référence utilisé pour le calcul de certaines cotisations sociales (ex: retraite complémentaire, prévoyance) et de certaines prestations. Sa valeur est révisée chaque année (3 864,00 € au 1er janvier 2024).",
+                "PPV (Prime de Partage de la Valeur)": "Prime exceptionnelle de pouvoir d'achat (PEPA) reconduite et pérennisée sous ce nouveau nom en 2022. Elle peut être versée par l'employeur à ses salariés et bénéficie d'un régime social et fiscal avantageux sous certaines conditions (selon la taille de l'entreprise et la rémunération du salarié).",
+                "PPS (Plafond Pluriannuel de la Sécurité Sociale)": "Terme moins courant, mais peut faire référence à une utilisation du PSS sur une base pluriannuelle pour des calculs spécifiques de cotisations ou de prestations.",
+                "PSE (Plan de Sauvegarde de l'Emploi)": "Ensemble de mesures d'accompagnement social (formation, reclassement, aide à la création d'entreprise...) mises en place par l'employeur en cas de licenciements collectifs pour motif économique.",
+                "PSS (Plafond de la Sécurité Sociale)": "Montant maximum en euros des rémunérations ou gains à prendre en compte pour le calcul de certaines cotisations sociales (annuel, trimestriel, mensuel, journalier, horaire).",
+                "QT (Quotité de Temps)": "Pourcentage de temps de travail d'un salarié à temps partiel par rapport à la durée légale ou conventionnelle à temps plein."
+            },
+            "R": {
+                "RGCP (Réduction Générale des Cotisations Patronales)": "Dispositif d'allègement de cotisations patronales, anciennement appelé 'zéro cotisation URSSAF' ou 'réduction Fillon'. Il s'applique aux salaires inférieurs à 1,6 SMIC et vise à favoriser l'emploi et le pouvoir d'achat.",
+                "RGPD (Règlement Général sur la Protection des Données)": "Règlement européen (UE 2016/679) applicable depuis le 25 mai 2018, qui encadre le traitement des données à caractère personnel et renforce les droits des personnes concernées. Le SIRH, le coffre-fort numérique, et toutes les données RH doivent s'y conformer.",
+                "RH (Ressources Humaines)": "Désigne l'ensemble des fonctions et des processus visant à gérer le personnel d'une organisation, depuis le recrutement et la gestion de la paie jusqu'au développement des compétences et à la gestion des relations sociales.",
+                "RI (Règlement Intérieur du CSE)": "Document interne rédigé par le Comité Social et Économique (CSE) qui fixe les modalités de son fonctionnement (règles de vote, de convocation, d'établissement de l'ordre du jour des réunions, etc.).",
+                "RNCP (Répertoire National des Certifications Professionnelles)": "Référentiel français qui recense l'ensemble des diplômes, titres professionnels et certificats de qualification reconnus par l'État, attestant d'une qualification professionnelle.",
+                "RNF (Rémunération Nette Fiscale)": "Autre nom pour le salaire net imposable. C'est le montant sur lequel est calculé l'impôt sur le revenu après déduction de la CSG déductible et des frais professionnels (forfaitaires ou réels).",
+                "ROME (Répertoire Opérationnel des Métiers et des Emplois)": "Référentiel des métiers et des compétences de France Travail (anciennement Pôle Emploi). Il classe et décrit les métiers par fiches, facilitant l'orientation professionnelle et le recrutement.",
+                "RPS (Risques Psycho-Sociaux)": "Risques pour la santé mentale et physique des salariés, causés par les conditions de travail (stress, harcèlement, violences...). Le DUERP doit en tenir compte.",
+                "RSFP (Répertoire Spécifique des Certifications et Habilitations)": "Répertoire qui recense les certifications et habilitations nécessaires à l'exercice d'activités professionnelles ou pour valider des compétences transversales (créé en complément du RNCP).",
+                "RSP (Réserve Spéciale de Participation)": "Part des bénéfices de l'entreprise qui doit être obligatoirement redistribuée aux salariés dans le cadre de la participation. Elle est exonérée de charges sociales (sauf CSG/CRDS) et d'impôt sur les sociétés pour l'entreprise.",
+                "RSS (Représentant de la Section Syndicale)": "Représentant d'une section syndicale mise en place par un syndicat non représentatif dans l'entreprise, ou un syndicat représentatif qui n'a pas désigné de délégué syndical. Il négocie les accords collectifs avec l'employeur.",
+                "RTT (Réduction du Temps de Travail)": "Dispositif permettant aux salariés dont le temps de travail hebdomadaire est supérieur à 35 heures de bénéficier de jours ou demi-journées de repos compensatoires. Ces jours ne sont pas rémunérés car ils compensent déjà un temps de travail supérieur à la durée légale."
+            },
+            "S": {
+                "SDTC (Solde de Tout Compte)": "Document remis au salarié à la fin de son contrat de travail (quel que soit le motif de rupture), récapitulant l'ensemble des sommes qui lui sont versées (dernier salaire, indemnités de rupture, congés payés non pris, etc.). Le salarié peut contester le SDTC dans les 6 mois.",
+                "SEPA (Single Euro Payments Area)": "Espace unique de paiement en euros, harmonisant les paiements en euros dans 36 pays. Les virements et prélèvements bancaires dans cette zone utilisent les normes SEPA (IBAN, BIC).",
+                "SIE (Service des Impôts des Entreprises)": "Service des Finances Publiques en France qui est l'interlocuteur privilégié des entreprises pour toutes les questions fiscales. Il est notamment chargé du recouvrement des impôts professionnels (IS, TVA) et de la taxe sur les salaires, ainsi que du Prélèvement à la Source (PAS).",
+                "SIRH (Système d'Information des Ressources Humaines)": "Ensemble de logiciels et de technologies permettant d'automatiser et de gérer les processus RH et les données liées au personnel (paie, gestion des carrières, recrutement, formation, etc.). C'est l'interface entre la Gestion des Ressources Humaines (GRH) et les Technologies de l'Information et de la Communication (TIC).",
+                "SJR (Salaire Journalier de Référence)": "Base de calcul des Indemnités Journalières de Sécurité Sociale (IJSS). Il est déterminé sur la base des salaires bruts perçus par le salarié avant son arrêt de travail (ex: 3 derniers mois pour maladie non pro, divisés par 91,25; ou salaire du mois précédant l'AT/MP divisé par 30,42).",
+                "SMIC (Salaire Minimum Interprofessionnel de Croissance)": "Salaire horaire minimum légal en France en dessous duquel un salarié ne peut être rémunéré. Il est revalorisé chaque année (parfois plusieurs fois) et est une référence pour de nombreux calculs en paie.",
+                "SOLTÉA (Plateforme d'affectation de la taxe d'apprentissage)": "Plateforme en ligne gérée par la Caisse des Dépôts et Consignations (CDC) qui permet aux entreprises de désigner les établissements d'enseignement et de formation (CFA, lycées professionnels, écoles...) auxquels elles souhaitent affecter le solde de leur taxe d'apprentissage (0,09%)."
+            },
+            "T": {
+                "TA (Taxe d'Apprentissage)": "Impôt obligatoire versé par les entreprises, destiné au financement de l'apprentissage et du développement des formations initiales technologiques et professionnelles. Son taux est de 0,68% de la masse salariale brute, divisé en une part principale (0,59% versée à l'URSSAF) et un solde (0,09% affectable via SOLTÉA).",
+                "TAM (Techniciens et Agents de Maîtrise)": "Catégorie socio-professionnelle intermédiaire entre les ouvriers/employés et les cadres. Les conventions collectives définissent souvent les grilles de salaires et les spécificités pour les TAM.",
+                "TEPA (Travail, Emploi et Pouvoir d'Achat)": "Loi n° 2007-1223 du 21 août 2007 qui a instauré diverses mesures pour le pouvoir d'achat, notamment la défiscalisation des heures supplémentaires et des allègements de cotisations sociales pour l'employeur.",
+                "TIH (Travailleurs Indépendants Handicapés)": "Personnes en situation de handicap qui exercent une activité professionnelle en tant qu'indépendants. Les entreprises qui font appel à leurs services peuvent déduire une partie des montants facturés de leur contribution Agefiph, via des attestations de sous-traitance.",
+                "TP (Titre Professionnel)": "Certification professionnelle délivrée par le Ministère du Travail (via France Compétences), qui atteste que son titulaire maîtrise les compétences, aptitudes et connaissances permettant d'exercer un métier ou une activité qualifiée.",
+                "TPME (Très Petites et Moyennes Entreprises)": "Catégorie d'entreprises regroupant les TPE (Très Petites Entreprises) et les PME (Petites et Moyennes Entreprises). Les OPCO ont notamment pour mission d'apporter un service de proximité et un appui spécifique aux TPME en matière de formation professionnelle.",
+                "TS (Taxe sur les Salaires)": "Impôt sur les rémunérations versées par les employeurs qui ne sont pas assujettis à la TVA (ou qui le sont sur moins de 90% de leur chiffre d'affaires). Elle est calculée sur les rémunérations brutes individuelles et versée à la DGFIP (SIE).",
+                "TVA (Taxe sur la Valeur Ajoutée)": "Impôt indirect général sur la consommation. L'assujettissement ou non d'une entreprise à la TVA est un critère clé pour déterminer si elle est redevable de la Taxe sur les Salaires (TS)."
+            },
+            "U": {
+                "UES (Unité Économique et Sociale)": "Regroupement de plusieurs entités juridiques distinctes (sociétés, associations...) qui partagent une communauté d'intérêts et de gestion. La reconnaissance d'une UES peut rendre obligatoire la mise en place d'un CSE commun, et l'assujettissement à la participation si l'ensemble dépasse 50 salariés.",
+                "UNEDIC (Union Nationale Interprofessionnelle pour l'Emploi dans l'Industrie et le Commerce)": "Organisme paritaire qui gère le régime d'assurance chômage en France (collecte des cotisations, définition des règles d'indemnisation). Ses missions ont évolué et une partie a été transférée à France Travail.",
+                "URSSAF (Unions de Recouvrement des cotisations de Sécurité Sociale et d'Allocations Familiales)": "Organisme chargé de collecter la majeure partie des cotisations et contributions sociales (maladie, vieillesse, famille, AT/MP, CSG, CRDS, chômage, FNAL, formation professionnelle, taxe d'apprentissage...). C'est le principal interlocuteur des employeurs pour les déclarations et paiements sociaux."
+            },
+            "V": {
+                "VAE (Validation des Acquis de l'Expérience)": "Dispositif permettant à toute personne de faire reconnaître officiellement ses compétences acquises par l'expérience (professionnelle ou bénévole) pour obtenir une certification professionnelle (diplôme, titre ou CQP), sans passer par la voie classique de la formation.",
+                "VM (Versement Mobilité)": "Anciennement appelé 'versement transport', c'est une contribution due par les employeurs occupant 11 salariés et plus dans certaines zones géographiques. Elle finance les transports en commun et est collectée par l'URSSAF.",
+                "VRP (Voyageurs Représentants Placiers)": "Salariés qui bénéficient d'un statut particulier dans le Code du Travail, caractérisé par une activité exclusive et constante de représentation commerciale, pour le compte d'un ou plusieurs employeurs. Leur rémunération est souvent basée sur des commissions, et le SMIC ne leur est pas toujours applicable directement, mais un salaire minimum conventionnel (SMC) peut être prévu."
+            }
+        };
+
+        let totalAcronyms = 0;
+        for (const letter in acronymsData) {
+            totalAcronyms += Object.keys(acronymsData[letter]).length;
+        }
+
+        function renderAcronyms() {
+            const acronymsContent = document.getElementById('acronyms-content');
+            acronymsContent.innerHTML = ''; // Nettoie le contenu existant
+
+            const sortedLetters = Object.keys(acronymsData).sort();
+
+            sortedLetters.forEach(letter => {
+                const termsForLetter = acronymsData[letter];
+                if (Object.keys(termsForLetter).length > 0) {
+                    const detailsElement = document.createElement('details');
+                    const summaryElement = document.createElement('summary');
+                    summaryElement.textContent = letter;
+                    detailsElement.appendChild(summaryElement);
+
+                    const ulElement = document.createElement('ul');
+                    const sortedTerms = Object.keys(termsForLetter).sort();
+
+                    sortedTerms.forEach(term => {
+                        const liElement = document.createElement('li');
+                        liElement.innerHTML = `<strong>${term}</strong> : ${termsForLetter[term]}`;
+                        ulElement.appendChild(liElement);
+                    });
+
+                    detailsElement.appendChild(ulElement);
+                    acronymsContent.appendChild(detailsElement);
+                }
+            });
+            document.getElementById('acronym-count').textContent = totalAcronyms;
+        }
+
+        function searchAcronyms() {
+            const searchTerm = document.getElementById('search-acronyms').value.toLowerCase();
+            const detailsElements = document.querySelectorAll('#acronyms-content details');
+
+            detailsElements.forEach(details => {
+                const terms = details.querySelectorAll('li');
+                let hasVisibleTerms = false;
+
+                terms.forEach(li => {
+                    const termText = li.textContent.toLowerCase();
+                    const termStrong = li.querySelector('strong')?.textContent.toLowerCase() || ''; // Search also in bold part
+                    if (termText.includes(searchTerm) || termStrong.includes(searchTerm)) {
+                        li.style.display = ''; // Affiche le terme
+                        hasVisibleTerms = true;
+                    } else {
+                        li.style.display = 'none'; // Cache le terme
+                    }
+                });
+
+                // Si un terme est visible dans cette section ou si la recherche est vide, ouvre/affiche la section
+                if (hasVisibleTerms || searchTerm === '') {
+                    details.style.display = ''; // Affiche la section de lettre
+                    if (searchTerm !== '') {
+                        details.open = true; // Ouvre la section si un terme correspond à la recherche
+                    } else {
+                        details.open = false; // Ferme toutes les sections si la recherche est vide
+                    }
+                } else {
+                    details.style.display = 'none'; // Cache la section de lettre entière
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderAcronyms();
+            document.getElementById('search-acronyms').addEventListener('input', searchAcronyms);
+
+            // Gérer le thème (copié depuis votre main index.html)
+            const themeToggleBtn = document.getElementById('theme-toggle');
+            if (themeToggleBtn) {
+                themeToggleBtn.addEventListener('click', toggleTheme);
+                loadTheme(); // Charge le thème au démarrage
+            }
+        });
+
+        function toggleTheme() {
+            document.body.classList.toggle('dark-theme');
+            const isDark = document.body.classList.contains('dark-theme');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            document.getElementById('theme-toggle').innerHTML = isDark ? 'Thème Sombre/Clair 🌙' : 'Thème Sombre/Clair ☀️';
+        }
+
+        function loadTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-theme');
+                document.getElementById('theme-toggle').innerHTML = 'Thème Sombre/Clair 🌙';
+            } else {
+                document.body.classList.remove('dark-theme');
+                document.getElementById('theme-toggle').innerHTML = 'Thème Sombre/Clair ☀️';
+            }
+        }
+    </script>
+</body>
+</html>
