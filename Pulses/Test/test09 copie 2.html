@@ -1,0 +1,2704 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <!-- Le titre dans la balise <title> doit aussi être multilingue -->
+    <title id="docTitle">💫 PAÏA Pulse – SP_BP_001 – Règles générales relatives au bulletin de paie</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Police Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Charger Font Awesome pour l'icône de lecture -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        /* PALETTE PAÏA */
+        :root {
+            --paia-yellow: #D9A526;
+            --paia-blue: #0F2C48;
+            --paia-bronze: #B4792A;
+            --paia-ivory: #F6F2E8;
+            --paia-black: #0A0A0A;
+            --paia-light-blue: #304e6c; /* Bleu plus clair pour les onglets */
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 2rem 1rem 3rem;
+            font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--paia-ivory);
+            color: var(--paia-black);
+        }
+
+        .fiche-wrapper {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        /* BANDEAU HAUT MODIFIÉ */
+        .fiche-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            direction: ltr !important; 
+        }
+
+        .header-main-line {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Conteneur pour le bouton de lecture (pour le centrage) */
+        .read-button-container {
+            margin-bottom: 1rem;
+        }
+
+        .logo-wrapper {
+            margin-right: 10px;
+        }
+
+        .logo-wrapper img {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .fiche-header-title {
+            font-size: 1.9rem;
+            font-weight: 800;
+            color: var(--paia-blue);
+            margin: 0;
+        }
+
+        #header-content {
+            direction: ltr !important;
+        }
+
+        .fiche-header-subtitle {
+            font-size: 0.8rem;
+            color: #555;
+            margin: 0 0 1rem 0;
+            text-align: center; 
+        }
+        
+        /* Nouveau Bouton de Lecture Vocale */
+        #readButton {
+            background-color: var(--paia-bronze);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.25rem;
+            font-weight: 700;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background-color 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px var(--paia-blue);
+            font-size: 0.9rem;
+            min-width: 180px; /* Pour éviter le CLS lors du chargement */
+            justify-content: center;
+        }
+        
+        #readButton:active {
+            box-shadow: 0 2px var(--paia-blue);
+            transform: translateY(2px);
+        }
+        
+        #readButton:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+        
+        .loading-spinner {
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top: 3px solid white;
+            border-radius: 50%;
+            width: 15px;
+            height: 15px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Message d'état */
+        #messageBox {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 15px 25px;
+            background-color: var(--paia-blue);
+            color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+            z-index: 1000;
+            font-size: 1rem;
+            font-weight: 600;
+            display: none;
+            text-align: center;
+        }
+        
+        /* SÉLECTEUR DE LANGUE & NAVIGATION TABS */
+        .lang-selector {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            direction: ltr !important; 
+        }
+        .lang-selector button {
+            padding: 8px 12px; 
+            margin: 3px 2px;
+            cursor: pointer;
+            border: 1px solid var(--paia-blue);
+            background-color: var(--paia-ivory);
+            color: var(--paia-blue);
+            border-radius: 8px;
+            font-weight: 600;
+            transition: background-color 0.2s, color 0.2s;
+            font-size: 0.85rem; 
+            /* A11Y: Les boutons de langue sont des onglets logiques, même s'ils ne sont pas formellement des onglets ARIA */
+        }
+        .lang-selector button.active {
+            background-color: var(--paia-blue);
+            color: white;
+        }
+        
+        /* NAVIGATION PRINCIPALE */
+        .main-nav {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            gap: 10px;
+            direction: ltr !important; 
+        }
+        .main-nav button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            background-color: var(--paia-light-blue);
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        .main-nav button.active {
+            background-color: var(--paia-yellow);
+            color: var(--paia-blue);
+        }
+
+        /* VUE PRINCIPALE */
+        #main-content-view, #lexique-view {
+            display: none;
+        }
+        #main-content-view.active, #lexique-view.active {
+            display: block;
+        }
+
+        /* Carte principale */
+        .fiche-card {
+            background-color: #fff;
+            border-radius: 18px;
+            border: 3px solid var(--paia-blue);
+            box-shadow: 0 16px 35px rgba(15,44,72,0.15);
+            padding: 2rem 1.8rem 2.2rem;
+        }
+
+        .fiche-code {
+            text-align: center;
+            font-size: 0.75rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #888;
+            margin-bottom: 0.7rem;
+        }
+
+        .fiche-main-title {
+            text-align: center;
+            font-size: 1.7rem;
+            font-weight: 800;
+            color: var(--paia-yellow);
+            margin: 0.4rem 0 0.3rem;
+        }
+
+        .fiche-main-sub {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 1.7rem;
+        }
+
+        /* Grille des blocs QQOQCCP */
+        .fiche-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 1rem;
+        }
+        
+        /* Styles Responsive conservés */
+        @media (max-width: 900px) {
+            .fiche-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding: 1.5rem 0.75rem 2.5rem;
+            }
+            .fiche-card {
+                padding: 1.4rem 1.1rem 1.8rem;
+            }
+            .fiche-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .bloc {
+            background-color: #fff;
+            border-radius: 14px;
+            padding: 0.9rem 0.95rem 1rem;
+            box-shadow: 0 8px 18px rgba(0,0,0,0.04);
+            border-top: 4px solid #ddd;
+        }
+
+        .bloc-title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.45rem;
+        }
+
+        .bloc-title span.emoji {
+            margin-right: 0.35rem;
+            font-size: 1.1rem;
+        }
+
+        .bloc-content {
+            font-size: 0.8rem;
+            line-height: 1.4rem;
+            color: #444;
+        }
+
+        .bloc-content ul {
+            padding-left: 1.1rem;
+            margin: 0.25rem 0 0;
+        }
+
+        .bloc-content li {
+            margin-bottom: 0.2rem;
+        }
+
+        .bloc-qui      { border-top-color: var(--paia-blue); }
+        .bloc-quoi     { border-top-color: var(--paia-yellow); }
+        .bloc-ou       { border-top-color: var(--paia-bronze); }
+        .bloc-quand    { border-top-color: var(--paia-yellow); }
+        .bloc-comment  { border-top-color: var(--paia-blue); }
+        .bloc-combien  { border-top-color: var(--paia-bronze); }
+        .bloc-pourquoi { border-top-color: var(--paia-blue); }
+        .bloc-retenir  { border-top-color: var(--paia-yellow); }
+        .bloc-sources  { border-top-color: var(--paia-bronze); }
+
+        .highlight {
+            font-weight: 600;
+            color: var(--paia-blue);
+        }
+        .highlight-yellow {
+            font-weight: 600;
+            color: var(--paia-yellow);
+        }
+        
+        /* Styles Multi-langues */
+        .lang-content {
+            display: none;
+        }
+        .lang-content.active {
+            display: block;
+        }
+        
+        .ar-content {
+            direction: rtl;
+            text-align: right;
+        }
+        
+        .ar-content .bloc-content ul {
+            padding-right: 1.1rem;
+            padding-left: 0;
+            list-style-type: none;
+        }
+        .ar-content .bloc-content li::before {
+            content: '•';
+            margin-left: 0.5em;
+            color: var(--paia-blue);
+        }
+        
+        /* Styles Lexique */
+        .lexique-section {
+            background-color: var(--paia-blue);
+            color: white;
+            padding: 2rem;
+            margin-top: 2.5rem;
+            border-radius: 18px;
+            box-shadow: 0 16px 35px rgba(15,44,72,0.3);
+            min-height: 400px;
+        }
+
+        .lexique-title {
+            text-align: center;
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            color: var(--paia-yellow);
+            border-bottom: 2px solid var(--paia-yellow);
+            padding-bottom: 0.5rem;
+        }
+        
+        .lexique-grid {
+            display: grid;
+            grid-template-columns: 1fr; 
+            gap: 0.5rem 0; 
+            font-size: 0.9rem;
+        }
+        
+        .lexique-item {
+            margin-bottom: 0.4rem; 
+            line-height: 1.5;
+        }
+        
+        .lexique-acronyme {
+            font-weight: 700;
+            color: var(--paia-yellow);
+            margin-right: 0.3rem; 
+            display: inline; 
+        }
+        .lexique-acronyme::before {
+            content: '✨ ';
+        }
+        .lexique-definition {
+            font-weight: 400;
+            margin-left: 0; 
+            display: inline;
+        }
+
+        /* Bas de page */
+        .fiche-footer {
+            font-size: 0.75rem;
+            color: #666;
+            text-align: center;
+            margin-top: 1.7rem;
+            line-height: 1.5; 
+            direction: ltr !important;
+        }
+        .footer-line {
+            display: block;
+        }
+
+    </style>
+</head>
+<body>
+
+<div id="messageBox"></div>
+<div class="fiche-wrapper">
+    
+    <!-- SÉLECTEUR DE LANGUE AJOUTÉ ICI -->
+    <div class="lang-selector" role="tablist">
+        <button onclick="changeLanguage('fr', this)" class="active" data-lang-code="fr" role="tab" aria-selected="true" aria-controls="main-content-view,lexique-view">Français 🇫🇷</button>
+        <button onclick="changeLanguage('de', this)" data-lang-code="de" role="tab" aria-selected="false" aria-controls="main-content-view,lexique-view">Allemand 🇩🇪</button>
+        <button onclick="changeLanguage('en', this)" data-lang-code="en" role="tab" aria-selected="false" aria-controls="main-content-view,lexique-view">Anglais 🇬🇧</button>
+        <button onclick="changeLanguage('ar', this)" data-lang-code="ar" role="tab" aria-selected="false" aria-controls="main-content-view,lexique-view">Arabe 🇸🇦</button>
+        <button onclick="changeLanguage('zh', this)" data-lang-code="zh" role="tab" aria-selected="false" aria-controls="main-content-view,lexique-view">Chinois 🇨🇳</button>
+        <button onclick="changeLanguage('changeLanguage('es', this)" data-lang-code="es" role="tab" aria-selected="false" aria-controls="main-content-view,lexique-view">Espagnol 🇪🇸</button>
+        <button onclick="changeLanguage('it', this)" data-lang-code="it" role="tab" aria-selected="false" aria-controls="main-content-view,lexique-view">Italien 🇮🇹</button>
+        <button onclick="changeLanguage('ja', this)" data-lang-code="ja" role="tab" aria-selected="false" aria-controls="main-content-view,lexique-view">Japonais 🇯🇵</button>
+        <button onclick="changeLanguage('pl', this)" data-lang-code="pl" role="tab" aria-selected="false" aria-controls="main-content-view,lexique-view">Polonais 🇵🇱</button>
+    </div>
+    <!-- FIN SÉLECTEUR DE LANGUE -->
+
+    <!-- Bandeau haut -->
+    <header class="fiche-header">
+        
+        <!-- Bouton de Lecture Vocale ajouté ici -->
+        <div class="read-button-container" style="text-align: center;">
+             <button id="readButton" title="Démarrer la lecture vocale du contenu dans la langue sélectionnée" aria-live="polite">
+                <i class="fas fa-volume-up" aria-hidden="true"></i> 
+                <span id="readButtonText">Lecture Vocale</span>
+            </button>
+        </div>
+        <!-- Fin Bouton de Lecture Vocale -->
+
+        <!-- LIGNE PRINCIPALE (LOGO + TITRE) -->
+        <div class="header-main-line">
+            <div class="logo-wrapper">
+                <!-- Image d'un logo Paia Pulse -->
+                <img src="https://placehold.co/50x50/0F2C48/D9A526?text=PP" alt="Logo PAÏA Pulse">
+            </div>
+            <h1 class="fiche-header-title">💫 PAÏA Pulse</h1>
+        </div>
+        <!-- FIN LIGNE PRINCIPALE -->
+
+        <!-- ZONE DE TEXTE MULTILINGUE (SOUS-TITRE) -->
+        <div id="header-content" style="direction: ltr !important;">
+            <div class="lang-content fr active">
+                <p class="fiche-header-subtitle" style="text-align: center;">Plateforme d’Actualisation & d’Information (IA)</p>
+            </div>
+            <div class="lang-content en">
+                <p class="fiche-header-subtitle" style="text-align: center;">Update & Information Platform (AI)</p>
+            </div>
+            <div class="lang-content es">
+                <p class="fiche-header-subtitle" style="text-align: center;">Plataforma de Actualización e Información (IA)</p>
+            </div>
+            <div class="lang-content de">
+                <p class="fiche-header-subtitle" style="text-align: center;">Aktualisierungs- und Informationsplattform (KI)</p>
+            </div>
+            <div class="lang-content it">
+                <p class="fiche-header-subtitle" style="text-align: center;">Piattaforma di Aggiornamento e Informazione (IA)</p>
+            </div>
+            <div class="lang-content pl">
+                <p class="fiche-header-subtitle" style="text-align: center;">Platforma Aktualizacji i Informacji (AI)</p>
+            </div>
+            <div class="lang-content ja">
+                <p class="fiche-header-subtitle" style="text-align: center;">更新と情報提供プラットフォーム (AI)</p>
+            </div>
+            <div class="lang-content ar ar-content">
+                <p class="fiche-header-subtitle" style="text-align: center;">منصة التحديث والمعلومات (الذكاء الاصطناعي)</p>
+            </div>
+            <div class="lang-content zh">
+                <p class="fiche-header-subtitle" style="text-align: center;">更新与信息平台 (AI)</p>
+            </div>
+        </div>
+        <!-- FIN ZONE DE TEXTE MULTILINGUE -->
+    </header>
+
+    <!-- NAVIGATION TABS -->
+    <!-- ARIA: role="tablist" -->
+    <div class="main-nav" role="tablist" aria-label="Navigation des contenus Pulse">
+        <button id="tab-fiche" onclick="showContent('fiche', this)" class="active" role="tab" aria-selected="true" aria-controls="main-content-view">Pulse</button>
+        <button id="tab-acronymes" onclick="showContent('acronymes', this)" role="tab" aria-selected="false" aria-controls="lexique-view">Acronymes</button>
+        <button id="tab-glossaire" onclick="showContent('glossaire', this)" role="tab" aria-selected="false" aria-controls="lexique-view">Glossaire</button>
+    </div>
+    <!-- FIN NAVIGATION TABS -->
+
+    <!-- VUE PRINCIPALE (FICHE DÉTAILLÉE) -->
+    <!-- ARIA: role="tabpanel" -->
+    <div id="main-content-view" class="active" role="tabpanel" aria-labelledby="tab-fiche">
+        <main class="fiche-card" id="mainContent">
+
+            <!-- ZONE DE TEXTE MULTILINGUE (TITRE PRINCIPAL) -->
+            <div id="main-title-content">
+                <div class="lang-content fr active">
+                    <div class="fiche-code">Code Pulse&nbsp;: <strong>SP_BP_001</strong></div>
+                    <h2 class="fiche-main-title">Règles générales relatives au bulletin de paie</h2>
+                    <p class="fiche-main-sub">Fiche de synthèse : obligation de remise, mentions obligatoires, modèle réglementaire, affichage du montant net social et règles de présentation.</p>
+                </div>
+                <div class="lang-content en">
+                    <div class="fiche-code">Code Pulse&nbsp;: <strong>SP_BP_001</strong></div>
+                    <h2 class="fiche-main-title">General Rules for Pay Slips</h2>
+                    <p class="fiche-main-sub">Summary sheet: obligation of delivery, mandatory mentions, regulatory model, display of the net social amount and presentation rules.</p>
+                </div>
+                <div class="lang-content es">
+                    <div class="fiche-code">Código Pulse&nbsp;: <strong>SP_BP_001</strong></div>
+                    <h2 class="fiche-main-title">Reglas generales relativas a la nómina salarial</h2>
+                    <p class="fiche-main-sub">Ficha resumen: obligación de entrega, menciones obligatorias, modelo reglamentario, visualización del importe social neto y reglas de presentación.</p>
+                </div>
+                <div class="lang-content de">
+                    <div class="fiche-code">Code Pulse&nbsp;: <strong>SP_BP_001</strong></div>
+                    <h2 class="fiche-main-title">Allgemeine Regeln zur Gehaltsabrechnung</h2>
+                    <p class="fiche-main-sub">Zusammenfassendes Blatt: Aushändigungspflicht, obligatorische Angaben, gesetzliches Muster, Anzeige des sozialen Nettobetrags und Präsentationsregeln.</p>
+                </div>
+                <div class="lang-content it">
+                    <div class="fiche-code">Codice Pulse&nbsp;: <strong>SP_BP_001</strong></div>
+                    <h2 class="fiche-main-title">Regole generali relative alla busta paga</h2>
+                    <p class="fiche-main-sub">Scheda di sintesi: obbligo di consegna, menzioni obbligatorie, modello regolamentare, visualizzazione dell'importo sociale netto e regole di presentazione.</p>
+                </div>
+                <div class="lang-content pl">
+                    <div class="fiche-code">Kod Pulse&nbsp;: <strong>SP_BP_001</strong></div>
+                    <h2 class="fiche-main-title">Ogólne zasady dotyczące pasków płacowych</h2>
+                    <p class="fiche-main-sub">Karta podsumowująca: obowiązek wydania, obowiązkowe wzmianki, regulaminowy wzór, wyświetlanie kwoty netto socjalnej i zasady prezentacji.</p>
+                </div>
+                <div class="lang-content ja">
+                    <div class="fiche-code">コードパルス&nbsp;: <strong>SP_BP_001</strong></div>
+                    <h2 class="fiche-main-title">給与明細に関する一般規則</h2>
+                    <p class="fiche-main-sub">概要シート：交付義務、必須記載事項、規制モデル、純社会保険料額の表示、および提示規則。</p>
+                </div>
+                <div class="lang-content ar ar-content">
+                    <div class="fiche-code">رمز النبض&nbsp;: <strong>SP_BP_001</strong></div>
+                    <h2 class="fiche-main-title">القواعد العامة المتعلقة بكشف الراتب</h2>
+                    <p class="fiche-main-sub">بطاقة موجزة: التزام التسليم، البيانات الإلزامية، النموذج التنظيمي، عرض المبلغ الاجتماعي الصافي وقواعد العرض.</p>
+                </div>
+                <div class="lang-content zh">
+                    <div class="fiche-code">代码脉冲&nbsp;: <strong>SP_BP_001</strong></div>
+                    <h2 class="fiche-main-title">工资单一般规定</h2>
+                    <p class="fiche-main-sub">摘要表：交付义务、强制性项目、监管模式、净社会金额显示和演示规则.</p>
+                </div>
+            </div>
+            <!-- FIN ZONE DE TEXTE MULTILINGUE -->
+
+
+            <!-- Grille QQOQCCP -->
+            <section class="fiche-grid">
+                <!-- QUI ? -->
+                <article class="bloc bloc-qui">
+                    <div class="lang-content fr active">
+                        <h3 class="bloc-title"><span class="emoji">👥</span> QUI ?</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li><span class="highlight">Tous les employeurs</span> qui versent une rémunération (entreprises privées, associations, certains employeurs publics).</li>
+                                <li><span class="highlight">Tous les salariés</span> liés par un contrat de travail (CDI, CDD, temps partiel, alternance, intérim, apprentis…).</li>
+                                <li>Employeurs publics : obligation d’afficher le <span class="highlight-yellow">montant net social</span> pour leurs agents.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content en">
+                        <h3 class="bloc-title"><span class="emoji">👥</span> WHO ?</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li><span class="highlight">All employers</span> who pay remuneration (private companies, associations, some public employers).</li>
+                                <li><span class="highlight">All employees</span> bound by an employment contract (CDI, CDD, part-time, sandwich course, temporary work, apprentices…).</li>
+                                <li>Public employers: obligation to display the <span class="highlight-yellow">net social amount</span> for their agents.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content es">
+                        <h3 class="bloc-title"><span class="emoji">👥</span> ¿QUIÉN?</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li><span class="highlight">Todos los empleadores</span> que pagan una remuneración (empresas privadas, asociaciones, algunos empleadores públicos).</li>
+                                <li><span class="highlight">Todos los empleados</span> vinculados por un contrato de trabajo (CDI, CDD, tiempo parcial, alternancia, trabajo temporal, aprendices...).</li>
+                                <li>Empleadores públicos: obligación de mostrar el <span class="highlight-yellow">importe social neto</span> para sus agentes.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content de">
+                        <h3 class="bloc-title"><span class="emoji">👥</span> WER?</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li><span class="highlight">Alle Arbeitgeber</span>, die eine Vergütung zahlen (Privatunternehmen, Verbände, bestimmte öffentliche Arbeitgeber).</li>
+                                <li><span class="highlight">Alle Arbeitnehmer</span>, die durch einen Arbeitsvertrag gebunden sind (unbefristet, befristet, Teilzeit, duale Ausbildung, Zeitarbeit, Auszubildende...).</li>
+                                <li>Öffentliche Arbeitgeber: Pflicht zur Anzeige des <span class="highlight-yellow">sozialen Nettobetrags</span> für ihre Bediensteten.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content it">
+                        <h3 class="bloc-title"><span class="emoji">👥</span> CHI?</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li><span class="highlight">Tutti i datori di lavoro</span> che versano una retribuzione (aziende private, associazioni, alcuni datori di lavoro pubblici).</li>
+                                <li><span class="highlight">Tutti i dipendenti</span> legati da un contratto di lavoro (CDI, CDD, part-time, alternanza, lavoro interinale, apprendisti...).</li>
+                                <li>Datori di lavoro pubblici: obbligo di visualizzare l'<span class="highlight-yellow">importo sociale netto</span> per i loro agenti.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content pl">
+                        <h3 class="bloc-title"><span class="emoji">👥</span> KTO?</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li><span class="highlight">Wszyscy pracodawcy</span> wypłacający wynagrodzenie (firmy prywatne, stowarzyszenia, niektórzy pracodawcy publiczni).</li>
+                                <li><span class="highlight">Wszyscy pracownicy</span> związani umową o pracę (CDI, CDD, praca na część etatu, praca naprzemienna, praca tymczasowa, praktykanci...).</li>
+                                <li>Pracodawcy publiczni: obowiązek wyświetlania <span class="highlight-yellow">kwoty netto socjalnej</span> dla swoich pracowników.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content ja">
+                        <h3 class="bloc-title"><span class="emoji">👥</span> 誰？</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li>賃金を支払う<span class="highlight">すべての雇用主</span>（民間企業、協会、一部の公的雇用主）。</li>
+                                <li>雇用契約で結ばれた<span class="highlight">すべての従業員</span>（CDI、CDD、パートタイム、交替勤務、派遣、見習い...）。</li>
+                                <li>公的雇用主：代理人に対して<span class="highlight-yellow">純社会保険料額</span>を表示する義務があります。</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content ar ar-content">
+                        <h3 class="bloc-title"><span class="emoji">👥</span> مَن؟</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li><span class="highlight">جميع أصحاب العمل</span> الذين يدفعون أجرًا (الشركات الخاصة، الجمعيات، بعض أصحاب العمل العموميين).</li>
+                                <li><span class="highlight">جميع الموظفين</span> المرتبطين بعقد عمل (CDI، CDD، دوام جزئي، تناوب، عمل مؤقت، متدربين...).</li>
+                                <li>أصحاب العمل العموميون: التزام بعرض <span class="highlight-yellow">المبلغ الاجتماعي الصافي</span> لوكلائهم.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content zh">
+                        <h3 class="bloc-title"><span class="emoji">👥</span> 谁？</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li>所有支付报酬的<span class="highlight">雇主</span>（私人企业、协会、某些公共雇主）。</li>
+                                <li>所有受雇佣合同约束的<span class="highlight">员工</span>（CDI、CDD、兼职、交替、临时工、学徒...）。</li>
+                                <li>公共雇主：有义务向其代理人显示<span class="highlight-yellow">净社会金额</span>。</li>
+                            </ul>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- QUOI ? -->
+                <article class="bloc bloc-quoi">
+                    <div class="lang-content fr active">
+                        <h3 class="bloc-title"><span class="emoji">📄</span> QUOI ?</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li>Le bulletin de paie est un <span class="highlight">document légal obligatoire</span> remis au salarié à chaque paie.</li>
+                                <li>Il récapitule salaire brut, cotisations, retenues fiscales, montant net social et net payé.</li>
+                                <li>C’est une <span class="highlight">preuve des droits sociaux</span> (retraite, chômage, aides…).</li>
+                                <li>Interdit d’y mentionner la <span class="highlight">grève</span> ou l’activité de représentation des salariés.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content en">
+                        <h3 class="bloc-title"><span class="emoji">📄</span> WHAT ?</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li>The pay slip is a <span class="highlight">mandatory legal document</span> given to the employee with each payment.</li>
+                                <li>It summarizes gross salary, contributions, tax deductions, net social amount, and net amount paid.</li>
+                                <li>It is <span class="highlight">proof of social rights</span> (retirement, unemployment, aid…).</li>
+                                <li>It is forbidden to mention <span class="highlight">strikes</span> or employee representation activity on it.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content es">
+                        <h3 class="bloc-title"><span class="emoji">📄</span> ¿QUÉ?</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li>La nómina es un <span class="highlight">documento legal obligatorio</span> entregado al empleado con cada pago.</li>
+                                <li>Resume el salario bruto, cotizaciones, retenciones fiscales, importe social neto e importe neto pagado.</li>
+                                <li>Es una <span class="highlight">prueba de los derechos sociales</span> (pensión, desempleo, ayudas...).</li>
+                                <li>Está prohibido mencionar la <span class="highlight">huelga</span> o la actividad de representación de los empleados en ella.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content de">
+                        <h3 class="bloc-title"><span class="emoji">📄</span> WAS?</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li>Die Gehaltsabrechnung ist ein <span class="highlight">obligatorisches Rechtsdokument</span>, das dem Arbeitnehmer mit jeder Zahlung ausgehändigt wird.</li>
+                                <li>Sie fasst Bruttolohn, Beiträge, Steuerabzüge, sozialen Nettobetrag und Nettolohn zusammen.</li>
+                                <li>Sie ist ein <span class="highlight">Nachweis für soziale Rechte</span> (Rente, Arbeitslosigkeit, Hilfen...).</li>
+                                <li>Es ist verboten, <span class="highlight">Streiks</span> oder die Tätigkeit der Arbeitnehmervertretung darauf zu erwähnen.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content it">
+                        <h3 class="bloc-title"><span class="emoji">📄</span> COSA?</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li>La busta paga è un <span class="highlight">documento legale obbligatorio</span> consegnato al dipendente ad ogni pagamento.</li>
+                                <li>Riepiloga stipendio lordo, contributi, ritenute fiscali, importo sociale netto e netto pagato.</li>
+                                <li>È una <span class="highlight">prova dei diritti sociali</span> (pensione, disoccupazione, aiuti...).</li>
+                                <li>È vietato menzionare lo <span class="highlight">sciopero</span> o l'attività di rappresentanza dei dipendenti su di essa.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content pl">
+                        <h3 class="bloc-title"><span class="emoji">📄</span> CO?</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li>Pasek płacowy jest <span class="highlight">obowiązkowym dokumentem prawnym</span> wydawanym pracownikowi przy każdej wypłacie.</li>
+                                <li>Podsumowuje płacę brutto, składki, potrącenia podatkowe, kwotę netto socjalną i kwotę netto wypłaconą.</li>
+                                <li>Stanowi <span class="highlight">dowód praw socjalnych</span> (emerytura, bezrobocie, zasiłki...).</li>
+                                <li>Zabrania się umieszczania na nim wzmianek o <span class="highlight">strajku</span> lub działalności reprezentacji pracowniczej.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content ja">
+                        <h3 class="bloc-title"><span class="emoji">📄</span> 何？</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li>給与明細は、給与支払いごとに従業員に渡される<span class="highlight">必須の法的文書</span>です。</li>
+                                <li>総賃金、拠出金、税金控除、純社会保険料額、および支払われた純額を要約します。</li>
+                                <li>これは<span class="highlight">社会的権利の証明</span>（退職金、失業、援助など）です。</li>
+                                <li><span class="highlight">ストライキ</span>や従業員代表活動を記載することは禁止されています。</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content ar ar-content">
+                        <h3 class="bloc-title"><span class="emoji">📄</span> مَاذَا؟</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li>كشف الراتب هو <span class="highlight">وثيقة قانونية إلزامية</span> تسلم للموظف مع كل دفعة أجر.</li>
+                                <li>يلخص الأجر الإجمالي، الاشتراكات، الاستقطاعات الضريبية، المبلغ الاجتماعي الصافي والأجر الصافي المدفوع.</li>
+                                <li>إنه <span class="highlight">إثبات للحقوق الاجتماعية</span> (التقاعد، البطالة، المساعدات...).</li>
+                                <li>يحظر ذكر <span class="highlight">الإضراب</span> أو نشاط تمثيل الموظفين فيه.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content zh">
+                        <h3 class="bloc-title"><span class="emoji">📄</span> 什么？</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li>工资单是每次发薪时交给员工的<span class="highlight">强制性法律文件</span>。</li>
+                                <li>它总结了税前工资、供款、税收扣除、净社会金额和实付净额。</li>
+                                <li>它是<span class="highlight">社会权利的证明</span>（退休金、失业、援助等）。</li>
+                                <li>禁止在上面提及<span class="highlight">罢工</span>或员工代表活动。</li>
+                            </ul>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- OÙ ? -->
+                <article class="bloc bloc-ou">
+                    <div class="lang-content fr active">
+                        <h3 class="bloc-title"><span class="emoji">📍</span> OÙ ?</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li>Application à tous les employeurs établis en <span class="highlight">France</span> (métropole et DOM).</li>
+                                <li>Concerne le secteur <span class="highlight">privé</span> et certains employeurs <span class="highlight">publics</span>.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content en">
+                        <h3 class="bloc-title"><span class="emoji">📍</span> WHERE ?</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li>Applicable to all employers established in <span class="highlight">France</span> (mainland and overseas departments/regions).</li>
+                                <li>Concerns the <span class="highlight">private</span> sector and certain <span class="highlight">public</span> employers.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content es">
+                        <h3 class="bloc-title"><span class="emoji">📍</span> ¿DÓNDE?</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li>Aplicación a todos los empleadores establecidos en <span class="highlight">Francia</span> (metrópolis y DOM).</li>
+                                <li>Concierne al sector <span class="highlight">privado</span> y a ciertos empleadores <span class="highlight">públicos</span>.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content de">
+                        <h3 class="bloc-title"><span class="emoji">📍</span> WO?</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li>Anwendbar auf alle in <span class="highlight">Frankreich</span> (Metropole und Überseegebiete/Regionen) ansässigen Arbeitgeber.</li>
+                                <li>Betrifft den <span class="highlight">privaten</span> Sektor und bestimmte <span class="highlight">öffentliche</span> Arbeitgeber.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content it">
+                        <h3 class="bloc-title"><span class="emoji">📍</span> DOVE?</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li>Applicazione a tutti i datori di lavoro stabiliti in <span class="highlight">Francia</span> (metropoli e DOM).</li>
+                                <li>Riguarda il settore <span class="highlight">privato</span> e alcuni datori di lavoro <span class="highlight">pubblici</span>.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content pl">
+                        <h3 class="bloc-title"><span class="emoji">📍</span> GDZIE?</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li>Dotyczy wszystkich pracodawców mających siedzibę we <span class="highlight">Francji</span> (metropolia i DOM).</li>
+                                <li>Dotyczy sektora <span class="highlight">prywatnego</span> i niektórych pracodawców <span class="highlight">publicznych</span>.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content ja">
+                        <h3 class="bloc-title"><span class="emoji">📍</span> どこ？</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li><span class="highlight">フランス</span>（本土および海外県・地域）に設立されたすべての雇用主に適用されます。</li>
+                                <li><span class="highlight">民間</span>部門および一部の<span class="highlight">公的</span>雇用主に関係します。</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content ar ar-content">
+                        <h3 class="bloc-title"><span class="emoji">📍</span> أَيْنَ؟</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li>ينطبق على جميع أصحاب العمل المؤسسين في <span class="highlight">فرنسا</span> (البر الرئيسي والمقاطعات والأقاليم ما وراء البحار).</li>
+                                <li>يتعلق بالقطاع <span class="highlight">الخاص</span> وبعض أصحاب العمل <span class="highlight">العموميين</span>.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content zh">
+                        <h3 class="bloc-title"><span class="emoji">📍</span> 哪里？</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li>适用于所有在<span class="highlight">法国</span>（本土和海外省/区）设立的雇主。</li>
+                                <li>涉及<span class="highlight">私营</span>部门和某些<span class="highlight">公共</span>雇主。</li>
+                            </ul>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- QUAND ? -->
+                <article class="bloc bloc-quand">
+                    <div class="lang-content fr active">
+                        <h3 class="bloc-title"><span class="emoji">⏰</span> QUAND ?</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li>Remis au salarié <span class="highlight">à chaque paiement du salaire</span>.</li>
+                                <li>L’employeur conserve un double pendant <span class="highlight-yellow">5 ans</span>.</li>
+                                <li>Le salarié est invité à conserver ses bulletins <span class="highlight">sans limitation de durée</span>.</li>
+                                <li>Nouveau modèle avec <span class="highlight-yellow">montant net social</span> applicable aux paies émises depuis le <strong>1ᵉʳ juillet 2023</strong>, modèle provisoire utilisable jusqu’au <strong>31 décembre 2026</strong>.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content en">
+                        <h3 class="bloc-title"><span class="emoji">⏰</span> WHEN ?</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li>Given to the employee <span class="highlight">with each payment of salary</span>.</li>
+                                <li>The employer keeps a copy for <span class="highlight-yellow">5 years</span>.</li>
+                                <li>The employee is advised to keep their pay slips <span class="highlight">without time limit</span>.</li>
+                                <li>New model with <span class="highlight-yellow">net social amount</span> applicable to pays issued since <strong>July 1, 2023</strong>, temporary model usable until <strong>December 31, 2026</strong>.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content es">
+                        <h3 class="bloc-title"><span class="emoji">⏰</span> ¿CUÁNDO?</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li>Entregado al empleado <span class="highlight">con cada pago de salario</span>.</li>
+                                <li>El empleador conserva una copia durante <span class="highlight-yellow">5 años</span>.</li>
+                                <li>Se recomienda al empleado conservar sus nóminas <span class="highlight">sin límite de tiempo</span>.</li>
+                                <li>Nuevo modelo con <span class="highlight-yellow">importe social neto</span> aplicable a los pagos emitidos desde el <strong>1 de julio de 2023</strong>, modelo provisional utilizable hasta el <strong>31 de diciembre de 2026</strong>.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content de">
+                        <h3 class="bloc-title"><span class="emoji">⏰</span> WANN?</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li>Aushändigung an den Arbeitnehmer <span class="highlight">mit jeder Lohnzahlung</span>.</li>
+                                <li>Der Arbeitgeber bewahrt eine Kopie für <span class="highlight-yellow">5 Jahre</span> auf.</li>
+                                <li>Dem Arbeitnehmer wird empfohlen, seine Gehaltsabrechnungen <span class="highlight">unbefristet</span> aufzubewahren.</li>
+                                <li>Neues Muster mit <span class="highlight-yellow">sozialem Nettobetrag</span>, gültig für Zahlungen, die seit dem **1. Juli 2023** ausgestellt wurden, vorläufiges Muster bis zum **31. Dezember 2026** nutzbar.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content it">
+                        <h3 class="bloc-title"><span class="emoji">⏰</span> QUANDO?</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li>Consegnato al dipendente <span class="highlight">ad ogni pagamento dello stipendio</span>.</li>
+                                <li>Il datore di lavoro conserva una copia per <span class="highlight-yellow">5 anni</span>.</li>
+                                <li>Il dipendente è invitato a conservare le sue buste paga <span class="highlight">senza limitazione di durata</span>.</li>
+                                <li>Nuovo modello con <span class="highlight-yellow">importo sociale netto</span> applicabile alle paghe emesse dal <strong>1° luglio 2023</strong>, modello provvisorio utilizzabile fino al <strong>31 dicembre 2026</strong>.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content pl">
+                        <h3 class="bloc-title"><span class="emoji">⏰</span> KIEDY?</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li>Wydawany pracownikowi <span class="highlight">przy każdej wypłacie wynagrodzenia</span>.</li>
+                                <li>Pracodawca przechowuje kopię przez <span class="highlight-yellow">5 lat</span>.</li>
+                                <li>Pracownik jest proszony o przechowywanie swoich pasków płacowych <span class="highlight">bez ograniczenia czasowego</span>.</li>
+                                <li>Nowy wzór z <span class="highlight-yellow">kwotą netto socjalną</span> obowiązuje dla płac wystawionych od <strong>1 lipca 2023 r.</strong>, wzór tymczasowy ważny do <strong>31 grudnia 2026 r.</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content ja">
+                        <h3 class="bloc-title"><span class="emoji">⏰</span> いつ？</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li><span class="highlight">給与支払いごと</span>に従業員に渡されます。</li>
+                                <li>雇用主は<span class="highlight-yellow">5年間</span>控えを保管します。</li>
+                                <li>従業員は給与明細を<span class="highlight">期限なし</span>で保管することが推奨されます。</li>
+                                <li><span class="highlight-yellow">純社会保険料額</span>を含む新モデルは<strong>2023年7月1日</strong>以降に発行された給与に適用され、暫定モデルは<strong>2026年12月31日</strong>まで使用可能です。</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content ar ar-content">
+                        <h3 class="bloc-title"><span class="emoji">⏰</span> مَتَى؟</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li>يسلم للموظف <span class="highlight">مع كل دفع للأجر</span>.</li>
+                                <li>يحتفظ صاحب العمل بنسخة مزدوجة لمدة <span class="highlight-yellow">5 سنوات</span>.</li>
+                                <li>يُنصح الموظف بالاحتفاظ بكشوف الراتب الخاصة به <span class="highlight">دون تحديد للمدة</span>.</li>
+                                <li>نموذج جديد يتضمن <span class="highlight-yellow">المبلغ الاجتماعي الصافي</span> ساري المفعول على الأجور الصادرة منذ <strong>1 يوليو 2023</strong>، نموذج مؤقت قابل للاستخدام حتى <strong>31 ديسمبر 2026</strong>.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content zh">
+                        <h3 class="bloc-title"><span class="emoji">⏰</span> 何时？</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li><span class="highlight">每次支付工资时</span>交给员工。</li>
+                                <li>雇主保留一份副本，为期<span class="highlight-yellow">5年</span>。</li>
+                                <li>建议员工<span class="highlight">无限期</span>保留其工资单。</li>
+                                <li>包含<span class="highlight-yellow">净社会金额</span>的新模式适用于自<strong>2023年7月1日</strong>以来发放的工资，临时模式可使用至<strong>2026年12月31日</strong>。</li>
+                            </ul>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- COMMENT ? -->
+                <article class="bloc bloc-comment">
+                    <div class="lang-content fr active">
+                        <h3 class="bloc-title"><span class="emoji">⚙️</span> COMMENT ?</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li>Remise possible en <span class="highlight">papier</span> ou en <span class="highlight">dématérialisé</span>.</li>
+                                <li>En cas de dématérialisation, l’employeur doit garantir <span class="highlight">accès, intégrité, confidentialité</span> et disponibilité du document.</li>
+                                <li>Le salarié peut <span class="highlight-yellow">s’opposer à tout moment</span> au format dématérialisé par un moyen donnant date certaine (mail, courrier…).</li>
+                                <li>L’ordre des rubriques et le regroupement des informations sont fixés réglementairement pour assurer la comparabilité.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content en">
+                        <h3 class="bloc-title"><span class="emoji">⚙️</span> HOW ?</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li>Possible delivery in <span class="highlight">paper</span> or <span class="highlight">dematerialized</span> format.</li>
+                                <li>In the event of dematerialization, the employer must guarantee <span class="highlight">access, integrity, confidentiality</span> and availability of the document.</li>
+                                <li>The employee can <span class="highlight-yellow">object at any time</span> to the dematerialized format by a means giving certain date (email, letter…).</li>
+                                <li>The order of the sections and the grouping of information are set by regulation to ensure comparability.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content es">
+                        <h3 class="bloc-title"><span class="emoji">⚙️</span> ¿CÓMO?</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li>Entrega posible en formato <span class="highlight">papel</span> o <span class="highlight">desmaterializado (digital)</span>.</li>
+                                <li>En caso de desmaterialización, el empleador debe garantizar el <span class="highlight">acceso, integridad, confidencialidad</span> y disponibilidad del documento.</li>
+                                <li>El empleado puede <span class="highlight-yellow">oponerse en cualquier momento</span> al formato desmaterializado por un medio que dé fecha cierta (correo electrónico, carta...).</li>
+                                <li>El orden de las secciones y la agrupación de la información están fijados reglamentariamente para asegurar la comparabilidad.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content de">
+                        <h3 class="bloc-title"><span class="emoji">⚙️</span> WIE?</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li>Zustellung möglich in <span class="highlight">Papierform</span> oder <span class="highlight">digitalisiert</span>.</li>
+                                <li>Im Falle der Digitalisierung muss der Arbeitgeber den <span class="highlight">Zugang, die Integrität, die Vertraulichkeit</span> und die Verfügbarkeit des Dokuments gewährleisten.</li>
+                                <li>Der Arbeitnehmer kann <span class="highlight-yellow">jederzeit widersprechen</span> der digitalisierten Form durch ein Mittel, das ein sicheres Datum gewährleistet (E-Mail, Brief...).</li>
+                                <li>Die Reihenfolge der Abschnitte und die Gruppierung der Informationen sind gesetzlich festgelegt, um die Vergleichbarkeit zu gewährleisten.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content it">
+                        <h3 class="bloc-title"><span class="emoji">⚙️</span> COME?</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li>Consegna possibile in formato <span class="highlight">cartaceo</span> ou <span class="highlight">dematerializzato</span>.</li>
+                                <li>In caso di dematerializzazione, il datore di lavoro deve garantire <span class="highlight">l'accesso, l'integrità, la riservatezza</span> e la disponibilità del documento.</li>
+                                <li>Il dipendente può <span class="highlight-yellow">opporsi in qualsiasi momento</span> al formato dematerializzato con un mezzo che dia data certa (e-mail, lettera...).</li>
+                                <li>L'ordine delle voci e il raggruppamento delle informazioni sono fissati dalla normativa per garantire la comparabilità.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content pl">
+                        <h3 class="bloc-title"><span class="emoji">⚙️</span> JAK?</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li>Wydanie możliwe w formie <span class="highlight">papierowej</span> lub <span class="highlight">zdematerializowanej</span> (cyfrowej).</li>
+                                <li>W przypadku dematerializacji pracodawca musi zagwarantować <span class="highlight">dostęp, integralność, poufność</span> i dostępność dokumentu.</li>
+                                <li>Pracownik może <span class="highlight-yellow">w każdej chwili sprzeciwić się</span> zdematerializowanej formie za pomocą środka dającego pewną datę (e-mail, list...).</li>
+                                <li>Kolejność rubryk i grupowanie informacji są ustalone przepisami w celu zapewnienia porównywalności.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content ja">
+                        <h3 class="bloc-title"><span class="emoji">⚙️</span> どのように？</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li><span class="highlight">紙</span>または<span class="highlight">電子</span>形式での交付が可能です。</li>
+                                <li>電子化の場合、雇用主は文書への<span class="highlight">アクセス、完全性、機密性</span>、および利用可能性を保証する必要があります。</li>
+                                <li>従業員は、確実な日付を与える手段（メール、手紙など）により、<span class="highlight-yellow">いつでも</span>電子形式に異議を唱えることができます。</li>
+                                <li>項目の順序と情報のグループ化は、比較可能性を確保するために規制によって定められています。</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content ar ar-content">
+                        <h3 class="bloc-title"><span class="emoji">⚙️</span> كَيْفَ؟</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li>التسليم ممكن بصيغة <span class="highlight">ورقية</span> أو <span class="highlight">غير مادية (رقمية)</span>.</li>
+                                <li>في حالة الرقمنة، يجب على صاحب العمل ضمان <span class="highlight">الوصول، التكامل، السرية</span> وتوفر الوثيقة.</li>
+                                <li>يمكن للموظف <span class="highlight-yellow">الاعتراض في أي وقت</span> على الصيغة الرقمية بوسيلة تعطي تاريخًا مؤكدًا (بريد إلكتروني، رسالة...).</li>
+                                <li>يتم تحديد ترتيب الأقسام وتجميع المعلومات تنظيميًا لضمان قابلية المقارنة.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content zh">
+                        <h3 class="bloc-title"><span class="emoji">⚙️</span> 如何？</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li>可以以<span class="highlight">纸质</span>或<span class="highlight">非物质化（数字化）</span>形式交付。</li>
+                                <li>如果采用数字化，雇主必须保证文件的<span class="highlight">访问、完整性、保密性</span>和可用性。</li>
+                                <li>员工可以<span class="highlight-yellow">随时反对</span>数字化形式，需通过可确定日期的方式（电子邮件、信函...）。</li>
+                                <li>栏目的顺序和信息的分组是根据规定确定的，以确保可比性。</li>
+                            </ul>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- COMBIEN ? -->
+                <article class="bloc bloc-combien">
+                    <div class="lang-content fr active">
+                        <h3 class="bloc-title"><span class="emoji">💶</span> COMBIEN ?</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li>Doit faire apparaître notamment :</li>
+                                <li>• <span class="highlight">Salaire brut</span> et montant <span class="highlight">effectivement payé</span>.</li>
+                                <li>• <span class="highlight-yellow">Montant net social</span>, <span class="highlight">net imposable</span> et retenue à la source (PAS).</li>
+                                <li>• Assiettes, taux et montants des cotisations et contributions sociales obligatoires.</li>
+                                <li>• Montant total des exonérations / allègements de cotisations le cas échéant.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content en">
+                        <h3 class="bloc-title"><span class="emoji">💶</span> HOW MUCH ?</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li>Must notably show:</li>
+                                <li>• <span class="highlight">Gross salary</span> and <span class="highlight">net amount actually paid</span>.</li>
+                                <li>• <span class="highlight-yellow">Net social amount</span>, <span class="highlight">taxable net</span> and withholding tax (PAS).</li>
+                                <li>• Bases, rates and amounts of mandatory social contributions and fees.</li>
+                                <li>• Total amount of exemptions / reductions in contributions, if applicable.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content es">
+                        <h3 class="bloc-title"><span class="emoji">💶</span> ¿CUÁNTO?</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li>Debe mostrar, en particular:</li>
+                                <li>• <span class="highlight">Salario bruto</span> e importe <span class="highlight">efectivamente pagado</span>.</li>
+                                <li>• <span class="highlight-yellow">Importe social neto</span>, <span class="highlight">neto imponible</span> y retención en la fuente (PAS).</li>
+                                <li>• Bases, tasas e importes de las cotizaciones y contribuciones sociales obligatorias.</li>
+                                <li>• Importe total de las exenciones / reducciones de cotizaciones, si procede.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content de">
+                        <h3 class="bloc-title"><span class="emoji">💶</span> WIE VIEL?</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li>Muss insbesondere anzeigen:</li>
+                                <li>• <span class="highlight">Bruttolohn</span> und <span class="highlight">tatsächlich ausgezahlter Nettobetrag</span>.</li>
+                                <li>• <span class="highlight-yellow">Sozialer Nettobetrag</span>, <span class="highlight">steuerpflichtiger Nettobetrag</span> und Quellensteuer (PAS).</li>
+                                <li>• Bemessungsgrundlagen, Sätze und Beträge der obligatorischen Sozialversicherungsbeiträge und Abgaben.</li>
+                                <li>• Gesamtbetrag der Befreiungen / Beitragsentlastungen, falls zutreffend.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content it">
+                        <h3 class="bloc-title"><span class="emoji">💶</span> QUANTO?</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li>Deve mostrare in particolare:</li>
+                                <li>• <span class="highlight">Stipendio lordo</span> e importo <span class="highlight">effettivamente pagato</span>.</li>
+                                <li>• <span class="highlight-yellow">Importo sociale netto</span>, <span class="highlight">netto imponibile</span> e ritenuta alla fonte (PAS).</li>
+                                <li>• Basi, aliquote e importi dei contributi e delle contribuzioni sociali obbligatorie.</li>
+                                <li>• Importo totale delle esenzioni / sgravi contributivi, se del caso.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content pl">
+                        <h3 class="bloc-title"><span class="emoji">💶</span> ILE?</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li>Musi zawierać w szczególności:</li>
+                                <li>• <span class="highlight">Płaca brutto</span> i <span class="highlight">faktycznie wypłacona kwota netto</span>.</li>
+                                <li>• <span class="highlight-yellow">Kwota netto socjalna</span>, <span class="highlight">netto podlegająca opodatkowaniu</span> i potrącenie u źródła (PAS).</li>
+                                <li>• Podstawy, stawki i kwoty obowiązkowych składek i wkładów socjalnych.</li>
+                                <li>• Całkowita kwota zwolnień / ulg w składkach, jeśli dotyczy.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content ja">
+                        <h3 class="bloc-title"><span class="emoji">💶</span> いくら？</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li>特に表示する必要があります：</li>
+                                <li>• <span class="highlight">総賃金</span>と<span class="highlight">実際に支払われた純額</span>。</li>
+                                <li>• <span class="highlight-yellow">純社会保険料額</span>、<span class="highlight">課税対象純額</span>、および源泉徴収税 (PAS)。</li>
+                                <li>• 必須の社会保険料および拠出金の基準、率、および金額。</li>
+                                <li>• 該当する場合、拠出金の免除/軽減の合計額。</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content ar ar-content">
+                        <h3 class="bloc-title"><span class="emoji">💶</span> كَمْ؟</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li>يجب أن تظهر بشكل خاص:</li>
+                                <li>• <span class="highlight">الأجر الإجمالي</span> و<span class="highlight">المبلغ الصافي المدفوع فعليًا</span>.</li>
+                                <li>• <span class="highlight-yellow">المبلغ الاجتماعي الصافي</span>، <span class="highlight">الصافي الخاضع للضريبة</span> والاقتطاع من المصدر (PAS).</li>
+                                <li>• قواعد، معدلات ومبالغ الاشتراكات والمساهمات الاجتماعية الإلزامية.</li>
+                                <li>• المبلغ الإجمالي للإعفاءات / التخفيفات من الاشتراكات، إن وجدت.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content zh">
+                        <h3 class="bloc-title"><span class="emoji">💶</span> 多少？</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li>必须特别显示：</li>
+                                <li>• <span class="highlight">税前工资</span>和<span class="highlight">实际支付的净额</span>。</li>
+                                <li>• <span class="highlight-yellow">净社会金额</span>、<span class="highlight">应税净额</span>和源头扣缴税 (PAS)。</li>
+                                <li>• 强制性社会供款和费用的基础、费率和金额。</li>
+                                <li>• 豁免/供款减免的总额（如适用）。</li>
+                            </ul>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- POURQUOI ? -->
+                <article class="bloc bloc-pourquoi">
+                    <div class="lang-content fr active">
+                        <h3 class="bloc-title"><span class="emoji">🎯</span> POURQUOI ?</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li>Informer le salarié sur la <span class="highlight">composition de sa rémunération</span>.</li>
+                                <li>Garantir la <span class="highlight">transparence</span> des cotisations et impôts prélevés.</li>
+                                <li>Permettre le calcul et le contrôle des <span class="highlight">droits sociaux</span> (retraite, chômage, aides…).</li>
+                                <li>Constituer une <span class="highlight">preuve en cas de litige</span> (prud’hommes, suivi de carrière…).</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content en">
+                        <h3 class="bloc-title"><span class="emoji">🎯</span> WHY ?</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li>Inform the employee about the <span class="highlight">composition of their remuneration</span>.</li>
+                                <li>Guarantee the <span class="highlight">transparency</span> of contributions and taxes deducted.</li>
+                                <li>Allow the calculation and control of <span class="highlight">social rights</span> (retirement, unemployment, aid…).</li>
+                                <li>Constitute <span class="highlight">proof in case of dispute</span> (industrial tribunals, career monitoring…).</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content es">
+                        <h3 class="bloc-title"><span class="emoji">🎯</span> ¿POR QUÉ?</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li>Informar al empleado sobre la <span class="highlight">composición de su remuneración</span>.</li>
+                                <li>Garantizar la <span class="highlight">transparencia</span> de las cotizaciones e impuestos deducidos.</li>
+                                <li>Permitir el cálculo y control de los <span class="highlight">derechos sociales</span> (pensión, desempleo, ayudas...).</li>
+                                <li>Constituir una <span class="highlight">prueba en caso de litigio</span> (tribunales laborales, seguimiento de carrera...).</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content de">
+                        <h3 class="bloc-title"><span class="emoji">🎯</span> WARUM?</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li>Information des Arbeitnehmers über die <span class="highlight">Zusammensetzung seiner Vergütung</span>.</li>
+                                <li>Gewährleistung der <span class="highlight">Transparenz</span> der abgezogenen Beiträge und Steuern.</li>
+                                <li>Ermöglichung der Berechnung und Kontrolle der <span class="highlight">sozialen Rechte</span> (Rente, Arbeitslosigkeit, Hilfen...).</li>
+                                <li>Als <span class="highlight">Beweismittel im Streitfall</span> (Arbeitsgerichte, Karriereüberwachung...) dienen.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content it">
+                        <h3 class="bloc-title"><span class="emoji">🎯</span> PERCHÉ?</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li>Informare il dipendente sulla <span class="highlight">composizione della sua retribuzione</span>.</li>
+                                <li>Garantire la <span class="highlight">trasparenza</span> dei contributi e delle imposte prelevate.</li>
+                                <li>Consentire il calcolo e il controllo dei <span class="highlight">diritti sociali</span> (pensione, disoccupazione, aiuti...).</li>
+                                <li>Costituire una <span class="highlight">prova in caso di controversia</span> (tribunali del lavoro, monitoraggio della carriera...).</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content pl">
+                        <h3 class="bloc-title"><span class="emoji">🎯</span> DLACZEGO?</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li>Poinformowanie pracownika o <span class="highlight">składzie jego wynagrodzenia</span>.</li>
+                                <li>Zagwarantowanie <span class="highlight">przejrzystości</span> pobranych składek i podatków.</li>
+                                <li>Umożliwienie obliczania i kontroli <span class="highlight">praw socjalnych</span> (emerytura, bezrobocie, zasiłki...).</li>
+                                <li>Stanowienie <span class="highlight">dowodu w przypadku sporu</span> (sądy pracy, monitorowanie kariery...).</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content ja">
+                        <h3 class="bloc-title"><span class="emoji">🎯</span> なぜ？</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li>従業員に<span class="highlight">賃金の構成</span>について知らせるため。</li>
+                                <li>徴収された拠出金と税金の<span class="highlight">透明性</span>を保証するため。</li>
+                                <li><span class="highlight">社会的権利</span>（退職金、失業、援助など）の計算と管理を可能にするため。</li>
+                                <li><span class="highlight">紛争時</span>（労働審判所、キャリア追跡など）の<span class="highlight">証明</span>となるため。</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content ar ar-content">
+                        <h3 class="bloc-title"><span class="emoji">🎯</span> لِمَاذَا؟</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li>إبلاغ الموظف حول <span class="highlight">تكوين أجره</span>.</li>
+                                <li>ضمان <span class="highlight">شفافية</span> الاشتراكات والضرائب المقتطعة.</li>
+                                <li>السماح بحساب ومراقبة <span class="highlight">الحقوق الاجتماعية</span> (التقاعد، البطالة، المساعدات...).</li>
+                                <li>تشكيل <span class="highlight">دليل في حالة النزاع</span> (مجلس العمال، متابعة المسيرة المهنية...).</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content zh">
+                        <h3 class="bloc-title"><span class="emoji">🎯</span> 为什么？</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li>告知员工其<span class="highlight">薪酬的构成</span>。</li>
+                                <li>保证扣除的供款和税收的<span class="highlight">透明度</span>。</li>
+                                <li>允许计算和控制<span class="highlight">社会权利</span>（退休金、失业、援助等）。</li>
+                                <li>构成<span class="highlight">纠纷时（劳动法庭、职业跟踪...）的证据</span>。</li>
+                            </ul>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- À RETENIR -->
+                <article class="bloc bloc-retenir">
+                    <div class="lang-content fr active">
+                        <h3 class="bloc-title"><span class="emoji">⭐</span> À RETENIR</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li>Le bulletin de paie est la <span class="highlight">pièce centrale</span> qui relie salaire, droits sociaux et fiscalité.</li>
+                                <li>L’absence de remise ou un bulletin incomplet expose l’employeur à des <span class="highlight-yellow">sanctions</span> et à des risques de contentieux.</li>
+                                <li>Le <span class="highlight-yellow">montant net social</span> est la référence pour le RSA, la prime d’activité et d’autres prestations.</li>
+                                <li>Le salarié doit conserver ses bulletins sans limite de durée : ils servent pour la retraite, les droits sociaux et la preuve de l’activité.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content en">
+                        <h3 class="bloc-title"><span class="emoji">⭐</span> TO REMEMBER</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li>The pay slip is the <span class="highlight">central document</span> linking salary, social rights, and taxation.</li>
+                                <li>Failure to deliver or an incomplete pay slip exposes the employer to <span class="highlight-yellow">sanctions</span> and litigation risks.</li>
+                                <li>The <span class="highlight-yellow">net social amount</span> is the reference for RSA, activity bonus, and other benefits.</li>
+                                <li>The employee must keep their pay slips without time limit: they are used for retirement, social rights, and proof of activity.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content es">
+                        <h3 class="bloc-title"><span class="emoji">⭐</span> A RETENER</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li>La nómina es la <span class="highlight">pieza central</span> que conecta salario, derechos sociales e impuestos.</li>
+                                <li>La falta de entrega o una nómina incompleta expone al empleador a <span class="highlight-yellow">sanciones</span> y riesgos de litigio.</li>
+                                <li>El <span class="highlight-yellow">importe social neto</span> es la referencia para el RSA, la prima de actividad y otras prestaciones.</li>
+                                <li>El empleado debe conservar sus nóminas sin límite de tiempo: sirven para la pensión, los derechos sociales y la prueba de la actividad.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content de">
+                        <h3 class="bloc-title"><span class="emoji">⭐</span> ZU MERKEN</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li>Die Gehaltsabrechnung ist das <span class="highlight">zentrale Dokument</span>, das Lohn, soziale Rechte und Besteuerung verbindet.</li>
+                                <li>Das Fehlen der Aushändigung oder eine unvollständige Abrechnung setzt den Arbeitgeber <span class="highlight-yellow">Sanktionen</span> und Rechtsrisiken aus.</li>
+                                <li>Der <span class="highlight-yellow">soziale Nettobetrag</span> ist die Referenz für den RSA, die Aktivitätsprämie und andere Leistungen.</li>
+                                <li>Der Arbeitnehmer muss seine Abrechnungen unbefristet aufbewahren: sie dienen für Rente, soziale Rechte und den Nachweis der Tätigkeit.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content it">
+                        <h3 class="bloc-title"><span class="emoji">⭐</span> DA RICORDARE</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li>La busta paga è il <span class="highlight">documento centrale</span> che collega stipendio, diritti sociali e fiscalità.</li>
+                                <li>La mancata consegna o una busta paga incompleta espone il datore di lavoro a <span class="highlight-yellow">sanzioni</span> e rischi di contenzioso.</li>
+                                <li>L'<span class="highlight-yellow">importo sociale netto</span> è il riferimento per la RSA, il bonus attività e altre prestazioni.</li>
+                                <li>Il dipendente deve conservare le sue buste paga senza limiti di durata: servono per la pensione, i diritti sociali e la prova dell'attività.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content pl">
+                        <h3 class="bloc-title"><span class="emoji">⭐</span> WARTO ZAPAMIĘTAĆ</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li>Pasek płacowy to <span class="highlight">kluczowy dokument</span> łączący wynagrodzenie, prawa socjalne i podatki.</li>
+                                <li>Brak wydania lub niekompletny pasek płacowy naraża pracodawcę na <span class="highlight-yellow">sankcje</span> i ryzyko sporów sądowych.</li>
+                                <li><span class="highlight-yellow">Kwota netto socjalna</span> est punktem odniesienia dla RSA, premii za aktywność i innych świadczeń.</li>
+                                <li>Pracownik musi przechowywać swoje paski płacowe bez ograniczenia czasowego: służą one do celów emerytalnych, praw socjalnych i dowodu aktywności.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content ja">
+                        <h3 class="bloc-title"><span class="emoji">⭐</span> 覚えておくべきこと</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li>給与明細は、賃金、社会的権利、税制を結びつける<span class="highlight">中心的な文書</span>です。</li>
+                                <li>交付の欠如や不完全な給与明細は、雇用主を<span class="highlight-yellow">制裁</span>や訴訟リスクにさらします。</li>
+                                <li><span class="highlight-yellow">純社会保険料額</span>は、RSA、活動手当、その他の給付金の基準となります。</li>
+                                <li>従業員は給与明細を期限なしで保管する必要があります。これらは退職金、社会的権利、活動の証明に役立ちます。</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content ar ar-content">
+                        <h3 class="bloc-title"><span class="emoji">⭐</span> جَدِيرٌ بِالذِّكْرِ</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li>كشف الراتب هو <span class="highlight">الوثيقة المركزية</span> التي تربط الأجر، الحقوق الاجتماعية والضرائب.</li>
+                                <li>عدم التسليم أو كشف راتب غير كامل يعرض صاحب العمل <span class="highlight-yellow">للعقوبات</span> ومخاطر النزاعات.</li>
+                                <li><span class="highlight-yellow">المبلغ الاجتماعي الصافي</span> هو المرجع لـ RSA، علاوة النشاط والخدمات الأخرى.</li>
+                                <li>يجب على الموظف الاحتفاظ بكشوف الراتب الخاصة به دون تحديد للمدة: تستخدم للتقاعد، الحقوق الاجتماعية وإثبات النشاط.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content zh">
+                        <h3 class="bloc-title"><span class="emoji">⭐</span> 记住</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li>工资单是连接工资、社会权利和税收的<span class="highlight">核心文件</span>。</li>
+                                <li>未交付或不完整的工资单会使雇主面临<span class="highlight-yellow">制裁</span>和诉讼风险。</li>
+                                <li><span class="highlight-yellow">净社会金额</span>是RSA、活动奖金和其他福利的参考。</li>
+                                <li>员工必须无限期保留其工资单：它们用于退休、社会权利和活动证明。</li>
+                            </ul>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- SOURCES OFFICIELLES -->
+                <article class="bloc bloc-sources">
+                    <div class="lang-content fr active">
+                        <h3 class="bloc-title"><span class="emoji">📚</span> SOURCES OFFICIELLES</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li>Code du travail : articles <strong>L.3243-1 à L.3243-4</strong>, <strong>R.3243-1</strong> et <strong>R.3243-2</strong>.</li>
+                                <li>Arrêté du <strong>25 février 2016</strong> modifié + arrêté du <strong>31 janvier 2023</strong> (modèle de bulletin et montant net social).</li>
+                                <li>Fiche « Règles générales relatives au bulletin de paie » – <strong>service-public.fr</strong>.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content en">
+                        <h3 class="bloc-title"><span class="emoji">📚</span> OFFICIAL SOURCES</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li>Labour Code (Code du travail): articles <strong>L.3243-1 to L.3243-4</strong>, <strong>R.3243-1</strong> and <strong>R.3243-2</strong>.</li>
+                                <li>Order of <strong>February 25, 2016</strong> modified + order of <strong>January 31, 2023</strong> (pay slip model and net social amount).</li>
+                                <li>Sheet « General rules for pay slips » – <strong>service-public.fr</strong>.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content es">
+                        <h3 class="bloc-title"><span class="emoji">📚</span> FUENTES OFICIALES</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li>Código del Trabajo (Code du travail): artículos <strong>L.3243-1 a L.3243-4</strong>, <strong>R.3243-1</strong> y <strong>R.3243-2</strong>.</li>
+                                <li>Decreto del <strong>25 de febrero de 2016</strong> modificado + decreto del <strong>31 de enero de 2023</strong> (modelo de nómina e importe social neto).</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content de">
+                        <h3 class="bloc-title"><span class="emoji">📚</span> OFFIZIELLE QUELLEN</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li>Arbeitsgesetzbuch (Code du travail): Artikel <strong>L.3243-1 bis L.3243-4</strong>, <strong>R.3243-1</strong> und <strong>R.3243-2</strong>.</li>
+                                <li>Erlass vom <strong>25. Februar 2016</strong> geändert + Erlass vom <strong>31. Januar 2023</strong> (Gehaltsabrechnungsmuster und sozialer Nettobetrag).</li>
+                                <li>Datenblatt « Allgemeine Regeln zur Gehaltsabrechnung » – <strong>service-public.fr</strong>.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content it">
+                        <h3 class="bloc-title"><span class="emoji">📚</span> FONTI UFFICIALI</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li>Codice del Lavoro (Code du travail): articoli <strong>L.3243-1 a L.3243-4</strong>, <strong>R.3243-1</strong> e <strong>R.3243-2</strong>.</li>
+                                <li>Decreto del <strong>25 febbraio 2016</strong> modificato + decreto del <strong>31 gennaio 2023</strong> (modello di busta paga e importo sociale netto).</li>
+                                <li>Scheda « Regole generali relative alla busta paga » – <strong>service-public.fr</strong>.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content pl">
+                        <h3 class="bloc-title"><span class="emoji">📚</span> ŹRÓDŁA OFICJALNE</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li>Kodeks Pracy (Code du travail): artykuły <strong>L.3243-1 do L.3243-4</strong>, <strong>R.3243-1</strong> i <strong>R.3243-2</strong>.</li>
+                                <li>Dekret z dnia <strong>25 lutego 2016 r.</strong> zmienione + dekret z dnia <strong>31 stycznia 2023 r.</strong> (wzór paska płacowego i kwota netto socjalna).</li>
+                                <li>Karta « Ogólne zasady dotyczące pasków płacowych » – <strong>service-public.fr</strong>.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content ja">
+                        <h3 class="bloc-title"><span class="emoji">📚</span> 公式情報源</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li>労働法典（Code du travail）：<strong>L.3243-1からL.3243-4</strong>、<strong>R.3243-1</strong>、および<strong>R.3243-2</strong>条。</li>
+                                <li><strong>2016年2月25日</strong>付の改正された命令 + <strong>2023年1月31日</strong>付の命令（給与明細モデルと純社会保険料額）。</li>
+                                <li>シート « 給与明細に関する一般規則 » – <strong>service-public.fr</strong>.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content ar ar-content">
+                        <h3 class="bloc-title"><span class="emoji">📚</span> المَصَادِرُ الرَّسْمِيَّةُ</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li>قانون العمل: المواد <strong>L.3243-1 إلى L.3243-4</strong>، <strong>R.3243-1</strong> و <strong>R.3243-2</strong>.</li>
+                                <li>القرار المؤرخ في <strong>25 فبراير 2016</strong> المعدل + القرار المؤرخ في <strong>31 يناير 2023</strong> (نموذج كشف الراتب والمبلغ الاجتماعي الصافي).</li>
+                                <li>بطاقة « القواعد العامة المتعلقة بكشف الراتب » – <strong>service-public.fr</strong>.</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="lang-content zh">
+                        <h3 class="bloc-title"><span class="emoji">📚</span> 官方来源</h3>
+                        <div class="bloc-content">
+                            <ul>
+                                <li>劳动法 (Code du travail)：第<strong>L.3243-1至L.3243-4</strong>、<strong>R.3243-1</strong>和<strong>R.3243-2</strong>条。</li>
+                                <li><strong>2016年2月25日</strong>的修改法令 + <strong>2023年1月31日</strong>的法令（工资单模式和净社会金额）。</li>
+                                <li>资料 « 工资单一般规定 » – <strong>service-public.fr</strong>.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </article>
+
+            </section>
+        </main>
+    </div>
+    <!-- FIN VUE PRINCIPALE -->
+
+    <!-- VUE LEXIQUE (ACRONYMES & GLOSSAIRE) -->
+    <!-- ARIA: role="tabpanel" -->
+    <div id="lexique-view" role="tabpanel" aria-labelledby="tab-acronymes tab-glossaire" hidden>
+        <section class="lexique-section">
+            
+            <!-- CONTENU ACRONYMES -->
+            <div id="acronymes-content" class="lexique-content active">
+                <div class="lang-content fr active">
+                    <h3 class="lexique-title">Acronymes</h3>
+                    <div class="lexique-grid">
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">Agirc-Arrco :</span>
+                            <span class="lexique-definition">Association générale des institutions de retraite des cadres - Association pour le régime de retraite complémentaire.</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">CDD :</span>
+                            <span class="lexique-definition">Contrat à Durée Déterminée.</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">CDI :</span>
+                            <span class="lexique-definition">Contrat à Durée Indéterminée.</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">DOM/DROM :</span>
+                            <span class="lexique-definition">Départements et Régions d'Outre-Mer.</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">MNS :</span>
+                            <span class="lexique-definition">Montant Net Social.</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">PAS :</span>
+                            <span class="lexique-definition">Prélèvement À la Source.</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">RSA :</span>
+                            <span class="lexique-definition">Revenu de Solidarité Active.</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">URSSAF :</span>
+                            <span class="lexique-definition">Union de Recouvrement des cotisations de Sécurité Sociale et d'Allocations Familiales.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lang-content en">
+                    <h3 class="lexique-title">Acronyms</h3>
+                    <div class="lexique-grid">
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">Agirc-Arrco (Complementary Retirement):</span>
+                            <span class="lexique-definition">General Association of Executive Retirement Institutions - Association for the Complementary Retirement Scheme.</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">CDD (Fixed-Term Contract):</span>
+                            <span class="lexique-definition">Contrat à Durée Déterminée (Fixed-Term Contract).</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">CDI (Permanent Contract):</span>
+                            <span class="lexique-definition">Contrat à Durée Indéterminée (Permanent Contract).</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">DOM/DROM (Overseas Dept./Regions):</span>
+                            <span class="lexique-definition">Départements et Régions d'Outre-Mer (Overseas Departments and Regions).</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">MNS (Net Social Amount):</span>
+                            <span class="lexique-definition">Montant Net Social (Net Social Amount).</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">PAS (Withholding Tax):</span>
+                            <span class="lexique-definition">Prélèvement À la Source (Withholding Tax).</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">RSA (Active Solidarity Income):</span>
+                            <span class="lexique-definition">Revenu de Solidarité Active (Active Solidarity Income).</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">URSSAF:</span>
+                            <span class="lexique-definition">Union of Social Security and Family Allowances Collection.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lang-content es">
+                    <h3 class="lexique-title">Acrónimos</h3>
+                    <div class="lexique-grid">
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">Agirc-Arrco :</span>
+                            <span class="lexique-definition">Asociación general de las instituciones de jubilación de ejecutivos - Asociación para el régimen de jubilación complementaria.</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">CDD (Contrato Temporal):</span>
+                            <span class="lexique-definition">Contrat à Durée Déterminée (Contrato Temporal).</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">CDI (Contrato Indefinido):</span>
+                            <span class="lexique-definition">Contrat à Durée Indéterminée (Contrato Indefinido).</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">DOM/DROM (Dept./Reg. de Ultramar):</span>
+                            <span class="lexique-definition">Départements et Régions d'Outre-Mer (Departamentos y Regiones de Ultramar).</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">MNS (Importe Social Neto):</span>
+                            <span class="lexique-definition">Montant Net Social (Importe Social Neto).</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">PAS (Retención en origen):</span>
+                            <span class="lexique-definition">Prélèvement À la Source (Retención en origen).</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">RSA (Renta de Solidaridad Activa):</span>
+                            <span class="lexique-definition">Revenu de Solidarité Active (Renta de Solidaridad Activa).</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">URSSAF:</span>
+                            <span class="lexique-definition">Unión de Recaudación de las cotizaciones de la Seguridad Social y de las Asignaciones Familiares.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lang-content de">
+                    <h3 class="lexique-title">Akronyme</h3>
+                    <div class="lexique-grid">
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">Agirc-Arrco:</span>
+                            <span class="lexique-definition">Allgemeine Vereinigung der Rentenkassen für Führungskräfte - Vereinigung für die Zusatzrentenregelung.</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">CDD (Befristeter Vertrag):</span>
+                            <span class="lexique-definition">Contrat à Durée Déterminée (Befristeter Vertrag).</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">CDI (Unbefristeter Vertrag):</span>
+                            <span class="lexique-definition">Contrat à Durée Indéterminée (Unbefristeter Vertrag).</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">DOM/DROM (Überseedepartements/-regionen):</span>
+                            <span class="lexique-definition">Départements et Régions d'Outre-Mer (Überseedepartements und Regionen).</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">MNS (Sozialer Nettobetrag):</span>
+                            <span class="lexique-definition">Montant Net Social (Sozialer Nettobetrag).</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">PAS (Quellensteuer):</span>
+                            <span class="lexique-definition">Prélèvement À la Source (Quellensteuer).</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">RSA (Aktives Solidaritätseinkommen):</span>
+                            <span class="lexique-definition">Revenu de Solidarité Active (Aktives Solidaritätseinkommen).</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">URSSAF:</span>
+                            <span class="lexique-definition">Union zur Einziehung der Beiträge zur Sozialversicherung und Familienkassen.</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="lang-content it">
+                    <h3 class="lexique-title">Acronimi</h3>
+                    <div class="lexique-grid">
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">Agirc-Arrco :</span>
+                            <span class="lexique-definition">Associazione generale degli istituti di previdenza per i dirigenti - Associazione per il regime di pensione complementare.</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">CDD (Contratto a tempo determinato):</span>
+                            <span class="lexique-definition">Contrat à Durée Déterminée (Contratto a tempo determinato).</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">CDI (Contratto a tempo indeterminato):</span>
+                            <span class="lexique-definition">Contrat à Durée Indéterminée (Contratto a tempo indeterminato).</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">DOM/DROM (Dipartimenti/Regioni d'Oltremare):</span>
+                            <span class="lexique-definition">Départements et Régions d'Outre-Mer (Dipartimenti e Regioni d'Oltremare).</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">MNS (Importo Sociale Netto):</span>
+                            <span class="lexique-definition">Montant Net Social (Importo Sociale Netto).</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">PAS (Ritenuta alla fonte):</span>
+                            <span class="lexique-definition">Prélèvement À la Source (Ritenuta alla fonte).</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">RSA (Reddito di Solidarietà Attiva):</span>
+                            <span class="lexique-definition">Revenu de Solidarité Active (Reddito di Solidarietà Attiva).</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">URSSAF:</span>
+                            <span class="lexique-definition">Unione di riscossione dei contributi previdenziali e degli assegni familiari.</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="lang-content pl">
+                    <h3 class="lexique-title">Skróty</h3>
+                    <div class="lexique-grid">
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">Agirc-Arrco:</span>
+                            <span class="lexique-definition">Ogólne Stowarzyszenie Instytucji Emerytalnych Kadry Kierowniczej - Stowarzyszenie ds. Uzupełniającego Systemu Emerytalnego.</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">CDD (Umowa na czas określony):</span>
+                            <span class="lexique-definition">Contrat à Durée Déterminée (Umowa na czas określony).</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">CDI (Umowa na czas nieokreślony):</span>
+                            <span class="lexique-definition">Contrat à Durée Indéterminée (Umowa na czas nieokreślony).</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">DOM/DROM (Departamenty/Regiony Zamorskie):</span>
+                            <span class="lexique-definition">Départements et Régions d'Outre-Mer (Departamenty i Regiony Zamorskie).</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">MNS (Kwota Netto Socjalna):</span>
+                            <span class="lexique-definition">Montant Net Social (Kwota Netto Socjalna).</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">PAS (Potrącenie u źródła):</span>
+                            <span class="lexique-definition">Prélèvement À la Source (Potrącenie u źródła).</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">RSA (Dochód Solidarności Aktywnej):</span>
+                            <span class="lexique-definition">Revenu de Solidarité Active (Dochód Solidarności Aktywnej).</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">URSSAF:</span>
+                            <span class="lexique-definition">Związek ds. Poboru Składek na Ubezpieczenie Społeczne i Zasiłków Rodzinnych.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lang-content ja">
+                    <h3 class="lexique-title">頭字語</h3>
+                    <div class="lexique-grid">
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">Agirc-Arrco:</span>
+                            <span class="lexique-definition">幹部退職年金機関総連合 - 補足退職年金制度のための連合.</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">CDD (有期雇用契約):</span>
+                            <span class="lexique-definition">Contrat à Durée Déterminée (有期雇用契約).</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">CDI (無期雇用契約):</span>
+                            <span class="lexique-definition">Contrat à Durée Indéterminée (無期雇用契約).</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">DOM/DROM (海外県/地域):</span>
+                            <span class="lexique-definition">Départements et Régions d'Outre-Mer (海外県および地域).</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">MNS (純社会保険料額):</span>
+                            <span class="lexique-definition">Montant Net Social (純社会保険料額).</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">PAS (源泉徴収):</span>
+                            <span class="lexique-definition">Prélèvement À la Source (源泉徴収).</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">RSA (活動連帯所得):</span>
+                            <span class="lexique-definition">Revenu de Solidarité Active (活動連帯所得).</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">URSSAF:</span>
+                            <span class="lexique-definition">社会保障および家族手当拠出金徴収連合.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lang-content ar ar-content">
+                    <h3 class="lexique-title">المختصرات</h3>
+                    <div class="lexique-grid">
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">Agirc-Arrco:</span>
+                            <span class="lexique-definition">الجمعية العامة لمؤسسات تقاعد المديرين التنفيذيين - الجمعية لنظام التقاعد التكميلي.</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">CDD (عقد محدد المدة):</span>
+                            <span class="lexique-definition">Contrat à Durée Déterminée (عقد محدد المدة).</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">CDI (عقد غير محدد المدة):</span>
+                            <span class="lexique-definition">Contrat à Durée Indéterminée (عقد غير محدد المدة).</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">DOM/DROM (المقاطعات/الأقاليم ما وراء البحار):</span>
+                            <span class="lexique-definition">Départements et Régions d'Outre-Mer (مقاطعات ومناطق ما وراء البحار).</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">MNS (المبلغ الاجتماعي الصافي):</span>
+                            <span class="lexique-definition">Montant Net Social (المبلغ الاجتماعي الصافي).</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">PAS (الاقتطاع من المصدر):</span>
+                            <span class="lexique-definition">Prélèvement À la Source (الاقتطاع من المصدر).</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">RSA (دخل التضامن النشط):</span>
+                            <span class="lexique-definition">Revenu de Solidarité Active (دخل التضامن النشط).</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">URSSAF:</span>
+                            <span class="lexique-definition">اتحاد استرداد اشتراكات الضمان الاجتماعي والمخصصات العائلية.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lang-content zh">
+                    <h3 class="lexique-title">缩略词</h3>
+                    <div class="lexique-grid">
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">Agirc-Arrco:</span>
+                            <span class="lexique-definition">高管退休机构总协会 - 补充退休金制度协会.</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">CDD (固定期限合同):</span>
+                            <span class="lexique-definition">Contrat à Durée Déterminée (固定期限合同).</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">CDI (无固定期限合同):</span>
+                            <span class="lexique-definition">Contrat à Durée Indéterminée (无固定期限合同).</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">DOM/DROM (海外省/区):</span>
+                            <span class="lexique-definition">Départements et Régions d'Outre-Mer (海外省和地区).</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">MNS (净社会金额):</span>
+                            <span class="lexique-definition">Montant Net Social (净社会金额).</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">PAS (预扣税):</span>
+                            <span class="lexique-definition">Prélèvement À la Source (预扣税).</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">RSA (积极团结收入):</span>
+                            <span class="lexique-definition">Revenu de Solidarité Active (积极团结收入).</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">URSSAF:</span>
+                            <span class="lexique-definition">社会保障和家庭津贴征收联合会.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CONTENU GLOSSAIRE -->
+            <div id="glossaire-content" class="lexique-content">
+                <div class="lang-content fr active">
+                    <h3 class="lexique-title">Glossaire</h3>
+                    <div class="lexique-grid">
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">Allocations familiales :</span>
+                            <span class="lexique-definition">Aides financières versées par la CAF (Caisse d'Allocations Familiales) aux familles pour l'éducation des enfants.</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">Assiette de cotisations :</span>
+                            <span class="lexique-definition">Base de calcul sur laquelle s'appliquent les taux des cotisations sociales.</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">Contentieux :</span>
+                            <span class="lexique-definition">Ensemble des litiges (contestations, procès) liés à l'application du droit du travail.</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">Cotisations sociales :</span>
+                            <span class="lexique-definition">Sommes prélevées sur le salaire pour financer la protection sociale (santé, retraite, chômage, famille).</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">Droit de grève :</span>
+                            <span class="lexique-definition">Droit constitutionnel pour les salariés de cesser collectivement le travail pour défendre des intérêts professionnels.</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">Net imposable :</span>
+                            <span class="lexique-definition">Le montant du salaire servant de base au calcul de l'impôt sur le revenu après déduction forfaitaire ou réelle.</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">Salaire brut :</span>
+                            <span class="lexique-definition">Le montant total de la rémunération avant toute déduction (cotisations sociales, impôt).</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">Salarié :</span>
+                            <span class="lexique-definition">Personne liée à un employeur par un contrat de travail et recevant une rémunération.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lang-content en">
+                    <h3 class="lexique-title">Glossary</h3>
+                    <div class="lexique-grid">
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">Allocations familiales (Family Allowances) :</span>
+                            <span class="lexique-definition">Financial aid paid by the CAF (Family Allowance Fund) to families for the education of children.</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">Assiette de cotisations (Contribution Base) :</span>
+                            <span class="lexique-definition">The calculation base on which the rates of social contributions are applied.</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">Contentieux (Litigation) :</span>
+                            <span class="lexique-definition">All disputes (contests, lawsuits) related to the application of labour law.</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">Cotisations sociales (Social Contributions) :</span>
+                            <span class="lexique-definition">Amounts deducted from salary to finance social protection (health, retirement, unemployment, family).</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">Droit de grève (Right to Strike) :</span>
+                            <span class="lexique-definition">Constitutional right for employees to collectively stop working to defend professional interests.</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">Net imposable (Taxable Net) :</span>
+                            <span class="lexique-definition">The amount of salary used as the basis for calculating income tax after flat-rate or actual deduction.</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">Salaire brut (Gross Salary) :</span>
+                            <span class="lexique-definition">The total amount of remuneration before any deductions (social contributions, tax).</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">Salarié (Employee) :</span>
+                            <span class="lexique-definition">Person bound to an employer by an employment contract and receiving remuneration.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lang-content es">
+                    <h3 class="lexique-title">Glosario</h3>
+                    <div class="lexique-grid">
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">Asignaciones familiares :</span>
+                            <span class="lexique-definition">Ayudas financieras pagadas por la CAF (Caja de Asignaciones Familiares) a las familias para la educación de los hijos.</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">Base de cotización :</span>
+                            <span class="lexique-definition">Base de cálculo sobre la que se aplican las tasas de las cotizaciones sociales.</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">Contentieux (Litigio) :</span>
+                            <span class="lexique-definition">Conjunto de disputas (impugnaciones, juicios) relacionadas con la aplicación del derecho laboral.</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">Cotizaciones sociales :</span>
+                            <span class="lexique-definition">Sumas deducidas del salario para financiar la protección social (salud, pensión, desempleo, familia).</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">Derecho de huelga :</span>
+                            <span class="lexique-definition">Derecho constitucional para los empleados de cesar colectivamente el trabajo para defender intereses profesionales.</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">Neto imponible :</span>
+                            <span class="lexique-definition">El importe del salario que sirve de base para el cálculo del impuesto sobre la renta después de la deducción fija o real.</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">Salario bruto :</span>
+                            <span class="lexique-definition">El importe total de la remuneración antes de cualquier deducción (cotizaciones sociales, impuesto).</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">Empleado (Salarié) :</span>
+                            <span class="lexique-definition">Persona vinculada a un empleador por un contrato de trabajo y que recibe una remuneración.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lang-content de">
+                    <h3 class="lexique-title">Glossar</h3>
+                    <div class="lexique-grid">
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">Arbeitnehmer :</span>
+                            <span class="lexique-definition">Person, die durch einen Arbeitsvertrag an einen Arbeitgeber gebunden ist und eine Vergütung erhält.</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">Beitragsbemessungsgrundlage :</span>
+                            <span class="lexique-definition">Die Berechnungsgrundlage, auf die die Sätze der Sozialbeiträge angewendet werden.</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">Bruttolohn :</span>
+                            <span class="lexique-definition">Der Gesamtbetrag der Vergütung vor allen Abzügen (Sozialbeiträge, Steuern).</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">Familienzulagen :</span>
+                            <span class="lexique-definition">Finanzielle Hilfen, die von der CAF (Familienkasse) an Familien für die Kindererziehung gezahlt werden.</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">Rechtsstreit (Contentieux) :</span>
+                            <span class="lexique-definition">Gesamtheit der Streitigkeiten (Anfechtungen, Prozesse) im Zusammenhang mit der Anwendung des Arbeitsrechts.</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">Sozialbeiträge :</span>
+                            <span class="lexique-definition">Vom Lohn abgezogene Beträge zur Finanzierung der sozialen Sicherheit (Gesundheit, Rente, Arbeitslosigkeit, Familie).</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">Steuerpflichtiger Nettobetrag :</span>
+                            <span class="lexique-definition">Der Lohnbetrag, der nach pauschalem oder tatsächlichem Abzug als Grundlage für die Berechnung der Einkommensteuer dient.</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">Streikrecht :</span>
+                            <span class="lexique-definition">Verfassungsmäßiges Recht der Arbeitnehmer, die Arbeit kollektiv niederzulegen, um berufliche Interessen zu verteidigen.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lang-content it">
+                    <h3 class="lexique-title">Glossario</h3>
+                    <div class="lexique-grid">
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">Assegni familiari :</span>
+                            <span class="lexique-definition">Aiuti finanziari versati dalla CAF (Cassa Assegni Familiari) alle famiglie per l'educazione dei figli.</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">Base contributiva :</span>
+                            <span class="lexique-definition">Base di calcolo sulla quale si applicano le aliquote dei contributi sociali.</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">Contenzioso :</span>
+                            <span class="lexique-definition">Insieme delle controversie (contestazioni, processi) legate all'applicazione del diritto del lavoro.</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">Contributi sociali :</span>
+                            <span class="lexique-definition">Somme prelevate sullo stipendio per finanziare la protezione sociale (salute, pensione, disoccupazione, famiglia).</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">Diritto di sciopero :</span>
+                            <span class="lexique-definition">Diritto costituzionale per i dipendenti di cessare collettivamente il lavoro per difendere interessi professionali.</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">Imponibile netto :</span>
+                            <span class="lexique-definition">L'importo dello stipendio che funge da base per il calcolo dell'imposta sul reddito dopo la detrazione forfettaria o effettiva.</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">Stipendio lordo :</span>
+                            <span class="lexique-definition">L'importo totale della retribuzione prima di qualsiasi detrazione (contributi sociali, imposta).</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">Dipendente :</span>
+                            <span class="lexique-definition">Persona legata a un datore di lavoro da un contratto di lavoro e che riceve una retribuzione.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lang-content pl">
+                    <h3 class="lexique-title">Słownik</h3>
+                    <div class="lexique-grid">
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">Pracownik :</span>
+                            <span class="lexique-definition">Osoba związana z pracodawcą umową o pracę i otrzymująca wynagrodzenie.</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">Płaca brutto :</span>
+                            <span class="lexique-definition">Całkowita kwota wynagrodzenia przed wszystkimi potrąceniami (składki socjalne, podatek).</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">Składki socjalne :</span>
+                            <span class="lexique-definition">Kwoty potrącane z wynagrodzenia na finansowanie ochrony socjalnej (zdrowie, emerytura, bezrobocie, rodzina).</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">Netto podlegające opodatkowaniu :</span>
+                            <span class="lexique-definition">Kwota wynagrodzenia służąca jako podstawa do obliczenia podatku dochodowego po odliczeniu ryczałtowym lub faktycznym.</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">Zasiłki rodzinne :</span>
+                            <span class="lexique-definition">Pomoc finansowa wypłacana przez CAF (Kasę Zasiłków Rodzinnych) rodzinom na wychowanie dzieci.</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">Podstawa wymiaru składek :</span>
+                            <span class="lexique-definition">Podstawa obliczeniowa, do której stosuje się stawki składek socjalnych.</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">Prawo do strajku :</span>
+                            <span class="lexique-definition">Konstytucyjne prawo pracowników do zbiorowego zaprzestania pracy w celu obrony interesów zawodowych.</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">Spory (Contentieux) :</span>
+                            <span class="lexique-definition">Zbiór sporów (zastrzeżeń, postępowań sądowych) związanych ze stosowaniem prawa pracy.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lang-content ja">
+                    <h3 class="lexique-title">用語集</h3>
+                    <div class="lexique-grid">
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">課税対象純額 :</span>
+                            <span class="lexique-definition">定額または実額控除後の所得税の計算基準となる賃金額。</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">家族手当 :</span>
+                            <span class="lexique-definition">CAF（家族手当金庫）から家族に支払われる、子供の教育のための財政援助。</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">係争 (Contentieux) :</span>
+                            <span class="lexique-definition">労働法の適用に関連するすべての紛争（異議申し立て、訴訟）の集合。</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">従業員 :</span>
+                            <span class="lexique-definition">雇用契約により雇用主と結ばれ、報酬を受け取る者。</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">社会保険料 :</span>
+                            <span class="lexique-definition">社会保障（健康、退職金、失業、家族）を賄うために賃金から控除される金額。</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">拠出金算定基礎 :</span>
+                            <span class="lexique-definition">社会保険料率が適用される計算の基礎。</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">ストライキ権 :</span>
+                            <span class="lexique-definition">職業上の利益を守るために従業員が集団で仕事を停止する憲法上の権利。</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">総賃金 :</span>
+                            <span class="lexique-definition">社会保険料や税金などの控除前の総報酬額。</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lang-content ar ar-content">
+                    <h3 class="lexique-title">مسرد</h3>
+                    <div class="lexique-grid">
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">الأجر الإجمالي :</span>
+                            <span class="lexique-definition">المبلغ الإجمالي للأجر قبل أي خصومات (الاشتراكات الاجتماعية، الضريبة).</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">الاشتراكات الاجتماعية :</span>
+                            <span class="lexique-definition">المبالغ المقتطعة من الأجر لتمويل الحماية الاجتماعية (الصحة، التقاعد، البطالة، الأسرة).</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">الصافي الخاضع للضريبة :</span>
+                            <span class="lexique-definition">مبلغ الأجر الذي يُستخدم كأساس لحساب ضريبة الدخل بعد الخصم الجزافي أو الفعلي.</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">المخصصات العائلية :</span>
+                            <span class="lexique-definition">مساعدات مالية تدفعها CAF (صندوق المخصصات العائلية) للأسر لتربية الأطفال.</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">الموظف :</span>
+                            <span class="lexique-definition">الشخص المرتبط بصاحب العمل بعقد عمل ويتقاضى أجرًا.</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">النزاعات القضائية (Contentieux) :</span>
+                            <span class="lexique-definition">مجموعة النزاعات (الاعتراضات، الدعاوى القضائية) المتعلقة بتطبيق قانون العمل.</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">حق الإضراب :</span>
+                            <span class="lexique-definition">حق دستوري للموظفين في التوقف الجماعي عن العمل للدفاع عن المصالح المهنية.</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">وعاء الاشتراكات :</span>
+                            <span class="lexique-definition">قاعدة الحساب التي تُطبق عليها معدلات الاشتراكات الاجتماعية.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lang-content zh">
+                    <h3 class="lexique-title">汇表</h3>
+                    <div class="lexique-grid">
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">罢工权 :</span>
+                            <span class="lexique-definition">员工集体停止工作以维护职业利益的宪法权利。</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">供款基数 :</span>
+                            <span class="lexique-definition">应用社会供款税率的计算基础。</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">家庭津贴 :</span>
+                            <span class="lexique-definition">CAF（家庭津贴基金）支付给家庭用于子女教育的财政援助。</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">社会供款 :</span>
+                            <span class="lexique-definition">从工资中扣除的用于资助社会保障（健康、退休金、失业、家庭）的款项。</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">诉讼（Contentieux） :</span>
+                            <span class="lexique-definition">与适用劳动法相关的所有争议（异议、诉讼）。</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">税前工资 :</span>
+                            <span class="lexique-definition">在任何扣除（社会供款、税收）之前的总报酬金额。</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">员工 :</span>
+                            <span class="lexique-definition">通过雇佣合同与雇主绑定并获得报酬的人。</span>
+                        </div>
+                        <div class="lexique-item">
+                            <span class="lexique-acronyme">应税净额 :</span>
+                            <span class="lexique-definition">在固定或实际扣除后，作为计算所得税基础的工资金额。</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <!-- FIN VUE LEXIQUE -->
+
+
+    <!-- Signature -->
+   <footer class="fiche-footer">
+        <div id="footer-content">
+            <div class="lang-content fr active">
+                <span class="footer-line">💫 PAÏA Pulse – Plateforme d’Actualisation & d’Information (IA) | Code Pulse : <strong>SP_BP_001</strong> | By Mathilde Martine PAISLEY</span>
+                <span class="footer-line">© 2025 Tous droits réservés – Création : 17/11/2025 – Dernière mise à jour : 01/09/2025</span>
+            </div>
+            <div class="lang-content en">
+                <span class="footer-line">💫 PAÏA Pulse – Update & Information Platform (AI) | Code Pulse : <strong>SP_BP_001</strong> | By Mathilde Martine PAISLEY</span>
+                <span class="footer-line">© 2025 All rights reserved – Creation: 17/11/2025 – Last Update: 01/09/2025</span>
+            </div>
+            <div class="lang-content es">
+                <span class="footer-line">💫 PAÏA Pulse – Plataforma de Actualización e Información (IA) | Código Pulse : <strong>SP_BP_001</strong> | By Mathilde Martine PAISLEY</span>
+                <span class="footer-line">© 2025 Todos los derechos reservados – Creación: 17/11/2025 – Última actualización: 01/09/2025</span>
+            </div>
+            <div class="lang-content de">
+                <span class="footer-line">💫 PAÏA Pulse – Aktualisierungs- und Informationsplattform (KI) | Code Pulse : <strong>SP_BP_001</strong> | By Mathilde Martine PAISLEY</span>
+                <span class="footer-line">© 2025 Alle Rechte vorbehalten – Erstellung: 17/11/2025 – Letzte Aktualisierung: 01/09/2025</span>
+            </div>
+            <div class="lang-content it">
+                <span class="footer-line">💫 PAÏA Pulse – Piattaforma di Aggiornamento e Informazione (IA) | Codice Pulse : <strong>SP_BP_001</strong> | By Mathilde Martine PAISLEY</span>
+                <span class="footer-line">© 2025 Tutti i diritti riservati – Creazione: 17/11/2025 – Ultimo aggiornamento: 01/09/2025</span>
+            </div>
+            <div class="lang-content pl">
+                <span class="footer-line">💫 PAÏA Pulse – Platforma Aktualizacji i Informacji (AI) | Kod Pulse : <strong>SP_BP_001</strong> | By Mathilde Martine PAISLEY</span>
+                <span class="footer-line">© 2025 Wszelkie prawa zastrzeżone – Utworzenie: 17/11/2025 – Ostatnia aktualizacja: 01/09/2025</span>
+            </div>
+            <div class="lang-content ja">
+                <span class="footer-line">💫 PAÏA Pulse – 更新と情報提供プラットフォーム (IA) | コードパルス : <strong>SP_BP_001</strong> | By Mathilde Martine PAISLEY</span>
+                <span class="footer-line">© 2025 全著作権所有 – 作成日: 17/11/2025 – 最終更新日: 01/09/2025</span>
+            </div>
+            <div class="lang-content ar ar-content">
+                <span class="footer-line">💫 PAÏA Pulse – منصة التحديث والمعلومات (IA) | رمز النبض : <strong>SP_BP_001</strong> | By Mathilde Martine PAISLEY</span>
+                <span class="footer-line">© 2025 جميع الحقوق محفوظة – تاريخ الإنشاء: 17/11/2025 – آخر تحديث: 01/09/2025</span>
+            </div>
+            <div class="lang-content zh">
+                <span class="footer-line">💫 PAÏA Pulse – 更新与信息平台 (AI) | 代码脉冲 : <strong>SP_BP_001</strong> | By Mathilde Martine PAISLEY</span>
+                <span class="footer-line">© 2025 保留所有权利 – 创建日期: 17/11/2025 – 最后更新: 01/09/2025</span>
+            </div>
+        </div>
+    </footer>
+
+
+</div>
+
+<!-- SCRIPT JAVASCRIPT POUR LE CHANGEMENT DE LANGUE ET LA NAVIGATION -->
+<script>
+    // Configuration de l'API (la clé API est injectée automatiquement au runtime)
+    const API_KEY = ""; 
+    const TTS_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${API_KEY}`;
+    
+    // --- UTILITIES TTS (Audio PCM vers WAV) ---
+    // Ces fonctions sont nécessaires car l'API TTS retourne de l'audio PCM brut.
+    
+    /** Convertit une chaîne Base64 en ArrayBuffer. */
+    function base64ToArrayBuffer(base64) {
+        const binaryString = atob(base64);
+        const len = binaryString.length;
+        const bytes = new Uint8Array(len);
+        for (let i = 0; i < len; i++) {
+            bytes[i] = binaryString.charCodeAt(i);
+        }
+        return bytes.buffer;
+    }
+    
+    /** Convertit les données PCM 16 bits en blob WAV jouable. */
+    function pcmToWav(pcm16, sampleRate) {
+        const pcmData = pcm16.buffer;
+        const numChannels = 1;
+        const bitsPerSample = 16;
+        const byteRate = sampleRate * numChannels * (bitsPerSample / 8);
+        const blockAlign = numChannels * (bitsPerSample / 8);
+
+        const dataLength = pcmData.byteLength;
+        const buffer = new ArrayBuffer(44 + dataLength);
+        const view = new DataView(buffer);
+        let offset = 0;
+
+        function writeString(str) {
+            for (let i = 0; i < str.length; i++) {
+                view.setUint8(offset + i, str.charCodeAt(i));
+            }
+            offset += str.length;
+        }
+
+        function writeUint32(value) {
+            view.setUint32(offset, value, true); // little-endian
+            offset += 4;
+        }
+
+        function writeUint16(value) {
+            view.setUint16(offset, value, true); // little-endian
+            offset += 2;
+        }
+
+        // RIFF chunk
+        writeString('RIFF');
+        writeUint32(36 + dataLength); // file size - 8
+        writeString('WAVE');
+
+        // fmt chunk
+        writeString('fmt ');
+        writeUint32(16);             // chunk size (16 for PCM)
+        writeUint16(1);              // format code (1 for PCM)
+        writeUint16(numChannels);
+        writeUint32(sampleRate);
+        writeUint32(byteRate);
+        writeUint16(blockAlign);
+        writeUint16(bitsPerSample);
+
+        // data chunk
+        writeString('data');
+        writeUint32(dataLength);
+        
+        // Copy PCM data
+        const pcmBytes = new Uint8Array(pcmData);
+        for (let i = 0; i < dataLength; i++) {
+            view.setUint8(offset + i, pcmBytes[i]);
+        }
+
+        return new Blob([view], { type: 'audio/wav' });
+    }
+    
+    // --- ÉTAT DE L'APPLICATION ---
+    let currentAudio = null;
+    const voiceMap = {
+        'fr': 'Kore', // Voix ferme pour le français
+        'en': 'Zephyr', // Voix brillante pour l'anglais
+        'es': 'Puck', // Voix optimiste pour l'espagnol
+        'de': 'Charon', // Voix informative pour l'allemand
+        'it': 'Orus', // Voix ferme pour l'italien
+        'pl': 'Umbriel', // Voix décontractée pour le polonais
+        'ja': 'Aoede', // Voix légère pour le japonais
+        'ar': 'Algieba', // Voix douce pour l'arabe
+        'zh': 'Achird' // Voix amicale pour le chinois
+        // Si une langue n'est pas supportée, l'API renvoie une erreur.
+    };
+    
+    const languageCodeMap = {
+        'fr': 'fr-FR',
+        'en': 'en-US',
+        'es': 'es-US',
+        'de': 'de-DE',
+        'it': 'it-IT',
+        'pl': 'pl-PL',
+        'ja': 'ja-JP',
+        'ar': 'ar-EG',
+        'zh': 'zh-CN' // CN ou TW
+    };
+
+    // --- LOGIQUE DE LECTURE VOCALE ---
+    
+    /** Affiche une boîte de message temporaire */
+    function showMessage(text, duration = 3000) {
+        const box = document.getElementById('messageBox');
+        box.textContent = text;
+        box.style.display = 'block';
+        setTimeout(() => {
+            box.style.display = 'none';
+        }, duration);
+    }
+    
+    /** Met à jour le bouton de lecture (icône et texte) */
+    function updateReadButton(state = 'ready', currentLang = 'fr') {
+        const button = document.getElementById('readButton');
+        const icon = button.querySelector('i');
+        const textSpan = document.getElementById('readButtonText');
+        
+        // Arrêter l'audio si nécessaire
+        if (state === 'ready' && currentAudio) {
+            currentAudio.pause();
+            currentAudio = null;
+        }
+
+        button.disabled = (state === 'loading');
+
+        if (state === 'loading') {
+            icon.className = 'loading-spinner';
+            textSpan.textContent = 'Génération...';
+        } else if (state === 'playing') {
+            icon.className = 'fas fa-stop';
+            textSpan.textContent = 'Arrêter la Lecture';
+        } else { // 'ready' or 'error'
+            icon.className = 'fas fa-volume-up';
+            // Mettre à jour le texte du bouton selon la langue active
+            const langTexts = {
+                'fr': 'Lecture Vocale',
+                'en': 'Voice Play',
+                'es': 'Lectura Vocal',
+                'de': 'Sprachwiedergabe',
+                'it': 'Lettura Vocale',
+                'pl': 'Odtwarzanie Głosu',
+                'ja': '音声再生',
+                'ar': 'القراءة الصوتية',
+                'zh': '语音播放'
+            };
+            textSpan.textContent = langTexts[currentLang] || 'Lecture Vocale';
+        }
+    }
+    
+    /** Extrait le contenu textuel de la vue active */
+    function getActiveContentText(langCode) {
+        let contentToRead = "";
+        
+        // 1. Déterminer la vue active (Fiche ou Lexique)
+        const ficheView = document.getElementById('main-content-view');
+        const lexiqueView = document.getElementById('lexique-view');
+        
+        let activeViewElement = null;
+        if (ficheView.classList.contains('active')) {
+            activeViewElement = ficheView;
+        } else if (lexiqueView.classList.contains('active')) {
+             // Pour le lexique, on lit uniquement le contenu actif (Acronymes ou Glossaire)
+            const activeLexiqueContent = lexiqueView.querySelector('.lexique-content.active');
+            if (activeLexiqueContent) {
+                 activeViewElement = activeLexiqueContent;
+            }
+        }
+        
+        if (!activeViewElement) {
+            return ""; // Rien à lire
+        }
+        
+        // 2. Cibler le contenu dans la langue sélectionnée
+        const langContentElement = activeViewElement.querySelector(`.lang-content.${langCode}`);
+        
+        if (langContentElement) {
+             // On extrait tout le texte des titres et des blocs
+             const title = langContentElement.querySelector('.fiche-main-title, .lexique-title')?.textContent.trim() || '';
+             const subtitle = langContentElement.querySelector('.fiche-main-sub')?.textContent.trim() || '';
+             const blocks = langContentElement.querySelectorAll('.bloc-title, .bloc-content, .lexique-item');
+             
+             contentToRead += title + '. ' + subtitle + '. ';
+
+             blocks.forEach(block => {
+                 // Remplacer les emojis (sauf pour les blocs lexique)
+                 let text = block.textContent.replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]|\s{2,}/g, ' ').trim();
+                 
+                 // Pour les blocs de contenu, on ajoute le titre et le contenu
+                 if (block.classList.contains('bloc')) {
+                     const blocTitle = block.querySelector('.bloc-title')?.textContent.replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, '').trim();
+                     const blocContent = Array.from(block.querySelectorAll('li, .lexique-definition')).map(el => el.textContent.trim()).join('. ');
+                     
+                     contentToRead += `${blocTitle}: ${blocContent}. `;
+
+                 } else if (block.classList.contains('lexique-item')) {
+                     // Pour les éléments de lexique, on lit Acronyme : Définition
+                     const acronyme = block.querySelector('.lexique-acronyme')?.textContent.replace('✨ ', '').trim().replace(':', '');
+                     const definition = block.querySelector('.lexique-definition')?.textContent.trim();
+                     contentToRead += `${acronyme} : ${definition}. `;
+                 } else {
+                     contentToRead += text + '. ';
+                 }
+                 
+             });
+        }
+        
+        // Nettoyage final : supprimer les espaces multiples et les points en double
+        contentToRead = contentToRead.replace(/\s+/g, ' ').replace(/\.+/g, '.').trim();
+        
+        // On tronque le texte pour s'assurer qu'il ne dépasse pas une limite raisonnable pour l'API TTS
+        const MAX_TTS_CHARS = 1500;
+        if (contentToRead.length > MAX_TTS_CHARS) {
+            // On trouve le dernier point (.) avant la limite
+            const lastPeriod = contentToRead.lastIndexOf('.', MAX_TTS_CHARS);
+            contentToRead = lastPeriod !== -1 ? contentToRead.substring(0, lastPeriod + 1) : contentToRead.substring(0, MAX_TTS_CHARS);
+        }
+
+        return contentToRead;
+    }
+
+
+    /** Lance la génération de l'audio via l'API TTS */
+    async function readText(text, langCode) {
+        if (!text) {
+            showMessage("Aucun contenu à lire dans cette langue.", 3000);
+            return;
+        }
+
+        const voiceName = voiceMap[langCode];
+        const languageCode = languageCodeMap[langCode];
+        
+        if (!voiceName || !languageCode) {
+            showMessage(`La langue sélectionnée (${langCode}) n'est pas supportée pour la lecture vocale.`, 3000);
+            return;
+        }
+
+        updateReadButton('loading', langCode);
+        
+        const systemPrompt = `TTS the entire content. Use the voice suitable for the language code ${languageCode}.`;
+
+        const payload = {
+            contents: [{
+                parts: [{ text: text }]
+            }],
+            generationConfig: {
+                responseModalities: ["AUDIO"],
+                speechConfig: {
+                    voiceConfig: {
+                        prebuiltVoiceConfig: { voiceName: voiceName }
+                    },
+                    // Demander un sampleRate standard pour faciliter le décodage WAV
+                    audioConfig: {
+                        sampleRateHertz: 16000 // 16kHz est un standard PCM16
+                    }
+                },
+            },
+            // Le modèle TTS
+            model: "gemini-2.5-flash-preview-tts"
+        };
+        
+        let response;
+        const maxRetries = 3;
+        for (let i = 0; i < maxRetries; i++) {
+            try {
+                response = await fetch(TTS_API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (response.ok) {
+                    break; 
+                } else if (response.status === 429) {
+                    const delay = Math.pow(2, i) * 1000;
+                    if (i < maxRetries - 1) {
+                        await new Promise(resolve => setTimeout(resolve, delay));
+                        continue;
+                    }
+                }
+                throw new Error(`Erreur HTTP: ${response.status} ${response.statusText}`);
+
+            } catch (error) {
+                if (i === maxRetries - 1) {
+                    console.error('TTS API error after retries:', error);
+                    updateReadButton('error', langCode);
+                    showMessage("Erreur de génération vocale. Veuillez réessayer. ❌", 5000);
+                    return;
+                }
+                const delay = Math.pow(2, i) * 1000;
+                await new Promise(resolve => setTimeout(resolve, delay));
+            }
+        }
+        
+        const result = await response.json();
+
+        const part = result?.candidates?.[0]?.content?.parts?.[0];
+        const audioData = part?.inlineData?.data;
+        const mimeType = part?.inlineData?.mimeType;
+
+        if (audioData && mimeType && mimeType.startsWith("audio/L16")) {
+            // Le format L16 contient le sample rate dans le mimetype, e.g., "audio/L16; rate=16000"
+            const match = mimeType.match(/rate=(\d+)/);
+            const sampleRate = match ? parseInt(match[1], 10) : 16000;
+            
+            // 1. Convertir Base64 en ArrayBuffer
+            const pcmData = base64ToArrayBuffer(audioData);
+            
+            // 2. L'API retourne du PCM 16-bit signé
+            const pcm16 = new Int16Array(pcmData);
+            
+            // 3. Convertir en Blob WAV
+            const wavBlob = pcmToWav(pcm16, sampleRate);
+            const audioUrl = URL.createObjectURL(wavBlob);
+            
+            // 4. Jouer l'audio
+            currentAudio = new Audio(audioUrl);
+            currentAudio.play();
+            
+            updateReadButton('playing', langCode);
+
+            currentAudio.onended = () => {
+                updateReadButton('ready', langCode);
+                URL.revokeObjectURL(audioUrl); // Nettoyage
+            };
+
+            currentAudio.onerror = (e) => {
+                console.error("Erreur de lecture audio:", e);
+                updateReadButton('error', langCode);
+                showMessage("Erreur lors de la lecture de l'audio. 🎧", 5000);
+                URL.revokeObjectURL(audioUrl);
+            };
+
+        } else {
+            console.error("Réponse API TTS invalide:", result);
+            updateReadButton('error', langCode);
+            showMessage("Erreur: Format audio non reçu. ⚠️", 5000);
+        }
+    }
+    
+    // Événement pour le bouton de lecture
+    document.getElementById('readButton').addEventListener('click', () => {
+        const currentLangCode = document.documentElement.lang;
+        
+        if (currentAudio) {
+            // Si l'audio est déjà en cours, on l'arrête
+            currentAudio.pause();
+            currentAudio = null;
+            updateReadButton('ready', currentLangCode);
+            return;
+        }
+
+        // Sinon, on lance la lecture
+        const textToRead = getActiveContentText(currentLangCode);
+        readText(textToRead, currentLangCode);
+    });
+    
+    // --- GESTION DES VUES ET LANGUES (Code original adapté) ---
+
+    // Liste des titres de documents traduits pour la balise <title>
+    const translatedTitles = {
+        'fr': '💫 PAÏA Pulse – SP_BP_001 – Règles générales relatives au bulletin de paie',
+        'en': '💫 PAÏA Pulse – SP_BP_001 – General Rules for Pay Slips',
+        'es': '💫 PAÏA Pulse – SP_BP_001 – Reglas generales relativas a la nómina salarial',
+        'de': '💫 PAÏA Pulse – SP_BP_001 – Allgemeine Regeln zur Gehaltsabrechnung',
+        'it': '💫 PAÏA Pulse – SP_BP_001 – Regole generali relative alla busta paga',
+        'pl': '💫 PAÏA Pulse – SP_BP_001 – Ogólne zasady dotyczące pasków płacowych',
+        'ja': '💫 PAÏA Pulse – SP_BP_001 – 給与明細に関する一般規則',
+        'ar': '💫 PAÏA Pulse – SP_BP_001 – القواعد العامة المتعلقة بكشف الراتب',
+        'zh': '💫 PAÏA Pulse – SP_BP_001 – 工资单一般规定'
+    };
+
+    // Fonction principale pour changer la langue affichée
+    function changeLanguage(langCode, clickedButton) {
+        // 1. Masquer tout le contenu de langue et afficher la langue sélectionnée
+        const contents = document.querySelectorAll('.lang-content');
+        contents.forEach(content => {
+            content.classList.remove('active');
+        });
+
+        const activeContent = document.querySelectorAll('.' + langCode);
+        activeContent.forEach(content => {
+            content.classList.add('active');
+        });
+
+        // 2. Mettre à jour l'état "active" sur les boutons de sélection de langue
+        const langButtons = document.querySelectorAll('.lang-selector button');
+        langButtons.forEach(button => {
+            button.classList.remove('active');
+            button.setAttribute('aria-selected', 'false');
+        });
+        if (clickedButton) {
+            clickedButton.classList.add('active');
+            clickedButton.setAttribute('aria-selected', 'true');
+        }
+
+        // 3. Mettre à jour la direction de lecture
+        if (langCode === 'ar') {
+            document.body.style.direction = 'rtl';
+        } else {
+            document.body.style.direction = 'ltr';
+        }
+
+        // 4. Mettre à jour la balise <title>
+        document.getElementById('docTitle').textContent = translatedTitles[langCode];
+        
+        // 5. Mettre à jour l'attribut lang de la balise HTML pour l'accessibilité
+        document.documentElement.lang = langCode;
+        
+        // 6. S'assurer que le contenu actuel (fiche ou lexique) est bien visible
+        const activeLexiqueView = document.querySelector('#lexique-view.active');
+        if (activeLexiqueView) {
+             const activeTab = document.querySelector('.main-nav button.active');
+             if (activeTab) {
+                const contentType = activeTab.id.replace('tab-', '');
+                showLexiqueContent(contentType);
+             }
+        }
+        
+        // 7. Mettre à jour le bouton de lecture (pour arrêter si en cours et changer le texte)
+        updateReadButton('ready', langCode);
+    }
+
+    // Fonction pour gérer la navigation entre Fiche, Acronymes et Glossaire
+    function showContent(viewName, clickedButton) {
+        const currentLangCode = document.documentElement.lang;
+        
+        // Arrêter la lecture si en cours
+        updateReadButton('ready', currentLangCode);
+        
+        // 1. Gérer les vues principales (Fiche ou Lexique)
+        const ficheView = document.getElementById('main-content-view');
+        const lexiqueView = document.getElementById('lexique-view');
+
+        ficheView.classList.remove('active');
+        lexiqueView.classList.remove('active');
+        ficheView.hidden = true;
+        lexiqueView.hidden = true;
+
+        if (viewName === 'fiche') {
+            ficheView.classList.add('active');
+            ficheView.hidden = false;
+        } else {
+            lexiqueView.classList.add('active');
+            lexiqueView.hidden = false;
+            showLexiqueContent(viewName);
+        }
+
+        // 2. Gérer l'état "active" sur les boutons de navigation
+        const navButtons = document.querySelectorAll('.main-nav button');
+        navButtons.forEach(button => {
+            button.classList.remove('active');
+            button.setAttribute('aria-selected', 'false');
+        });
+        clickedButton.classList.add('active');
+        clickedButton.setAttribute('aria-selected', 'true');
+    }
+
+    // Fonction pour afficher le contenu spécifique (Acronymes ou Glossaire)
+    function showLexiqueContent(contentType) {
+        const acronymesContent = document.getElementById('acronymes-content');
+        const glossaireContent = document.getElementById('glossaire-content');
+        
+        acronymesContent.classList.remove('active');
+        glossaireContent.classList.remove('active');
+
+        // Mettre à jour l'affichage de la langue active dans le lexique
+        const currentLangCode = document.documentElement.lang;
+        const allLangContents = document.querySelectorAll('#acronymes-content .lang-content, #glossaire-content .lang-content');
+        allLangContents.forEach(el => el.classList.remove('active'));
+        
+        if (contentType === 'acronymes') {
+            acronymesContent.classList.add('active');
+            acronymesContent.querySelector(`.lang-content.${currentLangCode}`)?.classList.add('active');
+        } else if (contentType === 'glossaire') {
+            glossaireContent.classList.add('active');
+            glossaireContent.querySelector(`.lang-content.${currentLangCode}`)?.classList.add('active');
+        }
+    }
+
+
+    // Initialisation au chargement de la page
+    document.addEventListener('DOMContentLoaded', () => {
+        // 1. Force le français au chargement et met à jour les styles
+        const frButton = document.querySelector('.lang-selector button[data-lang-code="fr"]');
+        if (frButton) {
+            changeLanguage('fr', frButton);
+        }
+        
+        // 2. Initialise la vue par défaut sur "Pulse"
+        const defaultNavButton = document.getElementById('tab-fiche');
+        showContent('fiche', defaultNavButton); 
+        
+    });
+</script>
+</body>
+</html>
