@@ -2317,5 +2317,20 @@
         
     });
 </script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const readButton = document.getElementById('readButton');
+    readButton.addEventListener('click', () => {
+        let activeLangBtn = document.querySelector('.lang-selector button.active');
+        let langCode = activeLangBtn ? activeLangBtn.getAttribute('data-lang-code') : 'fr';
+        let activeContent = document.querySelector('.lang-content.active');
+        let text = activeContent ? activeContent.innerText : '';
+        let utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = langCode;
+        window.speechSynthesis.cancel();
+        window.speechSynthesis.speak(utterance);
+    });
+});
+</script>
 </body>
 </html>
