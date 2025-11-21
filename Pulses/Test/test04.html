@@ -1,0 +1,1703 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Le titre est mis à jour vers Academy -->
+    <title id="docTitle">💫 PAÏA Academy : Lexique & Glossaire (Multilingue)</title>
+
+    <!-- Police Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* PALETTE PAÏA - Basée sur votre fichier test.html */
+        :root {
+            --paia-yellow: #D9A526; /* Jaune/Or pour les accents */
+            --paia-blue: #0F2C48; /* Bleu nuit pour les titres et fonds sombres */
+            --paia-bronze: #B4792A; /* Bronze/Marron pour les accents secondaires */
+            --paia-ivory: #F6F2E8; /* Ivoire pour le fond clair */
+            --paia-black: #0A0A0A; /* Noir pour le texte principal */
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 2rem 1rem 3rem;
+            font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--paia-ivory);
+            color: var(--paia-black);
+        }
+
+        .fiche-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* --- Style de l'en-tête --- */
+        .fiche-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .header-main-line {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .logo-wrapper {
+            /* Maintient l'espace pour le logo (50px) et l'étoile */
+            width: 50px; 
+            height: 50px;
+            margin-right: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* Placeholder visuel pour l'espace du logo si une image est ajoutée */
+        }
+        
+        /* Nouveau style pour le logo (emoji) */
+        .logo-wrapper .paia-logo-emoji {
+            font-size: 3rem;
+            line-height: 1;
+            margin: 0;
+            /* L'étoile est le logo, pas besoin d'un placeholder à côté */
+        }
+        
+        /* Cacher la balise img si seul l'emoji est le logo */
+        .logo-wrapper img {
+             display: none;
+        }
+
+
+        .fiche-header-title {
+            font-size: 1.9rem;
+            font-weight: 800;
+            color: var(--paia-blue);
+            margin: 0;
+        }
+        
+        .main-card {
+            background-color: #fff;
+            border-radius: 18px;
+            border: 3px solid var(--paia-blue);
+            box-shadow: 0 16px 35px rgba(15,44,72,0.15);
+            padding: 2rem;
+        }
+
+        /* --- Style des Onglets (Tabs) --- */
+        .tab-selector {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap; 
+            margin-bottom: 2rem;
+            padding: 0 1rem;
+        }
+
+        .tab-button {
+            padding: 12px 25px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            border: none;
+            border-radius: 12px 12px 0 0;
+            background-color: var(--paia-ivory);
+            color: var(--paia-blue);
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+            margin: 0 5px;
+        }
+
+        .tab-button.active {
+            background-color: white;
+            color: var(--paia-yellow);
+            border-bottom: 3px solid var(--paia-yellow);
+            box-shadow: 0 -4px 10px rgba(0,0,0,0.05);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--paia-blue);
+            border-radius: 8px;
+            font-size: 1rem;
+            color: var(--paia-black);
+            background-color: var(--paia-ivory);
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: var(--paia-yellow);
+        }
+
+
+        /* --- Style Liste/Détails --- */
+        .glossary-list details {
+            border: 1px solid var(--paia-ivory);
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            background-color: #FAFAFA;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        
+        .glossary-list summary {
+            font-weight: 700;
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            color: var(--paia-blue);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #F8F8F8;
+            border-radius: 8px;
+        }
+        
+        .glossary-list summary:hover {
+            background-color: #EDEDED;
+        }
+
+        .glossary-list ul {
+            padding: 0.5rem 1.5rem;
+            list-style: none;
+        }
+        
+        .glossary-list li {
+            margin-bottom: 0.7rem;
+            line-height: 1.5;
+            padding-left: 1.5rem;
+            position: relative;
+            color: #444;
+        }
+        
+        .glossary-list li strong {
+            color: var(--paia-bronze);
+            font-weight: 700;
+        }
+
+        .glossary-list li::before {
+            content: '•';
+            color: var(--paia-yellow);
+            font-weight: 800;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1.5em;
+            position: absolute;
+            left: 0;
+        }
+
+
+        /* --- Style Multilingue --- */
+        .lang-content {
+            display: none;
+        }
+        .lang-content.active {
+            display: block;
+        }
+        
+        .lang-selector {
+            text-align: center;
+            margin-bottom: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .lang-selector button {
+            padding: 8px 12px;
+            margin: 3px 2px;
+            cursor: pointer;
+            border: 1px solid var(--paia-blue);
+            background-color: var(--paia-ivory);
+            color: var(--paia-blue);
+            border-radius: 8px;
+            font-weight: 600;
+            transition: background-color 0.2s, color 0.2s;
+            font-size: 0.85rem;
+        }
+        
+        .lang-selector button.active {
+            background-color: var(--paia-blue);
+            color: white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        
+        /* Styles RTL pour l'Arabe */
+        .ar-content {
+            direction: rtl;
+            text-align: right;
+        }
+
+        .ar-content .glossary-list li {
+            padding-right: 1.5rem;
+            padding-left: 0;
+        }
+
+        .ar-content .glossary-list li::before {
+            left: auto;
+            right: 0;
+        }
+
+        /* --- Bas de page --- */
+        .fiche-footer {
+            font-size: 0.75rem;
+            color: #666;
+            text-align: center;
+            margin-top: 1.7rem;
+            line-height: 1.5;
+            padding: 1rem;
+            border-top: 2px solid var(--paia-bronze);
+            background-color: var(--paia-ivory);
+            border-radius: 0 0 18px 18px;
+        }
+
+        .fiche-footer strong {
+            font-weight: 700;
+            color: var(--paia-blue);
+        }
+        
+        .footer-line {
+            display: block;
+        }
+
+        /* Mobile adjustments */
+        @media (max-width: 640px) {
+            .tab-button {
+                flex-grow: 1;
+                margin: 5px 0;
+                border-radius: 8px;
+            }
+            .tab-selector {
+                flex-direction: column;
+            }
+            .tab-button.active {
+                border-bottom: 3px solid var(--paia-yellow);
+            }
+            .main-card {
+                padding: 1rem;
+            }
+        }
+
+    </style>
+</head>
+<body>
+<div class="fiche-wrapper">
+    
+    <!-- SÉLECTEUR DE LANGUE -->
+    <div class="lang-selector">
+        <button onclick="changeLanguage('fr', this)" class="active">Français 🇫🇷</button>
+        <button onclick="changeLanguage('en', this)">Anglais 🇬🇧</button>
+        <button onclick="changeLanguage('es', this)">Espagnol 🇪🇸</button>
+        <button onclick="changeLanguage('de', this)">Allemand 🇩🇪</button>
+        <button onclick="changeLanguage('ja', this)">Japonais 🇯🇵</button>
+        <button onclick="changeLanguage('ar', this)">Arabe 🇸🇦</button>
+        <button onclick="changeLanguage('zh', this)">Chinois 🇨🇳</button>
+        <button onclick="changeLanguage('it', this)">Italien 🇮🇹</button>
+        <button onclick="changeLanguage('pl', this)">Polonais 🇵🇱</button>
+    </div>
+
+    <!-- Bandeau haut -->
+    <header class="fiche-header">
+        <div class="header-main-line">
+            <div class="logo-wrapper">
+                <!-- Espace pour le logo image (placeholder gardé, mais affiché par CSS) -->
+                <!-- L'image est supprimée du HTML car vous ne voulez pas du carré marron -->
+                <!-- Je conserve la balise p.paia-logo-emoji seule -->
+                <p class="paia-logo-emoji">💫</p>
+            </div>
+            <!-- Titre Principal mis à jour : PAÏA Academy -->
+            <h1 class="fiche-header-title">PAÏA Academy</h1>
+        </div>
+        
+        <div id="header-subtitle-content">
+            <div class="lang-content fr active">
+                <p class="text-lg text-gray-500 mt-2" style="color: var(--paia-bronze);">Plateforme de Références Académiques</p>
+            </div>
+            <div class="lang-content en">
+                <p class="text-lg text-gray-500 mt-2" style="color: var(--paia-bronze);">Academic Reference Platform</p>
+            </div>
+            <div class="lang-content es">
+                <p class="text-lg text-gray-500 mt-2" style="color: var(--paia-bronze);">Plataforma de Referencias Académicas</p>
+            </div>
+            <div class="lang-content de">
+                <p class="text-lg text-gray-500 mt-2" style="color: var(--paia-bronze);">Akademische Referenzplattform</p>
+            </div>
+            <div class="lang-content ja">
+                <p class="text-lg text-gray-500 mt-2" style="color: var(--paia-bronze);">アカデミックリファレンスプラットフォーム</p>
+            </div>
+            <div class="lang-content ar ar-content">
+                <p class="text-lg text-gray-500 mt-2" style="color: var(--paia-bronze);">منصة المراجع الأكاديمية</p>
+            </div>
+            <div class="lang-content zh">
+                <p class="text-lg text-gray-500 mt-2" style="color: var(--paia-bronze);">学术参考平台</p>
+            </div>
+             <div class="lang-content it">
+                <p class="text-lg text-gray-500 mt-2" style="color: var(--paia-bronze);">Piattaforma di Riferimento Accademico</p>
+            </div>
+            <div class="lang-content pl">
+                <p class="text-lg text-gray-500 mt-2" style="color: var(--paia-bronze);">Akademicka Platforma Referencyjna</p>
+            </div>
+        </div>
+
+    </header>
+
+    <main class="main-card">
+        
+        <!-- SÉLECTEUR D'ONGLETS -->
+        <div class="tab-selector">
+            <!-- Onglet 1: Acronymes -->
+            <button class="tab-button active" onclick="openTab(event, 'Acronyms')">
+                <span class="lang-content fr active">Acronymes</span>
+                <span class="lang-content en">Acronyms</span>
+                <span class="lang-content es">Acrónimos</span>
+                <span class="lang-content de">Akronyme</span>
+                <span class="lang-content ja">頭字語</span>
+                <span class="lang-content ar ar-content">المختصرات</span>
+                <span class="lang-content zh">缩写</span>
+                <span class="lang-content it">Acronimi</span>
+                <span class="lang-content pl">Skróty</span>
+            </button>
+            <!-- Onglet 2: Glossaire -->
+            <button class="tab-button" onclick="openTab(event, 'Glossary')">
+                <span class="lang-content fr active">Glossaire</span>
+                <span class="lang-content en">Glossary</span>
+                <span class="lang-content es">Glosario</span>
+                <span class="lang-content de">Glossar</span>
+                <span class="lang-content ja">用語集</span>
+                <span class="lang-content ar ar-content">المسرد</span>
+                <span class="lang-content zh">词汇表</span>
+                <span class="lang-content it">Glossario</span>
+                <span class="lang-content pl">Słownik</span>
+            </button>
+            <!-- Onglet 3: Droit Social -->
+            <button class="tab-button" onclick="openTab(event, 'DroitSocial')">
+                <span class="lang-content fr active">Droit Social</span>
+                <span class="lang-content en">Employment Law</span>
+                <span class="lang-content es">Derecho Social</span>
+                <span class="lang-content de">Sozialrecht</span>
+                <span class="lang-content ja">社会法</span>
+                <span class="lang-content ar ar-content">القانون الاجتماعي</span>
+                <span class="lang-content zh">社会法</span>
+                <span class="lang-content it">Diritto del Lavoro</span>
+                <span class="lang-content pl">Prawo Pracy</span>
+            </button>
+        </div>
+
+        <!-- CONTENU DES ACRONYMES -->
+        <div id="Acronyms" class="tab-content active">
+             <div class="mb-6">
+                <input type="text" id="search-acronyms" class="search-input" 
+                    placeholder="Rechercher un sigle ou une définition..."
+                    onkeyup="searchContent('Acronyms')">
+            </div>
+            <div id="acronyms-list" class="glossary-list">
+                <!-- Contenu généré par JS -->
+            </div>
+        </div>
+
+        <!-- CONTENU DU GLOSSAIRE -->
+        <div id="Glossary" class="tab-content">
+            <div class="mb-6">
+                <input type="text" id="search-glossary" class="search-input" 
+                    placeholder="Rechercher un terme ou une définition..."
+                    onkeyup="searchContent('Glossary')">
+            </div>
+            <div id="glossary-list" class="glossary-list">
+                <!-- Contenu généré par JS -->
+            </div>
+        </div>
+        
+        <!-- CONTENU DROIT SOCIAL (Nouvel onglet vide) -->
+        <div id="DroitSocial" class="tab-content">
+            <div class="p-6 text-center" style="background-color: var(--paia-ivory); border-radius: 8px;">
+                <p class="text-lg font-bold" style="color: var(--paia-blue);">
+                    <span class="lang-content fr active">Cette section est en cours de construction. Revenez bientôt pour les références de Droit Social !</span>
+                    <span class="lang-content en">This section is under construction. Come back soon for Employment Law references!</span>
+                    <span class="lang-content es">Esta sección está en construcción. ¡Vuelva pronto para las referencias de Derecho Social!</span>
+                    <span class="lang-content de">Dieser Bereich befindet sich in Arbeit. Kommen Sie bald wieder für die Sozialrechts-Referenzen!</span>
+                    <span class="lang-content ja">このセクションは作成中です。労働法のリファレンスにご期待ください！</span>
+                    <span class="lang-content ar ar-content">هذا القسم قيد الإنشاء. عُد قريبًا للحصول على مراجع القانون الاجتماعي!</span>
+                    <span class="lang-content zh">本部分正在建设中。请尽快回来查看劳动法参考资料！</span>
+                    <span class="lang-content it">Questa sezione è in costruzione. Torna presto per i riferimenti di Diritto del Lavoro!</span>
+                    <span class="lang-content pl">Ta sekcja jest w trakcie budowy. Wróć wkrótce po referencje Prawa Pracy!</span>
+                </p>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Pied de page adapté -->
+   <footer class="fiche-footer">
+        <div id="footer-content">
+            <div class="lang-content fr active">
+                <span class="footer-line">💫 PAÏA Academy | By Mathilde Martine PAISLEY</span>
+                <span class="footer-line">© 2025 Tous droits réservés – Création : 21/11/2025</span>
+            </div>
+            <div class="lang-content en">
+                <span class="footer-line">💫 PAÏA Academy | By Mathilde Martine PAISLEY</span>
+                <span class="footer-line">© 2025 All rights reserved – Creation: 21/11/2025</span>
+            </div>
+            <div class="lang-content es">
+                <span class="footer-line">💫 PAÏA Academy | By Mathilde Martine PAISLEY</span>
+                <span class="footer-line">© 2025 Todos los derechos reservados – Creación: 21/11/2025</span>
+            </div>
+            <div class="lang-content de">
+                <span class="footer-line">💫 PAÏA Academy | By Mathilde Martine PAISLEY</span>
+                <span class="footer-line">© 2025 Alle Rechte vorbehalten – Erstellung: 21/11/2025</span>
+            </div>
+            <div class="lang-content ja">
+                <span class="footer-line">💫 PAÏA Academy | By Mathilde Martine PAISLEY</span>
+                <span class="footer-line">© 2025 全著作権所有 – 作成日: 21/11/2025</span>
+            </div>
+            <div class="lang-content ar ar-content">
+                <span class="footer-line">💫 PAÏA Academy | By Mathilde Martine PAISLEY</span>
+                <span class="footer-line">© 2025 جميع الحقوق محفوظة – تاريخ الإنشاء: 21/11/2025</span>
+            </div>
+            <div class="lang-content zh">
+                <span class="footer-line">💫 PAÏA Academy | By Mathilde Martine PAISLEY</span>
+                <span class="footer-line">© 2025 保留所有权利 – 创建日期: 21/11/2025</span>
+            </div>
+            <div class="lang-content it">
+                <span class="footer-line">💫 PAÏA Academy | By Mathilde Martine PAISLEY</span>
+                <span class="footer-line">© 2025 Tutti i diritti riservati – Creazione: 21/11/2025</span>
+            </div>
+            <div class="lang-content pl">
+                <span class="footer-line">💫 PAÏA Academy | By Mathilde Martine PAISLEY</span>
+                <span class="footer-line">© 2025 Wszelkie prawa zastrzeżone – Utworzenie: 21/11/2025</span>
+            </div>
+        </div>
+    </footer>
+
+
+</div>
+
+<script>
+    // --- DATA MULTILINGUE INTÉGRÉE (Extrait et traduit de vos fichiers) ---
+
+    // 1. DATA ACRONYMES
+    const acronymsData = {
+        "fr": {
+            "A": {
+                "ACC (Assurance Chômage)": "Cotisation finançant les allocations chômage. Son recouvrement a été transféré à l'URSSAF ou la MSA.",
+                "ACPM (Accident du Travail - Maladie Professionnelle)": "Régime de sécurité sociale couvrant les risques d'accidents survenus par le fait ou à l'occasion du travail.",
+                "AE (Attestation Employeur)": "Document remis par l'employeur au salarié pour Pôle Emploi (France Travail), pour le calcul des droits au chômage.",
+                "AF (Allocations Familiales)": "Cotisations finançant les prestations familiales versées par les Caisses d'Allocations Familiales (Caf).",
+                "AGEFIPH": "Organisme finançant l'insertion professionnelle des personnes handicapées. Contribution due si quota d'emploi non respecté.",
+                "AGIRC-ARRCO": "Régime de retraite complémentaire obligatoire et unique pour les salariés du secteur privé (fusion AGIRC et ARRCO en 2019).",
+                "AGS (Association pour la Garantie des Salaires)": "Cotisation protégeant les salaires en cas de défaillance de l'entreprise.",
+                "ALD (Affection Longue Durée)": "Cas où les règles de calcul des IJSS peuvent varier, permettant une prise en charge à 100% du SJR.",
+                "APEC (Association Pour l'Emploi des Cadres)": "Cotisation spécifique aux cadres finançant les services de l'APEC.",
+                "APE (Activité Principale Exercée)": "Code attribué par l'INSEE à chaque entreprise, indiquant son secteur d'activité.",
+                "AT (Accident du Travail)": "Accident survenu par le fait ou à l'occasion du travail."
+            },
+            "B": {
+                "BDESE": "Base de Données Économiques Sociales et Environnementales. Outil centralisé pour les représentants du personnel.",
+                "BOSS": "Bulletin Officiel de la Sécurité Sociale. Référence officielle pour les règles d'assujettissement et de calcul des cotisations sociales."
+            },
+            "C": {
+                "Caf (Caisses d'Allocations Familiales)": "Organisme versant les prestations familiales.",
+                "CDD (Contrat à Durée Déterminée)": "Contrat de travail conclu pour une durée limitée.",
+                "CDI (Contrat à Durée Indéterminée)": "Forme normale et générale du contrat de travail, sans limitation de durée.",
+                "CET (Compte Épargne Temps)": "Dispositif permettant au salarié d'accumuler des droits à congé rémunéré ou une rémunération.",
+                "CIBTP": "Caisses de Congés Intempéries Bâtiment et Travaux Publics. Gère les congés payés du secteur BTP.",
+                "CNAM (Caisse Nationale d'Assurance Maladie)": "Organisme déclarant les IJSS à l'administration fiscale et chargé du Prélèvement à la Source (PAS) sur les IJSS.",
+                "CNAV (Caisse Nationale d'Assurance Vieillesse)": "Organisme gérant la retraite de base du régime général.",
+                "CPAM (Caisse Primaire d'Assurance Maladie)": "Organisme gestionnaire de l'assurance maladie, versant les indemnités journalières.",
+                "CPF (Compte Personnel de Formation)": "Droits à la formation acquis par tout actif tout au long de sa vie professionnelle.",
+                "CRDS (Contribution au Remboursement de la Dette Sociale)": "Impôt destiné à financer la protection sociale.",
+                "CRM (Compte Rendu Métier)": "Informations renvoyées par l'URSSAF et la DGFIP après exploitation des données de la DSN.",
+                "CSA (Contribution Solidarité Autonomie)": "Contribution due par les employeurs pour financer l'autonomie des personnes âgées ou handicapées.",
+                "CSE (Comité Social et Économique)": "Instance de représentation du personnel obligatoire dans les entreprises de 11 salariés et plus.",
+                "CUFPA": "Contribution Unique à la Formation Professionnelle et à l'Alternance (regroupe Taxe d'Apprentissage et CFP)."
+            },
+            "D": {
+                "DGFIP": "Direction Générale des Finances Publiques. Administration fiscale responsable de la collecte des impôts et de la transmission des taux PAS.",
+                "DOETH": "Déclaration Obligatoire d'Emploi des Travailleurs Handicapés. Déclaration permettant de calculer la contribution Agefiph.",
+                "DPAE": "Déclaration Préalable À l'Embauche. Formalité obligatoire pour l'employeur lors de l'embauche.",
+                "DREETS": "Directions Régionales de l'Économie, de l'Emploi, du Travail et des Solidarités (remplace les DIRECCTE).",
+                "DSN": "Déclaration Sociale Nominative. Procédé obligatoire remplaçant la majorité des déclarations sociales.",
+                "DUERP": "Document Unique d'Évaluation des Risques Professionnels. Document obligatoire recensant les risques professionnels et mesures de prévention."
+            },
+            "E": {
+                "ETP (Équivalent Temps Plein)": "Unité de mesure utilisée pour le calcul des effectifs de l'entreprise (ex: 2 mi-temps = 1 ETP)."
+            },
+            "F": {
+                "FNAL (Fonds National d'Aide au Logement)": "Organisme contribuant au financement des aides personnelles au logement.",
+                "FPOC": "Fiches de Paramétrage des Organismes Complémentaires. Fichiers standardisés pour les règles de calcul des cotisations complémentaires."
+            },
+            "G": {
+                "GRH (Gestion des Ressources Humaines)": "Fonction de l'entreprise gérant le personnel, de l'administration à la stratégie RH.",
+                "GPEC": "Gestion Prévisionnelle des Emplois et des Compétences. Démarche visant à anticiper les évolutions des métiers."
+            },
+            "H": {
+                "HS (Heures Supplémentaires)": "Heures de travail accomplies au-delà de la durée légale de 35 heures hebdomadaires."
+            },
+            "I": {
+                "IJSS (Indemnités Journalières de Sécurité Sociale)": "Prestations versées par l'Assurance Maladie aux salariés en cas d'incapacité temporaire de travail.",
+                "INSEE": "Institut National de la Statistique et des Études Économiques. Organisme public attribuant notamment le code APE.",
+                "IR (Impôt sur le Revenu)": "Impôt progressif prélevé sur l'ensemble des revenus des personnes physiques."
+            },
+            "N": {
+                "NIR": "Numéro d'Inscription au Répertoire (Numéro de Sécurité Sociale).",
+                "NSA (Net Social)": "Montant net social. Revenu net après déduction de l'ensemble des prélèvements sociaux obligatoires."
+            },
+            "O": {
+                "OETH": "Obligation d'Emploi des Travailleurs Handicapés (6% de l'effectif pour les entreprises de 20 salariés et plus).",
+                "OPCO (Opérateurs de Compétences)": "Organismes agréés chargés de financer l'apprentissage et les contrats de professionnalisation."
+            },
+            "P": {
+                "PAS (Prélèvement à la Source)": "Mode de recouvrement de l'impôt sur le revenu par l'employeur au moment du paiement.",
+                "PEEC": "Participation des Employeurs à l'Effort de Construction (obligation pour les entreprises de 50 salariés et plus).",
+                "PER": "Plan d'Épargne Retraite. Nouveau produit d'épargne retraite.",
+                "PMSS": "Plafond Mensuel de la Sécurité Sociale. Montant de référence pour le calcul de certaines cotisations.",
+                "PPV (Prime de Partage de la Valeur)": "Prime exceptionnelle de pouvoir d'achat (remplace la PEPA).",
+                "PSS": "Plafond de la Sécurité Sociale (annuel, trimestriel, mensuel, journalier, horaire)."
+            },
+            "R": {
+                "RGCP": "Réduction Générale des Cotisations Patronales ('réduction Fillon'). S'applique aux salaires inférieurs à 1,6 SMIC.",
+                "RGPD": "Règlement Général sur la Protection des Données.",
+                "RH (Ressources Humaines)": "Fonction gérant le personnel.",
+                "RNCP": "Répertoire National des Certifications Professionnelles. Référentiel des diplômes et titres professionnels.",
+                "RTT": "Réduction du Temps de Travail. Jours de repos compensatoires pour les horaires supérieurs à 35h."
+            },
+            "S": {
+                "SDTC": "Solde de Tout Compte. Document remis au salarié à la fin de son contrat, récapitulant les sommes dues.",
+                "SIE": "Service des Impôts des Entreprises (interlocuteur fiscal des entreprises).",
+                "SIRH": "Système d'Information des Ressources Humaines. Logiciels de gestion des processus RH et données.",
+                "SJR": "Salaire Journalier de Référence. Base de calcul des Indemnités Journalières de Sécurité Sociale (IJSS).",
+                "SMIC": "Salaire Minimum Interprofessionnel de Croissance. Salaire horaire minimum légal en France.",
+                "SOLTÉA": "Plateforme d'affectation de la taxe d'apprentissage (gérée par la Caisse des Dépôts)."
+            },
+            "T": {
+                "TA (Taxe d'Apprentissage)": "Impôt obligatoire finançant l'apprentissage (0,68% de la masse salariale brute).",
+                "TS (Taxe sur les Salaires)": "Impôt sur les rémunérations versées par les employeurs non assujettis à la TVA."
+            },
+            "U": {
+                "UNEDIC": "Union Nationale Interprofessionnelle pour l'Emploi (gère le régime d'assurance chômage).",
+                "URSSAF": "Organisme de Recouvrement des cotisations de Sécurité Sociale et d'Allocations Familiales (collecte la majeure partie des cotisations)."
+            },
+            "V": {
+                "VAE": "Validation des Acquis de l'Expérience. Dispositif permettant de reconnaître les compétences acquises par l'expérience."
+            }
+        },
+        "en": {
+            "A": {
+                "ACC (Unemployment Insurance)": "Contribution financing unemployment benefits. Collection transferred to URSSAF or MSA.",
+                "ACPM (Work Accident - Occupational Disease)": "Social security scheme covering risks of accidents occurring during or due to work.",
+                "AE (Employer's Certificate)": "Document given by the employer to Pôle Emploi (France Travail) for calculating unemployment rights.",
+                "AF (Family Allowances)": "Contributions financing family benefits paid by Family Allowance Funds (Caf).",
+                "AGEFIPH": "Organisation funding the professional integration of people with disabilities. Contribution due if employment quota is not met.",
+                "AGIRC-ARRCO": "Mandatory and sole supplementary retirement scheme for private sector employees (AGIRC and ARRCO merged in 2019).",
+                "AGS (Wage Guarantee Scheme Association)": "Contribution protecting salaries in case of company insolvency.",
+                "ALD (Long-Term Affliction)": "Case where IJSS calculation rules may vary, allowing 100% coverage of the SJR.",
+                "APEC (Association for the Employment of Executives)": "Specific contribution for executives financing APEC services.",
+                "APE (Main Activity Exercised)": "Code assigned by INSEE to each company, indicating its sector of activity.",
+                "AT (Work Accident)": "Accident occurring during or due to work."
+            },
+            "B": {
+                "BDESE": "Economic, Social, and Environmental Database. Centralized tool for employee representatives.",
+                "BOSS": "Official Social Security Bulletin. Official reference for social contribution rules and calculation."
+            },
+            "C": {
+                "Caf (Family Allowance Funds)": "Organization paying family benefits.",
+                "CDD (Fixed-Term Contract)": "Employment contract concluded for a limited duration.",
+                "CDI (Permanent Contract)": "Normal and general form of employment contract, without duration limit.",
+                "CET (Time Savings Account)": "Scheme allowing employees to accumulate paid leave rights or remuneration.",
+                "CIBTP": "Building and Public Works Paid Leave and Bad Weather Funds. Manages paid leave for the BTP sector.",
+                "CNAM (National Health Insurance Fund)": "Body declaring IJSS to the tax administration and responsible for Income Tax Withholding (PAS) on IJSS.",
+                "CNAV (National Old Age Insurance Fund)": "Body managing the basic retirement scheme.",
+                "CPAM (Primary Health Insurance Fund)": "Body managing health insurance, paying daily allowances.",
+                "CPF (Personal Training Account)": "Training rights acquired throughout an active professional life.",
+                "CRDS (Contribution to the Repayment of Social Debt)": "Tax intended to finance social protection.",
+                "CRM (Business Report Account)": "Information returned by URSSAF and DGFIP after processing DSN data.",
+                "CSA (Autonomy Solidarity Contribution)": "Contribution due by employers to finance actions for the autonomy of elderly or disabled people.",
+                "CSE (Social and Economic Committee)": "Mandatory employee representation body in companies with 11 or more employees.",
+                "CUFPA": "Unique Professional Training and Apprenticeship Contribution (combines Apprenticeship Tax and CFP)."
+            },
+            "D": {
+                "DGFIP": "General Directorate of Public Finance. Tax administration responsible for tax collection and PAS rate transmission.",
+                "DOETH": "Mandatory Employment Declaration for Disabled Workers. Declaration used to calculate the Agefiph contribution.",
+                "DPAE": "Prior Declaration of Employment. Mandatory formality for the employer upon hiring.",
+                "DREETS": "Regional Directorates for Economy, Employment, Labour, and Solidarity (replaces DIRECCTE).",
+                "DSN": "Nominative Social Declaration. Mandatory process replacing most social declarations.",
+                "DUERP": "Single Document for Professional Risk Assessment. Mandatory document listing professional risks and prevention measures."
+            },
+            "E": {
+                "ETP (Full-Time Equivalent)": "Unit of measurement used to calculate company workforce (e.g., 2 part-time = 1 FTE)."
+            },
+            "F": {
+                "FNAL (National Housing Aid Fund)": "Body contributing to the financing of personal housing aid.",
+                "FPOC": "Supplementary Organizations Parameterization Sheets. Standardized files for calculating supplementary contribution rules."
+            },
+            "G": {
+                "GRH (Human Resources Management)": "Company function managing staff, from administration to HR strategy.",
+                "GPEC": "Forecasting Management of Jobs and Skills. Approach aimed at anticipating job evolution."
+            },
+            "H": {
+                "HS (Overtime Hours)": "Working hours performed beyond the legal weekly duration of 35 hours."
+            },
+            "I": {
+                "IJSS (Daily Social Security Allowances)": "Benefits paid by Health Insurance to employees in case of temporary incapacity for work.",
+                "INSEE": "National Institute of Statistics and Economic Studies. Public body assigning the APE code, among others.",
+                "IR (Income Tax)": "Progressive tax levied on all income of individuals."
+            },
+            "N": {
+                "NIR": "National Register Identification Number (Social Security Number).",
+                "NSA (Net Social Amount)": "Net social amount. Net income after deduction of all mandatory social contributions."
+            },
+            "O": {
+                "OETH": "Mandatory Employment of Disabled Workers (6% of workforce for companies with 20 or more employees).",
+                "OPCO (Skills Operators)": "Approved bodies responsible for financing apprenticeship and professionalization contracts."
+            },
+            "P": {
+                "PAS (Withholding Tax)": "Method of income tax collection by the employer at the time of payment.",
+                "PEEC": "Employer's Contribution to Construction Effort (obligation for companies with 50 or more employees).",
+                "PER": "Retirement Savings Plan. New retirement savings product.",
+                "PMSS": "Monthly Social Security Ceiling. Reference amount for calculating certain contributions.",
+                "PPV (Value Sharing Bonus)": "Exceptional purchasing power bonus (replaces PEPA).",
+                "PSS": "Social Security Ceiling (annual, quarterly, monthly, daily, hourly)."
+            },
+            "R": {
+                "RGCP": "General Reduction of Employer Contributions ('Fillon reduction'). Applies to salaries below 1.6 SMIC.",
+                "RGPD": "General Data Protection Regulation.",
+                "RH (Human Resources)": "Function managing staff.",
+                "RNCP": "National Register of Professional Certifications. Reference for diplomas and professional titles.",
+                "RTT": "Reduction of Working Time. Compensatory rest days for schedules exceeding 35 hours."
+            },
+            "S": {
+                "SDTC": "Final Settlement of All Accounts. Document given to the employee at the end of their contract, summarizing amounts due.",
+                "SIE": "Company Tax Service (tax contact for companies).",
+                "SIRH": "Human Resources Information System. Software for managing HR processes and data.",
+                "SJR": "Reference Daily Wage. Basis for calculating Daily Social Security Allowances (IJSS).",
+                "SMIC": "Interprofessional Growth Minimum Wage. Legal minimum hourly wage in France.",
+                "SOLTÉA": "Apprenticeship Tax Allocation Platform (managed by the Caisse des Dépôts)."
+            },
+            "T": {
+                "TA (Apprenticeship Tax)": "Mandatory tax financing apprenticeship (0.68% of gross payroll).",
+                "TS (Tax on Salaries)": "Tax on remuneration paid by employers not subject to VAT."
+            },
+            "U": {
+                "UNEDIC": "National Interprofessional Union for Employment (manages the unemployment insurance scheme).",
+                "URSSAF": "Social Security and Family Allowance Contribution Collection Unions (collects most contributions)."
+            },
+            "V": {
+                "VAE": "Validation of Acquired Experience. Scheme for officially recognizing skills acquired through experience."
+            }
+        },
+        "es": {
+            "A": {
+                "ACC (Seguro de Desempleo)": "Cotización que financia las prestaciones por desempleo. Su recaudación ha sido transferida a la URSSAF o la MSA.",
+                "ACPM (Accidente de Trabajo - Enfermedad Profesional)": "Régimen de seguridad social que cubre los riesgos de accidentes ocurridos durante o con motivo del trabajo.",
+                "AE (Certificado del Empleador)": "Documento entregado por el empleador al Pôle Emploi (France Travail) para el cálculo de los derechos de desempleo.",
+                "AF (Asignaciones Familiares)": "Cotizaciones que financian las prestaciones familiares pagadas por las Cajas de Asignaciones Familiares (Caf).",
+                "AGEFIPH": "Organismo que financia la inserción profesional de personas con discapacidad. Contribución debida si no se respeta la cuota de empleo.",
+                "AGIRC-ARRCO": "Régimen de pensión complementaria obligatorio y único para los empleados del sector privado (fusión AGIRC y ARRCO en 2019).",
+                "AGS (Asociación para la Garantía de Salarios)": "Cotización que protege los salarios en caso de insolvencia de la empresa.",
+                "ALD (Afección de Larga Duración)": "Caso en el que las reglas de cálculo de las IJSS pueden variar, permitiendo una cobertura del 100% del SJR.",
+                "APEC (Asociación para el Empleo de Ejecutivos)": "Cotización específica para ejecutivos que financia los servicios de APEC.",
+                "APE (Actividad Principal Ejercida)": "Código asignado por el INSEE a cada empresa, indicando su sector de actividad.",
+                "AT (Accidente de Trabajo)": "Accidente ocurrido durante o con motivo del trabajo."
+            },
+            "B": {
+                "BDESE": "Base de Datos Económicos, Sociales y Ambientales. Herramienta centralizada para los representantes del personal.",
+                "BOSS": "Boletín Oficial de la Seguridad Social. Referencia oficial para las reglas de sujeción y cálculo de las cotizaciones sociales."
+            },
+            "C": {
+                "Caf (Cajas de Asignaciones Familiares)": "Organismo que paga prestaciones familiares.",
+                "CDD (Contrato de Duración Determinada)": "Contrato de trabajo celebrado por una duración limitada.",
+                "CDI (Contrato de Duración Indeterminada)": "Forma normal y general del contrato de trabajo, sin limitación de duración.",
+                "CET (Cuenta de Ahorro de Tiempo)": "Dispositivo que permite al empleado acumular derechos de vacaciones remuneradas o una remuneración.",
+                "CIBTP": "Cajas de Vacaciones e Intemperie de Construcción y Obras Públicas. Gestiona las vacaciones pagadas del sector BTP.",
+                "CNAM (Caja Nacional de Seguro de Enfermedad)": "Organismo que declara las IJSS a la administración tributaria y encargado de la Retención en Origen (PAS) sobre las IJSS.",
+                "CNAV (Caja Nacional de Seguro de Vejez)": "Organismo que gestiona la pensión base del régimen general.",
+                "CPAM (Caja Primaria de Seguro de Enfermedad)": "Organismo gestor del seguro de enfermedad, que paga las indemnizaciones diarias.",
+                "CPF (Cuenta Personal de Formación)": "Derechos de formación adquiridos por todo activo a lo largo de su vida profesional.",
+                "CRDS (Contribución al Reembolso de la Deuda Social)": "Impuesto destinado a financiar la protección social.",
+                "CRM (Informe de Gestión)": "Información devuelta por la URSSAF y la DGFIP tras la explotación de los datos de la DSN.",
+                "CSA (Contribución Solidaridad Autonomía)": "Contribución debida por los empleadores para financiar la autonomía de personas mayores o discapacitadas.",
+                "CSE (Comité Social y Económico)": "Instancia obligatoria de representación del personal en empresas de 11 o más empleados.",
+                "CUFPA": "Contribución Única a la Formación Profesional y la Alternancia (agrupa Impuesto de Aprendizaje y CFP)."
+            },
+            "D": {
+                "DGFIP": "Dirección General de Finanzas Públicas. Administración tributaria responsable de la recaudación de impuestos y la transmisión de tasas PAS.",
+                "DOETH": "Declaración Obligatoria de Empleo de Trabajadores con Discapacidad. Declaración utilizada para calcular la contribución Agefiph.",
+                "DPAE": "Declaración Previa al Empleo. Formalidad obligatoria para el empleador al contratar.",
+                "DREETS": "Direcciones Regionales de Economía, Empleo, Trabajo y Solidaridades (reemplaza a las DIRECCTE).",
+                "DSN": "Declaración Social Nominativa. Procedimiento obligatorio que reemplaza la mayoría de las declaraciones sociales.",
+                "DUERP": "Documento Único de Evaluación de Riesgos Profesionales. Documento obligatorio que enumera los riesgos profesionales y medidas de prevención."
+            },
+            "E": {
+                "ETP (Equivalente Tiempo Completo)": "Unidad de medida utilizada para el cálculo de la plantilla de la empresa (ej: 2 media jornada = 1 ETC)."
+            },
+            "F": {
+                "FNAL (Fondo Nacional de Ayuda a la Vivienda)": "Organismo que contribuye a la financiación de ayudas personales a la vivienda.",
+                "FPOC": "Fichas de Parametrización de Organismos Complementarios. Archivos estandarizados para las reglas de cálculo de las cotizaciones complementarias."
+            },
+            "G": {
+                "GRH (Gestión de Recursos Humanos)": "Función de la empresa que gestiona el personal, desde la administración hasta la estrategia de RR.HH.",
+                "GPEC": "Gestión Previsional de Empleos y Competencias. Enfoque destinado a anticipar la evolución de los puestos de trabajo."
+            },
+            "H": {
+                "HS (Horas Suplementarias)": "Horas de trabajo realizadas más allá de la duración legal semanal de 35 horas."
+            },
+            "I": {
+                "IJSS (Indemnizaciones Diarias de la Seguridad Social)": "Prestaciones pagadas por el Seguro de Enfermedad a los empleados en caso de incapacidad temporal para el trabajo.",
+                "INSEE": "Instituto Nacional de Estadística y Estudios Económicos. Organismo público que asigna el código APE, entre otros.",
+                "IR (Impuesto sobre la Renta)": "Impuesto progresivo aplicado sobre todos los ingresos de las personas físicas."
+            },
+            "N": {
+                "NIR": "Número de Inscripción en el Repertorio (Número de Seguridad Social).",
+                "NSA (Importe Social Neto)": "Importe social neto. Ingreso neto después de la deducción de todas las cotizaciones sociales obligatorias."
+            },
+            "O": {
+                "OETH": "Obligación de Empleo de Trabajadores con Discapacidad (6% de la plantilla para empresas de 20 o más empleados).",
+                "OPCO (Operadores de Competencias)": "Organismos aprobados encargados de financiar contratos de aprendizaje y profesionalización."
+            },
+            "P": {
+                "PAS (Retención en Origen)": "Método de recaudación del impuesto sobre la renta por parte del empleador en el momento del pago.",
+                "PEEC": "Participación de los Empleadores en el Esfuerzo de Construcción (obligación para empresas de 50 o más empleados).",
+                "PER": "Plan de Ahorro para la Jubilación. Nuevo producto de ahorro para la jubilación.",
+                "PMSS": "Tope Mensual de la Seguridad Social. Importe de referencia para el cálculo de ciertas cotizaciones.",
+                "PPV (Prima de Reparto de Valor)": "Prima excepcional de poder adquisitivo (reemplaza a la PEPA).",
+                "PSS": "Tope de la Seguridad Social (anual, trimestral, mensual, diario, horario)."
+            },
+            "R": {
+                "RGCP": "Reducción General de Cotizaciones Patronales ('reducción Fillon'). Se aplica a salarios inferiores a 1,6 SMIC.",
+                "RGPD": "Reglamento General de Protección de Datos.",
+                "RH (Recursos Humanos)": "Función que gestiona el personal.",
+                "RNCP": "Repertorio Nacional de Certificaciones Profesionales. Referencia para diplomas y títulos profesionales.",
+                "RTT": "Reducción del Tiempo de Travail. Días de descanso compensatorio para horarios superiores a 35h."
+            },
+            "S": {
+                "SDTC": "Finiquito. Documento entregado al empleado al finalizar su contrato, resumiendo las cantidades adeudadas.",
+                "SIE": "Servicio de Impuestos de Empresas (contacto fiscal para empresas).",
+                "SIRH": "Sistema de Información de Recursos Humanos. Software para gestionar procesos y datos de RR.HH.",
+                "SJR": "Salario Diario de Referencia. Base para calcular las Indemnizaciones Diarias de la Seguridad Social (IJSS).",
+                "SMIC": "Salario Mínimo Interprofesional de Crecimiento. Salario mínimo legal por hora en Francia.",
+                "SOLTÉA": "Plataforma de asignación del impuesto de aprendizaje (gestionada por la Caisse des Dépôts)."
+            },
+            "T": {
+                "TA (Impuesto de Aprendizaje)": "Impuesto obligatorio que financia el aprendizaje (0,68% de la masa salarial bruta).",
+                "TS (Impuesto sobre Salarios)": "Impuesto sobre las remuneraciones pagadas por los empleadores no sujetos a IVA."
+            },
+            "U": {
+                "UNEDIC": "Unión Nacional Interprofesional para el Empleo (gestiona el régimen de seguro de desempleo).",
+                "URSSAF": "Uniones de Recaudación de Cotizaciones de Seguridad Social y Asignaciones Familiares (recauda la mayor parte de las cotizaciones)."
+            },
+            "V": {
+                "VAE": "Validación de la Experiencia Adquirida. Dispositivo que permite reconocer oficialmente las competencias adquiridas por la experiencia."
+            }
+        },
+        "de": {
+            "A": {
+                "ACC (Arbeitslosenversicherung)": "Beitrag zur Finanzierung von Arbeitslosenleistungen. Die Einziehung wurde an die URSSAF oder MSA übertragen.",
+                "ACPM (Arbeitsunfall - Berufskrankheit)": "Sozialversicherungssystem zur Deckung von Unfallrisiken, die durch oder während der Arbeit entstanden sind.",
+                "AE (Arbeitgeberbescheinigung)": "Vom Arbeitgeber an Pôle Emploi (France Travail) ausgehändigtes Dokument zur Berechnung der Arbeitslosenansprüche.",
+                "AF (Familienzulagen)": "Beiträge zur Finanzierung von Familienleistungen, die von den Familienzulagenkassen (Caf) gezahlt werden.",
+                "AGEFIPH": "Organisation zur Finanzierung der beruflichen Eingliederung von Menschen mit Behinderung. Beitrag fällig, wenn die Beschäftigungsquote nicht eingehalten wird.",
+                "AGIRC-ARRCO": "Obligatorische und einzige Zusatzrentenversicherung für Arbeitnehmer des privaten Sektors (Fusion von AGIRC und ARRCO im Jahr 2019).",
+                "AGS (Vereinigung zur Sicherung der Löhne)": "Beitrag zum Schutz der Löhne im Falle einer Unternehmensinsolvenz.",
+                "ALD (Langzeiterkrankung)": "Fall, in dem die Berechnungsvorschriften für IJSS variieren können und eine 100%ige Deckung des SJR ermöglichen.",
+                "APEC (Vereinigung für die Beschäftigung von Führungskräften)": "Spezifischer Beitrag für Führungskräfte zur Finanzierung der APEC-Dienste.",
+                "APE (Haupttätigkeit)": "Von INSEE jeder Firma zugewiesener Code, der ihren Tätigkeitsbereich angibt.",
+                "AT (Arbeitsunfall)": "Unfall, der durch oder während der Arbeit entstanden ist."
+            },
+            "B": {
+                "BDESE": "Wirtschaftliche, soziale und ökologische Datenbank. Zentralisiertes Tool für Arbeitnehmervertreter.",
+                "BOSS": "Offizielles Bulletin der Sozialversicherung. Offizielle Referenz für Regeln zur Beitragspflicht und Berechnung von Sozialbeiträgen."
+            },
+            "C": {
+                "Caf (Familienzulagenkassen)": "Organisation, die Familienleistungen zahlt.",
+                "CDD (Befristeter Arbeitsvertrag)": "Arbeitsvertrag mit begrenzter Dauer.",
+                "CDI (Unbefristeter Arbeitsvertrag)": "Normale und allgemeine Form des Arbeitsvertrags, ohne zeitliche Begrenzung.",
+                "CET (Zeitsparkonto)": "Vorrichtung, die es dem Arbeitnehmer ermöglicht, Ansprüche auf bezahlten Urlaub oder eine Vergütung anzusammeln.",
+                "CIBTP": "Kassen für bezahlten Urlaub und Schlechtwetter im Bauwesen und öffentlichen Bauwesen. Verwaltet den bezahlten Urlaub des BTP-Sektors.",
+                "CNAM (Nationale Krankenkasse)": "Organisation, die IJSS an die Steuerverwaltung meldet und für den Quellensteuerabzug (PAS) auf IJSS zuständig ist.",
+                "CNAV (Nationale Altersversicherungskasse)": "Organisation, die die Grundrente des allgemeinen Systems verwaltet.",
+                "CPAM (Primäre Krankenkasse)": "Organisation, die die Krankenversicherung verwaltet und tägliche Entschädigungen zahlt.",
+                "CPF (Persönliches Weiterbildungskonto)": "Weiterbildungsansprüche, die von jeder aktiven Person während ihres gesamten Berufslebens erworben werden.",
+                "CRDS (Beitrag zur Rückzahlung der Sozialschulden)": "Steuer zur Finanzierung des Sozialschutzes.",
+                "CRM (Geschäftsbericht)": "Informationen, die von URSSAF und DGFIP nach der Verarbeitung der DSN-Daten zurückgesendet werden.",
+                "CSA (Solidaritätsbeitrag für Autonomie)": "Beitrag, der von Arbeitgebern zur Finanzierung von Maßnahmen zugunsten der Autonomie älterer oder behinderter Menschen geschuldet wird.",
+                "CSE (Sozial- und Wirtschaftsausschuss)": "Obligatorisches Arbeitnehmervertretungsorgan in Unternehmen mit 11 oder mehr Mitarbeitern.",
+                "CUFPA": "Einheitlicher Beitrag zur beruflichen Bildung und zur dualen Ausbildung (fasst Ausbildungssteuer und CFP zusammen)."
+            },
+            "D": {
+                "DGFIP": "Generaldirektion für öffentliche Finanzen. Steuerverwaltung zuständig für die Steuereinziehung und die Übermittlung der PAS-Sätze.",
+                "DOETH": "Obligatorische Erklärung der Beschäftigung von Arbeitnehmern mit Behinderung. Erklärung zur Berechnung des Agefiph-Beitrags.",
+                "DPAE": "Vorherige Beschäftigungsmeldung. Obligatorische Formalität für den Arbeitgeber bei der Einstellung.",
+                "DREETS": "Regionale Direktionen für Wirtschaft, Beschäftigung, Arbeit und Solidarität (ersetzt die DIRECCTE).",
+                "DSN": "Namentliche Sozialmeldung. Obligatorisches Verfahren, das die meisten Sozialmeldungen ersetzt.",
+                "DUERP": "Einheitliches Dokument zur Bewertung beruflicher Risiken. Obligatorisches Dokument, das berufliche Risiken und Präventionsmaßnahmen auflistet."
+            },
+            "E": {
+                "ETP (Vollzeitäquivalent)": "Maßeinheit zur Berechnung der Belegschaft des Unternehmens (z.B. 2 Teilzeitstellen = 1 VZÄ)."
+            },
+            "F": {
+                "FNAL (Nationaler Wohnungsbeihilfefonds)": "Organisation, die zur Finanzierung persönlicher Wohnbeihilfen beiträgt.",
+                "FPOC": "Parametrierungsblätter für ergänzende Organisationen. Standardisierte Dateien für die Berechnung der ergänzenden Beitragsregeln."
+            },
+            "G": {
+                "GRH (Personalmanagement)": "Unternehmensfunktion zur Verwaltung des Personals, von der Administration bis zur HR-Strategie.",
+                "GPEC": "Vorausschauende Verwaltung von Arbeitsplätzen und Kompetenzen. Ansatz zur Antizipation von Berufsentwicklungen."
+            },
+            "H": {
+                "HS (Überstunden)": "Arbeitsstunden, die über die gesetzliche wöchentliche Dauer von 35 Stunden hinaus geleistet werden."
+            },
+            "I": {
+                "IJSS (Tägliche Sozialversicherungsleistungen)": "Von der Krankenversicherung an Arbeitnehmer im Falle vorübergehender Arbeitsunfähigkeit gezahlte Leistungen.",
+                "INSEE": "Nationales Institut für Statistik und Wirtschaftsstudien. Öffentliche Einrichtung, die unter anderem den APE-Code zuweist.",
+                "IR (Einkommensteuer)": "Progressive Steuer, die auf alle Einkünfte natürlicher Personen erhoben wird."
+            },
+            "N": {
+                "NIR": "Nationale Registernummer (Sozialversicherungsnummer).",
+                "NSA (Sozialer Nettobetrag)": "Sozialer Nettobetrag. Nettoeinkommen nach Abzug aller obligatorischen Sozialabgaben."
+            },
+            "O": {
+                "OETH": "Beschäftigungspflicht für Arbeitnehmer mit Behinderung (6% der Belegschaft für Unternehmen mit 20 oder mehr Mitarbeitern).",
+                "OPCO (Kompetenzbetreiber)": "Zugelassene Organisationen, die für die Finanzierung von Ausbildungs- und Professionalisierungsverträgen zuständig sind."
+            },
+            "P": {
+                "PAS (Quellensteuer)": "Methode zur Erhebung der Einkommensteuer durch den Arbeitgeber zum Zeitpunkt der Zahlung.",
+                "PEEC": "Arbeitgeberbeitrag zur Bauanstrengung (Verpflichtung für Unternehmen mit 50 oder mehr Mitarbeitern).",
+                "PER": "Altersvorsorgeplan. Neues Altersvorsorgeprodukt.",
+                "PMSS": "Monatliche Sozialversicherungshöchstgrenze. Referenzbetrag für die Berechnung bestimmter Beiträge.",
+                "PPV (Wertbeteiligungsprämie)": "Außergewöhnliche Kaufkraftprämie (ersetzt die PEPA).",
+                "PSS": "Sozialversicherungshöchstgrenze (jährlich, vierteljährlich, monatlich, täglich, stündlich)."
+            },
+            "R": {
+                "RGCP": "Allgemeine Reduzierung der Arbeitgeberbeiträge ('Fillon-Reduzierung'). Gilt für Gehälter unter 1,6 SMIC.",
+                "RGPD": "Allgemeine Datenschutz-Grundverordnung.",
+                "RH (Personalwesen)": "Funktion zur Verwaltung des Personals.",
+                "RNCP": "Nationales Verzeichnis beruflicher Zertifizierungen. Referenz für Diplome und berufliche Titel.",
+                "RTT": "Reduzierung der Arbeitszeit. Ausgleichsruhezeiten für Arbeitszeiten über 35 Stunden."
+            },
+            "S": {
+                "SDTC": "Endabrechnung aller Konten. Dokument, das dem Arbeitnehmer am Ende seines Vertrags ausgehändigt wird und die geschuldeten Beträge zusammenfasst.",
+                "SIE": "Unternehmenssteueramt (Steuerkontaktstelle für Unternehmen).",
+                "SIRH": "Personalinformationssystem. Software zur Verwaltung von HR-Prozessen und -Daten.",
+                "SJR": "Täglicher Referenzlohn. Grundlage für die Berechnung der täglichen Sozialversicherungsleistungen (IJSS).",
+                "SMIC": "Interprofessioneller Mindestlohn für Wachstum. Gesetzlicher Mindeststundenlohn in Frankreich.",
+                "SOLTÉA": "Zuteilungsplattform für die Ausbildungssteuer (verwaltet von der Caisse des Dépôts)."
+            },
+            "T": {
+                "TA (Ausbildungssteuer)": "Obligatorische Steuer zur Finanzierung der Ausbildung (0,68% der Bruttolohnsumme).",
+                "TS (Lohnsteuer)": "Steuer auf Vergütungen, die von Arbeitgebern gezahlt werden, die nicht der Mehrwertsteuer unterliegen."
+            },
+            "U": {
+                "UNEDIC": "Nationale Interprofessionelle Union für Beschäftigung (verwaltet das Arbeitslosenversicherungssystem).",
+                "URSSAF": "Einheiten zur Einziehung von Sozialversicherungsbeiträgen und Familienzulagen (ziehen den Großteil der Beiträge ein)."
+            },
+            "V": {
+                "VAE": "Validierung erworbener Erfahrungen. Verfahren zur offiziellen Anerkennung von durch Erfahrung erworbenen Kompetenzen."
+            }
+        },
+        "it": {
+            "A": {
+                "ACC (Assicurazione Disoccupazione)": "Contributo che finanzia le indennità di disoccupazione. La sua riscossione è stata trasferita all'URSSAF o alla MSA.",
+                "ACPM (Infortunio sul Lavoro - Malattia Professionale)": "Regime di sicurezza sociale che copre i rischi di infortuni sul lavoro o in occasione del lavoro.",
+                "AE (Attestazione Datore di Lavoro)": "Documento rilasciato dal datore di lavoro al dipendente per Pôle Emploi (France Travail), per il calcolo dei diritti di disoccupazione.",
+                "AF (Assegni Familiari)": "Contributi che finanziano le prestazioni familiari erogate dalle Casse di Assegni Familiari (Caf).",
+                "AGEFIPH": "Organismo che finanzia l'inserimento professionale delle persone con disabilità. Contributo dovuto se la quota di impiego non è rispettata.",
+                "AGIRC-ARRCO": "Regime pensionistico complementare obbligatorio e unico per i dipendenti del settore privato (fusione AGIRC e ARRCO nel 2019).",
+                "AGS (Associazione per la Garanzia dei Salari)": "Contributo che protegge i salari in caso di fallimento dell'azienda.",
+                "ALD (Affezione di Lunga Durata)": "Caso in cui le regole di calcolo delle IJSS possono variare, consentendo una copertura al 100% del SJR.",
+                "APEC (Associazione per l'Impiego dei Dirigenti)": "Contributo specifico per i dirigenti che finanzia i servizi dell'APEC.",
+                "APE (Attività Principale Esercitata)": "Codice assegnato dall'INSEE a ogni azienda, che indica il suo settore di attività.",
+                "AT (Infortunio sul Lavoro)": "Infortunio avvenuto per il fatto o in occasione del lavoro."
+            },
+            "B": {
+                "BDESE": "Banca Dati Economica Sociale e Ambientale. Strumento centralizzato per i rappresentanti del personale.",
+                "BOSS": "Bollettino Ufficiale della Sicurezza Sociale. Riferimento ufficiale per le regole di assoggettamento e di calcolo dei contributi sociali."
+            },
+            "C": {
+                "Caf (Casse di Assegni Familiari)": "Organismo che eroga le prestazioni familiari.",
+                "CDD (Contratto a Durata Determinata)": "Contratto di lavoro concluso per una durata limitata.",
+                "CDI (Contratto a Durata Indeterminata)": "Forma normale e generale del contratto di lavoro, senza limitazione di durata.",
+                "CET (Conto Risparmio Tempo)": "Dispositivo che consente al dipendente di accumulare diritti a congedo retribuito o una retribuzione.",
+                "CIBTP": "Casse Congedi Intemperie Edilizia e Lavori Pubblici. Gestisce le ferie pagate del settore BTP.",
+                "CNAM (Cassa Nazionale di Assicurazione Malattia)": "Organismo che dichiara le IJSS all'amministrazione fiscale e incaricato del Prelievo alla Fonte (PAS) sulle IJSS.",
+                "CNAV (Cassa Nazionale di Assicurazione Vecchiaia)": "Organismo che gestisce la pensione di base del regime generale.",
+                "CPAM (Cassa Primaria di Assicurazione Malattia)": "Organismo gestore dell'assicurazione malattia, che eroga le indennità giornaliere.",
+                "CPF (Conto Personale di Formazione)": "Diritti alla formazione acquisiti da ogni attivo durante la sua vita professionale.",
+                "CRDS (Contributo al Rimborso del Debito Sociale)": "Imposta destinata a finanziare la protezione sociale.",
+                "CRM (Rapporto di Gestione)": "Informazioni restituite da URSSAF e DGFIP dopo l'elaborazione dei dati DSN.",
+                "CSA (Contributo Solidarietà Autonomia)": "Contributo dovuto dai datori di lavoro per finanziare l'autonomia delle persone anziane o disabili.",
+                "CSE (Comitato Sociale ed Economico)": "Organo di rappresentanza del personale obbligatorio nelle aziende con 11 o più dipendenti.",
+                "CUFPA": "Contributo Unico alla Formazione Professionale e all'Alternanza (raggruppa Imposta di Apprendistato e CFP)."
+            },
+            "D": {
+                "DGFIP": "Direzione Generale delle Finanze Pubbliche. Amministrazione fiscale responsabile della riscossione delle imposte e della trasmissione dei tassi PAS.",
+                "DOETH": "Dichiarazione Obbligatoria di Impiego dei Lavoratori Disabili. Dichiarazione che consente di calcolare il contributo Agefiph.",
+                "DPAE": "Dichiarazione Preventiva all'Assunzione. Formalità obbligatoria per il datore di lavoro al momento dell'assunzione.",
+                "DREETS": "Direzioni Regionali dell'Economia, dell'Impiego, del Lavoro e della Solidarietà (sostituisce i DIRECCTE).",
+                "DSN": "Dichiarazione Sociale Nominativa. Procedura obbligatoria che sostituisce la maggior parte delle dichiarazioni sociali.",
+                "DUERP": "Documento Unico di Valutazione dei Rischi Professionali. Documento obbligatorio che elenca i rischi professionali e le misure di prevenzione."
+            },
+            "E": {
+                "ETP (Equivalente Tempo Pieno)": "Unità di misura utilizzata per il calcolo dell'organico aziendale (es: 2 part-time = 1 ETP)."
+            },
+            "F": {
+                "FNAL (Fondo Nazionale di Aiuto all'Alloggio)": "Organismo che contribuisce al finanziamento degli aiuti personali all'alloggio.",
+                "FPOC": "Schede di Parametrizzazione degli Organismi Complementari. File standardizzati per le regole di calcolo dei contributi complementari."
+            },
+            "G": {
+                "GRH (Gestione Risorse Umane)": "Funzione aziendale che gestisce il personale, dall'amministrazione alla strategia RU.",
+                "GPEC": "Gestione Previsionale degli Impieghi e delle Competenze. Approccio volto ad anticipare le evoluzioni dei mestieri."
+            },
+            "H": {
+                "HS (Ore Supplementari)": "Ore di lavoro effettuate oltre la durata legale settimanale di 35 ore."
+            },
+            "I": {
+                "IJSS (Indennità Giornaliere di Sicurezza Sociale)": "Prestazioni erogate dall'Assicurazione Malattia ai dipendenti in caso di incapacità temporanea al lavoro.",
+                "INSEE": "Istituto Nazionale di Statistica e Studi Economici. Organismo pubblico che assegna in particolare il codice APE.",
+                "IR (Imposta sul Reddito)": "Imposta progressiva prelevata su tutti i redditi delle persone fisiche."
+            },
+            "N": {
+                "NIR": "Numero di Iscrizione al Repertorio (Numero di Sicurezza Sociale).",
+                "NSA (Netto Sociale)": "Importo netto sociale. Reddito netto dopo la deduzione di tutti i prelievi sociali obbligatori."
+            },
+            "O": {
+                "OETH": "Obbligo di Impiego dei Lavoratori Disabili (6% dell'organico per aziende con 20 o più dipendenti).",
+                "OPCO (Operatori di Competenze)": "Organismi approvati incaricati di finanziare l'apprendistato e i contratti di professionalizzazione."
+            },
+            "P": {
+                "PAS (Prelievo alla Fonte)": "Modalità di riscossione dell'imposta sul reddito da parte del datore di lavoro al momento del pagamento.",
+                "PEEC": "Partecipazione dei Datori di Lavoro allo Sforzo di Costruzione (obbligo per le aziende con 50 o più dipendenti).",
+                "PER": "Piano di Risparmio Previdenziale. Nuovo prodotto di risparmio previdenziale.",
+                "PMSS": "Plafond Mensile della Sicurezza Sociale. Importo di riferimento per il calcolo di alcuni contributi.",
+                "PPV (Premio di Condivisione del Valore)": "Premio eccezionale di potere d'acquisto (sostituisce il PEPA).",
+                "PSS": "Plafond della Sicurezza Sociale (annuo, trimestrale, mensile, giornaliero, orario)."
+            },
+            "R": {
+                "RGCP": "Riduzione Generale dei Contributi Patronali ('riduzione Fillon'). Si applica ai salari inferiori a 1,6 SMIC.",
+                "RGPD": "Regolamento Generale sulla Protezione dei Dati.",
+                "RH (Risorse Umane)": "Funzione che gestisce il personale.",
+                "RNCP": "Repertorio Nazionale delle Certificazioni Professionali. Riferimento per diplomi e titoli professionali.",
+                "RTT": "Riduzione dell'Orario di Lavoro. Giorni di riposo compensativo per orari superiori a 35 ore."
+            },
+            "S": {
+                "SDTC": "Saldo di Tutti i Conti. Documento rilasciato al dipendente alla fine del contratto, che riassume le somme dovute.",
+                "SIE": "Servizio Imposte Aziendali (interlocutore fiscale delle aziende).",
+                "SIRH": "Sistema Informativo Risorse Umane. Software per la gestione dei processi e dei dati RU.",
+                "SJR": "Salario Giornaliero di Riferimento. Base di calcolo delle Indennità Giornaliere di Sicurezza Sociale (IJSS).",
+                "SMIC": "Salario Minimo Interprofessionale di Crescita. Salario minimo orario legale in Francia.",
+                "SOLTÉA": "Piattaforma di assegnazione dell'imposta di apprendistato (gestita dalla Caisse des Dépôts)."
+            },
+            "T": {
+                "TA (Imposta di Apprendistato)": "Imposta obbligatoria che finanzia l'apprendistato (0,68% della massa salariale lorda).",
+                "TS (Imposta sui Salari)": "Imposta sulle retribuzioni versate dai datori di lavoro non soggetti all'IVA."
+            },
+            "U": {
+                "UNEDIC": "Unione Nazionale Interprofessionale per l'Impiego (gestisce il regime di assicurazione contro la disoccupazione).",
+                "URSSAF": "Unioni di Riscossione dei Contributi di Sicurezza Sociale e Assegni Familiari (riscuote la maggior parte dei contributi)."
+            },
+            "V": {
+                "VAE": "Validazione delle Acquisizioni di Esperienza. Dispositivo che consente di riconoscere ufficialmente le competenze acquisite tramite esperienza."
+            }
+        },
+        "pl": {
+            "A": {
+                "ACC (Ubezpieczenie dla Bezrobotnych)": "Składka finansująca zasiłki dla bezrobotnych. Jej pobór został przekazany do URSSAF lub MSA.",
+                "ACPM (Wypadek przy Pracy - Choroba Zawodowa)": "System ubezpieczeń społecznych pokrywający ryzyko wypadków powstałych w związku z pracą.",
+                "AE (Zaświadczenie Pracodawcy)": "Dokument wydawany przez pracodawcę pracownikowi dla Pôle Emploi (France Travail), w celu obliczenia praw do zasiłku.",
+                "AF (Zasiłki Rodzinne)": "Składki finansujące świadczenia rodzinne wypłacane przez Kasy Zasiłków Rodzinnych (Caf).",
+                "AGEFIPH": "Organizacja finansująca integrację zawodową osób niepełnosprawnych. Składka należna, jeśli nie jest przestrzegany limit zatrudnienia.",
+                "AGIRC-ARRCO": "Obowiązkowy i jedyny dodatkowy system emerytalny dla pracowników sektora prywatnego (połączenie AGIRC i ARRCO w 2019 r.).",
+                "AGS (Stowarzyszenie Gwarancji Wynagrodzeń)": "Składka chroniąca wynagrodzenia w przypadku niewypłacalności firmy.",
+                "ALD (Długotrwała Choroba)": "Przypadek, w którym zasady obliczania IJSS mogą się różnić, umożliwiając 100% pokrycia SJR.",
+                "APEC (Stowarzyszenie na rzecz Zatrudnienia Kadry Zarządzającej)": "Specjalna składka dla kadry zarządzającej finansująca usługi APEC.",
+                "APE (Główna Działalność Wykonywana)": "Kod przypisany przez INSEE każdej firmie, wskazujący jej sektor działalności.",
+                "AT (Wypadek przy Pracy)": "Wypadek powstały w związku z pracą."
+            },
+            "B": {
+                "BDESE": "Ekonomiczna, Społeczna i Środowiskowa Baza Danych. Scentralizowane narzędzie dla przedstawicieli pracowników.",
+                "BOSS": "Oficjalny Biuletyn Ubezpieczeń Społecznych. Oficjalne odniesienie do zasad podlegania i obliczania składek społecznych."
+            },
+            "C": {
+                "Caf (Kasy Zasiłków Rodzinnych)": "Organizacja wypłacająca świadczenia rodzinne.",
+                "CDD (Umowa na Czas Określony)": "Umowa o pracę zawarta na ograniczony czas.",
+                "CDI (Umowa na Czas Nieokreślony)": "Normalna i ogólna forma umowy o pracę, bez ograniczenia czasowego.",
+                "CET (Konto Oszczędności Czasu)": "Mechanizm umożliwiający pracownikowi gromadzenie praw do płatnego urlopu lub wynagrodzenia.",
+                "CIBTP": "Kasy Urlopów i Zasiłków za Przestoje Budownictwa i Robót Publicznych. Zarządza płatnymi urlopami w sektorze BTP.",
+                "CNAM (Krajowa Kasa Ubezpieczeń Zdrowotnych)": "Organizacja zgłaszająca IJSS do administracji podatkowej i odpowiedzialna za zaliczkę na podatek dochodowy (PAS) od IJSS.",
+                "CNAV (Krajowa Kasa Ubezpieczeń Emerytalnych)": "Organizacja zarządzająca podstawową emeryturą w systemie ogólnym.",
+                "CPAM (Podstawowa Kasa Ubezpieczeń Zdrowotnych)": "Organizacja zarządzająca ubezpieczeniem zdrowotnym, wypłacająca dzienne zasiłki.",
+                "CPF (Osobiste Konto Szkoleniowe)": "Prawa do szkolenia nabywane przez każdą aktywną osobę przez całe życie zawodowe.",
+                "CRDS (Składka na Spłatę Długu Społecznego)": "Podatek przeznaczony na finansowanie ochrony socjalnej.",
+                "CRM (Raport Biznesowy)": "Informacje zwrotne od URSSAF i DGFIP po przetworzeniu danych DSN.",
+                "CSA (Składka Solidarnościowa na Rzecz Autonomii)": "Składka należna od pracodawców na finansowanie działań na rzecz autonomii osób starszych lub niepełnosprawnych.",
+                "CSE (Komitet Społeczno-Ekonomiczny)": "Obowiązkowy organ reprezentacji pracowników w firmach zatrudniających 11 lub więcej pracowników.",
+                "CUFPA": "Jednolita Składka na Kształcenie Zawodowe i Szkolenie Alternatywne (łączy podatek na szkolenie i CFP)."
+            },
+            "D": {
+                "DGFIP": "Generalna Dyrekcja Finansów Publicznych. Administracja podatkowa odpowiedzialna za pobór podatków i przekazywanie stawek PAS.",
+                "DOETH": "Obowiązkowa Deklaracja Zatrudnienia Pracowników Niepełnosprawnych. Deklaracja używana do obliczania składki Agefiph.",
+                "DPAE": "Wstępna Deklaracja Zatrudnienia. Obowiązkowa formalność dla pracodawcy przy zatrudnianiu.",
+                "DREETS": "Regionalne Dyrekcje ds. Gospodarki, Zatrudnienia, Pracy i Solidarności (zastępuje DIRECCTE).",
+                "DSN": "Imienna Deklaracja Społeczna. Obowiązkowa procedura zastępująca większość deklaracji społecznych.",
+                "DUERP": "Jednolity Dokument Oceny Ryzyka Zawodowego. Obowiązkowy dokument wymieniający ryzyka zawodowe i środki zapobiegawcze."
+            },
+            "E": {
+                "ETP (Ekwiwalent Pełnego Wymiaru Czasu Pracy)": "Jednostka miary używana do obliczania personelu firmy (np.: 2 niepełne etaty = 1 ETP)."
+            },
+            "F": {
+                "FNAL (Krajowy Fundusz Pomocy Mieszkaniowej)": "Organizacja przyczyniająca się do finansowania osobistej pomocy mieszkaniowej.",
+                "FPOC": "Karty Parametryzacji Organizacji Uzupełniających. Standaryzowane pliki dla zasad obliczania składek uzupełniających."
+            },
+            "G": {
+                "GRH (Zarządzanie Zasobami Ludzkimi)": "Funkcja firmy zarządzająca personelem, od administracji po strategię HR.",
+                "GPEC": "Prognozowane Zarządzanie Miejscami Pracy i Kompetencjami. Podejście mające na celu przewidywanie ewolucji zawodów."
+            },
+            "H": {
+                "HS (Nadgodziny)": "Godziny pracy wykonywane ponad ustawowy tygodniowy wymiar czasu pracy wynoszący 35 godzin."
+            },
+            "I": {
+                "IJSS (Dzienne Zasiłki Ubezpieczenia Społecznego)": "Świadczenia wypłacane przez Ubezpieczenie Zdrowotne pracownikom w przypadku czasowej niezdolności do pracy.",
+                "INSEE": "Krajowy Instytut Statystyki i Badań Ekonomicznych. Organ publiczny przydzielający m.in. kod APE.",
+                "IR (Podatek Dochodowy)": "Progresywny podatek nakładany na wszystkie dochody osób fizycznych."
+            },
+            "N": {
+                "NIR": "Numer Rejestracyjny w Rejestrze (Numer Ubezpieczenia Społecznego).",
+                "NSA (Netto Socjalne)": "Kwota netto socjalna. Dochód netto po odliczeniu wszystkich obowiązkowych składek społecznych."
+            },
+            "O": {
+                "OETH": "Obowiązek Zatrudnienia Pracowników Niepełnosprawnych (6% personelu dla firm zatrudniających 20 lub więcej pracowników).",
+                "OPCO (Operatorzy Kompetencji)": "Zatwierdzone organizacje odpowiedzialne za finansowanie umów o praktyki i profesjonalizację."
+            },
+            "P": {
+                "PAS (Zaliczka na Podatek)": "Metoda poboru podatku dochodowego przez pracodawcę w momencie wypłaty.",
+                "PEEC": "Udział Pracodawców w Wysiłku Budowlanym (obowiązek dla firm zatrudniających 50 lub więcej pracowników).",
+                "PER": "Plan Oszczędności Emerytalnych. Nowy produkt oszczędności emerytalnych.",
+                "PMSS": "Miesięczny Pułap Ubezpieczeń Społecznych. Kwota referencyjna do obliczania niektórych składek.",
+                "PPV (Premia za Podział Wartości)": "Wyjątkowa premia za siłę nabywczą (zastępuje PEPA).",
+                "PSS": "Pułap Ubezpieczeń Społecznych (roczny, kwartalny, miesięczny, dzienny, godzinowy)."
+            },
+            "R": {
+                "RGCP": "Ogólne Zmniejszenie Składek Pracodawcy ('redukcja Fillon'). Dotyczy wynagrodzeń poniżej 1,6 SMIC.",
+                "RGPD": "Ogólne Rozporządzenie o Ochronie Danych.",
+                "RH (Zasoby Ludzkie)": "Funkcja zarządzania personelem.",
+                "RNCP": "Krajowy Rejestr Certyfikatów Zawodowych. Odniesienie do dyplomów i tytułów zawodowych.",
+                "RTT": "Redukcja Czasu Pracy. Wyrównawcze dni wolne za godziny przekraczające 35 godzin."
+            },
+            "S": {
+                "SDTC": "Końcowe Rozliczenie Wszystkich Kont. Dokument wydawany pracownikowi po zakończeniu umowy, podsumowujący należne kwoty.",
+                "SIE": "Usługa Podatkowa dla Przedsiębiorstw (kontakt podatkowy dla firm).",
+                "SIRH": "System Informacji o Zasobach Ludzkich. Oprogramowanie do zarządzania procesami i danymi HR.",
+                "SJR": "Dzienny Wynagrodzenie Referencyjne. Podstawa do obliczania Dziennych Zasiłków Ubezpieczenia Społecznego (IJSS).",
+                "SMIC": "Międzybranżowa Płaca Minimalna Wzrostu. Ustawowa minimalna stawka godzinowa we Francji.",
+                "SOLTÉA": "Platforma alokacji podatku na szkolenie (zarządzana przez Caisse des Dépôts)."
+            },
+            "T": {
+                "TA (Podatek na Szkolenie)": "Obowiązkowy podatek finansujący szkolenia (0,68% wynagrodzenia brutto).",
+                "TS (Podatek od Wynagrodzeń)": "Podatek od wynagrodzeń wypłacanych przez pracodawców niepodlegających VAT."
+            },
+            "U": {
+                "UNEDIC": "Krajowa Międzybranżowa Unia ds. Zatrudnienia (zarządza systemem ubezpieczeń dla bezrobotnych).",
+                "URSSAF": "Związki ds. Odzyskiwania Składek na Ubezpieczenia Społeczne i Zasiłków Rodzinnych (pobierają większość składek)."
+            },
+            "V": {
+                "VAE": "Potwierdzenie Nabytych Doświadczeń. Mechanizm umożliwiający oficjalne uznanie kompetencji nabytych poprzez doświadczenie."
+            }
+        }
+    };
+
+    // 2. DATA GLOSSAIRE
+    const glossaryData = {
+        "fr": {
+            "A": {
+                "Abandon de poste": "Rupture non officielle du contrat de travail par le salarié, souvent considérée comme une démission en cas d'absence injustifiée prolongée.",
+                "Abattement de 1,75% (CSG/CRDS)": "Réduction appliquée sur le salaire brut pour le calcul de la CSG déductible et non déductible, et de la CRDS non déductible.",
+                "Absences non rémunérées": "Périodes où le salarié n'est pas payé, telles que les congés sans solde ou les absences sans motif légitime.",
+                "Acompte sur salaire": "Paiement anticipé d'une partie du salaire dû pour un travail déjà effectué. Doit être accordé par l'employeur à partir du 15 du mois.",
+                "Activité partielle": "Dispositif permettant à une entreprise en difficulté de réduire ou suspendre temporairement l'activité de ses salariés, avec une indemnisation partielle.",
+                "Affichage obligatoire": "Informations légales que l'employeur doit afficher dans les locaux de l'entreprise (ex : coordonnées de l'Inspection du travail).",
+                "Ancienneté": "Durée de présence d'un salarié dans l'entreprise, ayant des incidences sur la rémunération (primes), les congés ou les indemnités de licenciement.",
+                "Assiette de cotisations": "Montant de la rémunération ou des gains sur lequel sont calculées les cotisations sociales.",
+                "Astreintes": "Périodes pendant lesquelles le salarié doit être en mesure d'intervenir sans être sur son lieu de travail. Non considéré comme du travail effectif s'il n'y a pas d'activité demandée.",
+                "Avantages en nature": "Biens ou services fournis par l'employeur à un salarié gratuitement ou à un prix inférieur à leur valeur réelle, et considérés comme un complément de rémunération soumis à cotisations sociales."
+            },
+            "B": {
+                "Base de Données Économiques Sociales et Environnementales (BDESE)": "Outil centralisé d'informations que l'employeur met à disposition des représentants du personnel pour les consultations obligatoires.",
+                "Bulletin de paie": "Document obligatoire remis par l'employeur au salarié, détaillant sa rémunération brute, les cotisations sociales, les retenues fiscales et le salaire net."
+            },
+            "C": {
+                "Carence (IJSS maladie non pro)": "Période de 3 jours sans indemnisation, appliquée avant le versement des IJSS maladie non professionnelle.",
+                "Charges sociales patronales": "Cotisations sociales obligatoires payées par l'employeur, calculées sur la base des salaires bruts.",
+                "Coffre-fort numérique": "Espace sécurisé en ligne permettant de stocker des documents électroniques sensibles des salariés (bulletins de paie, contrats de travail, etc.).",
+                "Comité social et économique (CSE)": "Instance de représentation du personnel obligatoire dans les entreprises de 11 salariés et plus.",
+                "Complément employeur (légal)": "Part du salaire que l'employeur s'engage à verser au salarié en arrêt de travail, en complément des IJSS, sous conditions d'ancienneté.",
+                "Congés payés": "Jours de repos rémunérés accordés annuellement aux salariés (5 semaines par an).",
+                "Convention collective": "Accord négocié entre les organisations syndicales d'un secteur d'activité, adaptant le Code du travail aux spécificités de ce secteur.",
+                "Cotisations salariales": "Contributions obligatoires prélevées sur le salaire brut du salarié pour financer le système de protection sociale."
+            },
+            "D": {
+                "Décalage de paie": "Pratique consistant à verser les salaires le mois suivant celui de l'activité. Les taux de cotisations et le PSS sont ceux de la période d'emploi.",
+                "Déclaration Sociale Nominative (DSN)": "Simplifie et remplace la majorité des déclarations sociales. Fichier issu de la paie destiné aux organismes sociaux et fiscaux.",
+                "Déduction Forfaitaire Spécifique (DFS)": "Permet à l'employeur de déduire une partie du salaire brut pour frais professionnels, réduisant l'assiette de calcul des cotisations sociales.",
+                "Droit social": "Branche du droit autonome qui se compose de deux éléments, le droit du travail et le droit de la sécurité sociale."
+            },
+            "E": {
+                "Éléments variables de paie": "Composantes de la rémunération qui varient d'un mois à l'autre (heures supplémentaires, primes, absences, etc.).",
+                "Équivalent Temps Plein (ETP)": "Unité de mesure utilisée pour le calcul des effectifs."
+            },
+            "F": {
+                "Forfait jours": "Convention individuelle annuelle en jours, souvent pour les cadres autonomes, sans application de la durée hebdomadaire du travail.",
+                "Forfait social": "Contribution à la charge de l'employeur, prélevée sur les rémunérations exclues de l'assiette des cotisations de sécurité sociale mais assujetties à la CSG (Taux possibles : 8%, 10%, 16%, 20%)."
+            },
+            "G": {
+                "Gestion de la paie internalisée/externalisée": "Choix pour l'entreprise de gérer la paie en interne ou de la confier à un prestataire externe.",
+                "Grille de salaires conventionnelle": "Minimums de salaires fixés par la convention collective selon la position du salarié."
+            },
+            "H": {
+                "Heures complémentaires": "Heures effectuées par un salarié à temps partiel au-delà de la durée du travail stipulée dans son contrat, mais en dessous de la durée légale (35h/semaine)."
+            },
+            "I": {
+                "Indemnité de congés payés (calcul)": "Deux méthodes : le 10ème (10% de la rémunération brute de référence) et le maintien (rémunération qui aurait été perçue si le salarié avait travaillé). La plus favorable est appliquée.",
+                "Indemnités journalières de sécurité sociale (IJSS)": "Prestations versées par l'Assurance Maladie aux salariés en cas d'incapacité de travail."
+            },
+            "J": {
+                "Journée de solidarité": "Journée de travail non rémunérée (dans la limite de 7h) pour le salarié, compensée par une contribution solidarité autonomie de l'employeur."
+            },
+            "L": {
+                "Livre de paie": "Document récapitulatif édité chaque fin de mois regroupant les grandes masses des bulletins de salaire.",
+                "Logiciel de paie": "Programme informatique dédié à la gestion des salaires, des cotisations et des déclarations sociales."
+            },
+            "M": {
+                "Maladie professionnelle": "Maladie directement causée par l'exercice habituel du travail du salarié, reconnue comme telle par la Sécurité Sociale.",
+                "Montant net social": "Représente les revenus à déclarer aux organismes sociaux (CAF, MSA) pour le calcul de prestations (prime d'activité, RSA), et doit apparaître sur le bulletin de paie depuis le 1er juillet 2023."
+            },
+            "P": {
+                "Période d'acquisition (congés payés)": "Période pendant laquelle le salarié acquiert des droits à congés payés (généralement du 1er juin N-1 au 31 mai N).",
+                "Période d'essai": "Permet à l'employeur d'évaluer les compétences du salarié dans son travail.",
+                "Plafond de la Sécurité Sociale (PSS)": "Montant maximum en euros des rémunérations à prendre en compte pour le calcul de certaines cotisations.",
+                "Prélèvement à la source (PAS)": "Mode de recouvrement de l'impôt qui consiste à faire prélever le montant de l'impôt par un tiers (l'employeur) au moment du versement des revenus imposables.",
+                "Prévoyance (cotisation)": "Liée à un contrat de prévoyance qui détermine les bases et les taux. Obligatoire pour les cadres (1,5% de T1, 100% employeur)."
+            },
+            "R": {
+                "Rappels de salaire": "Sommes dues au salarié suite à une erreur ou une décision de justice. Soumis aux taux et plafonds de la période d'emploi correspondante.",
+                "Réduction du Temps de Travail (RTT)": "Jours de repos compensatoires pour les horaires supérieurs à 35 heures hebdomadaires.",
+                "Retenue pour absence (calcul)": "Déduction opérée sur le salaire brut en cas d'absence du salarié. La méthode de l'horaire réel est préconisée pour les absences non rémunérées.",
+                "Rupture conventionnelle": "Rupture du contrat de travail à l'amiable entre l'employeur et le salarié."
+            },
+            "S": {
+                "Salaire brut": "Rémunération totale du salarié avant déduction des cotisations sociales et de l'impôt sur le revenu.",
+                "Salaire Journalier de Référence (SJR)": "Base de calcul des IJSS, déterminé sur les 3 derniers mois de salaires bruts.",
+                "Salaire net à payer": "Montant que le salarié perçoit réellement après toutes les déductions (cotisations, impôt à la source, etc.).",
+                "Subrogation (IJSS)": "Dispositif permettant à l'employeur de percevoir directement les IJSS destinées au salarié en arrêt de travail, pour ensuite les lui verser."
+            },
+            "T": {
+                "Taxe d'Apprentissage (TA)": "Taux de 0,68%, divisée en part principale (0,59%) et solde (0,09%) affectable via SOLTÉA.",
+                "Temps de travail effectif": "Temps pendant lequel le salarié est à la disposition de l'employeur et doit se conformer à ses directives sans pouvoir vaquer librement à ses occupations personnelles."
+            },
+            "U": {
+                "URSSAF": "Organisme de Recouvrement des cotisations de Sécurité Sociale et d'Allocations Familiales (collecte la majeure partie des cotisations)."
+            },
+            "V": {
+                "Veille juridique": "Recherche et identification de toutes dispositions juridiques actuelles ou en cours d'élaboration, assurant la conformité aux normes."
+            }
+        },
+        "en": {
+            "A": {
+                "Job abandonment": "Unofficial termination of the employment contract by the employee, often considered a resignation in case of prolonged unjustified absence.",
+                "1.75% allowance (CSG/CRDS)": "Reduction applied to gross salary for calculating deductible and non-deductible CSG, and non-deductible CRDS.",
+                "Unpaid absences": "Periods when the employee is not paid, such as unpaid leave or absences without legitimate reason.",
+                "Salary advance": "Anticipated payment of a portion of salary owed for work already performed. Must be granted by the employer from the 15th of the month.",
+                "Partial activity": "Scheme allowing a company in difficulty to temporarily reduce or suspend employee activity, with partial compensation.",
+                "Mandatory posting": "Legal information the employer must display on company premises (e.g., Labour Inspectorate contact details).",
+                "Seniority": "Duration of an employee's presence in the company, affecting remuneration (bonuses), leave, or redundancy payments.",
+                "Contribution basis": "Amount of remuneration or earnings on which social contributions are calculated.",
+                "On-call duty": "Periods when the employee must be able to intervene without being at their workplace. Not considered effective working time if no activity is requested.",
+                "Benefits in kind": "Goods or services provided by the employer free of charge or below their real value, considered as supplementary remuneration subject to social contributions."
+            },
+            "B": {
+                "Economic, Social, and Environmental Database (BDESE)": "Centralized information tool that the employer makes available to employee representatives for mandatory consultations.",
+                "Pay slip": "Mandatory document given by the employer to the employee, detailing gross remuneration, social contributions, tax deductions, and net salary."
+            },
+            "C": {
+                "Waiting period (non-occupational illness IJSS)": "3-day period without compensation, applied before payment of non-occupational illness Daily Social Security Allowances (IJSS).",
+                "Employer social contributions": "Mandatory social contributions paid by the employer, calculated on the basis of gross wages.",
+                "Digital safe": "Secure online space for storing sensitive electronic documents of employees (pay slips, employment contracts, etc.).",
+                "Social and Economic Committee (CSE)": "Mandatory employee representation body in companies with 11 or more employees.",
+                "Employer supplement (legal)": "Portion of salary the employer agrees to pay to the employee on sick leave, in addition to IJSS, subject to seniority conditions.",
+                "Paid leave": "Paid rest days granted annually to employees (5 weeks per year).",
+                "Collective agreement": "Agreement negotiated between employee and employer trade unions in a sector, adapting the Labour Code to that sector's specifics.",
+                "Employee social contributions": "Mandatory contributions deducted from the employee's gross salary to finance the social protection system."
+            },
+            "D": {
+                "Pay lag": "Practice of paying salaries in the month following the activity month. Contribution rates and PSS are those of the employment period.",
+                "Nominative Social Declaration (DSN)": "Simplifies and replaces most social declarations. A file generated from payroll intended for social and tax bodies.",
+                "Specific Lump-Sum Deduction (DFS)": "Allows the employer to deduct a portion of gross salary for professional expenses, reducing the social contribution basis.",
+                "Social Law": "Autonomous branch of law composed of two elements: labour law and social security law."
+            },
+            "E": {
+                "Variable pay elements": "Components of remuneration that vary from month to month (overtime, bonuses, absences, etc.).",
+                "Full-Time Equivalent (FTE)": "Unit of measurement used to calculate workforce."
+            },
+            "F": {
+                "Flat-rate days": "Individual annual agreement in days, often for autonomous executives, without application of weekly working hours.",
+                "Social lump sum (Forfait social)": "Employer's contribution levied on remuneration excluded from social security contribution basis but subject to CSG (Possible rates: 8%, 10%, 16%, 20%)."
+            },
+            "G": {
+                "In-house/outsourced payroll management": "Company's choice to manage payroll internally or entrust it to an external provider.",
+                "Conventional pay scale": "Minimum salaries set by the collective agreement according to the employee's position."
+            },
+            "H": {
+                "Supplementary hours": "Hours worked by a part-time employee beyond the contract duration, but below the legal duration (35h/week)."
+            },
+            "I": {
+                "Paid leave indemnity (calculation)": "Two methods: the 10th (10% of reference gross remuneration) and maintenance (remuneration that would have been received if the employee had worked). The most favorable is applied.",
+                "Daily Social Security Allowances (IJSS)": "Benefits paid by Health Insurance to employees in case of incapacity for work."
+            },
+            "J": {
+                "Day of solidarity": "Non-paid working day (up to 7h) for the employee, compensated by an autonomy solidarity contribution from the employer."
+            },
+            "L": {
+                "Payroll book": "Summary document issued each month compiling the main payroll totals, with nominative data per employee.",
+                "Payroll software": "Computer program dedicated to managing salaries, contributions, and social declarations."
+            },
+            "M": {
+                "Occupational disease": "Illness directly caused by the habitual exercise of the employee's work, recognized as such by Social Security.",
+                "Net Social Amount": "Represents the income to be declared to social bodies (CAF, MSA) for calculating benefits (activity bonus, RSA), and must appear on the pay slip since July 1, 2023."
+            },
+            "P": {
+                "Acquisition period (paid leave)": "Period during which the employee acquires paid leave rights (generally from June 1 N-1 to May 31 N).",
+                "Trial period": "Allows the employer to assess the employee's skills in their work.",
+                "Social Security Ceiling (PSS)": "Maximum Euro amount of remuneration to be taken into account for calculating certain contributions.",
+                "Withholding Tax (PAS)": "Method of tax collection where the tax amount is deducted by a third party (the employer) at the time of paying taxable income.",
+                "Providence (contribution)": "Linked to a providence contract which determines the bases and rates. Mandatory for executives (1.5% of T1, 100% employer)."
+            },
+            "R": {
+                "Salary arrears": "Amounts owed to the employee following an error or a court decision. Subject to the rates and ceilings of the corresponding employment period.",
+                "Reduction of Working Time (RTT)": "Compensatory rest days for schedules exceeding 35 hours per week.",
+                "Deduction for absence (calculation)": "Deduction made on gross salary in case of employee absence. The real hourly method is recommended for unpaid absences.",
+                "Conventional termination": "Mutual agreement termination of the employment contract between the employer and the employee."
+            },
+            "S": {
+                "Gross salary": "Total remuneration of the employee before deduction of social contributions and income tax.",
+                "Reference Daily Wage (SJR)": "Basis for calculating IJSS, determined over the last 3 months of gross wages.",
+                "Net salary to be paid": "Amount the employee actually receives after all deductions (contributions, withholding tax, etc.).",
+                "Subrogation (IJSS)": "Scheme allowing the employer to directly receive the IJSS intended for the employee on sick leave, to then pay them to the employee."
+            },
+            "T": {
+                "Apprenticeship Tax (TA)": "Rate of 0.68%, divided into main part (0.59%) and balance (0.09%) allocable via SOLTÉA.",
+                "Effective working time": "Time during which the employee is at the employer's disposal and must comply with their directives without being able to attend freely to personal occupations."
+            },
+            "U": {
+                "URSSAF": "Social Security and Family Allowance Contribution Collection Unions (collects most contributions)."
+            },
+            "V": {
+                "Legal monitoring": "Research and identification of all current or developing legal provisions, ensuring compliance with standards."
+            }
+        },
+        "it": {
+            "A": {
+                "Job abandonment": "Cessazione non ufficiale del contratto di lavoro da parte del dipendente, spesso considerata dimissione in caso di assenza ingiustificata prolungata.",
+                "1.75% allowance (CSG/CRDS)": "Riduzione applicata sul salario lordo per il calcolo della CSG deducibile e non deducibile, e della CRDS non deducibile.",
+                "Unpaid absences": "Periodi in cui il dipendente non viene pagato, come congedi non retribuiti o assenze senza motivo legittimo.",
+                "Salary advance": "Pagamento anticipato di una parte del salario dovuto per lavoro già svolto. Deve essere concesso dal datore di lavoro a partire dal 15 del mese.",
+                "Partial activity": "Dispositivo che consente a un'azienda in difficoltà di ridurre o sospendere temporaneamente l'attività dei suoi dipendenti, con indennizzo parziale.",
+                "Mandatory posting": "Informazioni legali che il datore di lavoro deve affiggere nei locali dell'azienda (es: contatti dell'Ispettorato del Lavoro).",
+                "Seniority": "Durata della presenza di un dipendente in azienda, che incide su retribuzione (premi), ferie o indennità di licenziamento.",
+                "Contribution basis": "Importo della retribuzione o dei guadagni su cui vengono calcolati i contributi sociali.",
+                "On-call duty": "Periodi in cui il dipendente deve essere in grado di intervenire senza essere sul luogo di lavoro. Non è considerato orario di lavoro effettivo se non è richiesta alcuna attività.",
+                "Benefits in kind": "Beni o servizi forniti dal datore di lavoro a un dipendente gratuitamente o a un prezzo inferiore al loro valore reale, e considerati un complemento di retribuzione soggetto a contributi sociali."
+            },
+            "B": {
+                "Economic, Social, and Environmental Database (BDESE)": "Strumento centralizzato di informazioni che il datore di lavoro mette a disposizione dei rappresentanti del personale per le consultazioni obbligatorie.",
+                "Pay slip": "Documento obbligatorio rilasciato dal datore di lavoro al dipendente, che dettaglia la retribuzione lorda, i contributi sociali, le ritenute fiscali e il salario netto."
+            },
+            "C": {
+                "Waiting period (non-occupational illness IJSS)": "Periodo di 3 giorni senza indennizzo, applicato prima dell'erogazione delle Indennità Giornaliere di Sicurezza Sociale (IJSS) per malattia non professionale.",
+                "Employer social contributions": "Contributi sociali obbligatori pagati dal datore di lavoro, calcolati sulla base dei salari lordi.",
+                "Digital safe": "Spazio online sicuro per l'archiviazione di documenti elettronici sensibili dei dipendenti (buste paga, contratti di lavoro, ecc.).",
+                "Social and Economic Committee (CSE)": "Organo di rappresentanza del personale obbligatorio nelle aziende con 11 o più dipendenti.",
+                "Employer supplement (legal)": "Parte del salario che il datore di lavoro si impegna a versare al dipendente in malattia, a integrazione delle IJSS, subordinato a condizioni di anzianità.",
+                "Paid leave": "Giorni di riposo retribuiti concessi annualmente ai dipendenti (5 settimane all'anno).",
+                "Collective agreement": "Accordo negoziato tra le organizzazioni sindacali di un settore di attività, che adatta il Codice del Lavoro alle specificità di quel settore.",
+                "Employee social contributions": "Contributi obbligatori prelevati dal salario lordo del dipendente per finanziare il sistema di protezione sociale."
+            },
+            "D": {
+                "Pay lag": "Pratica che consiste nel versare i salari nel mese successivo a quello di attività. I tassi di contribuzione e il PSS sono quelli del periodo di impiego.",
+                "Nominative Social Declaration (DSN)": "Semplifica e sostituisce la maggior parte delle dichiarazioni sociali. File generato dal libro paga destinato agli enti sociali e fiscali.",
+                "Specific Lump-Sum Deduction (DFS)": "Consente al datore di lavoro di dedurre una parte del salario lordo per spese professionali, riducendo la base di calcolo dei contributi sociali.",
+                "Social Law": "Ramo autonomo del diritto composto da due elementi: diritto del lavoro e diritto della sicurezza sociale."
+            },
+            "E": {
+                "Variable pay elements": "Componenti della retribuzione che variano di mese in mese (straordinari, premi, assenze, ecc.).",
+                "Full-Time Equivalent (FTE)": "Unità di misura utilizzata per il calcolo dell'organico."
+            },
+            "F": {
+                "Flat-rate days": "Accordo individuale annuale in giorni, spesso per dirigenti autonomi, senza applicazione dell'orario di lavoro settimanale.",
+                "Social lump sum (Forfait social)": "Contributo a carico del datore di lavoro, prelevato sulle retribuzioni escluse dalla base contributiva della sicurezza sociale ma soggette a CSG (Tassi possibili: 8%, 10%, 16%, 20%)."
+            },
+            "G": {
+                "In-house/outsourced payroll management": "Scelta dell'azienda di gestire il libro paga internamente o di affidarlo a un fornitore esterno.",
+                "Conventional pay scale": "Salari minimi fissati dal contratto collettivo in base alla posizione del dipendente."
+            },
+            "H": {
+                "Supplementary hours": "Ore lavorate da un dipendente part-time oltre la durata contrattuale, ma al di sotto della durata legale (35h/settimana)."
+            },
+            "I": {
+                "Paid leave indemnity (calculation)": "Due metodi: il 10° (10% della retribuzione lorda di riferimento) e il mantenimento (retribuzione che il dipendente avrebbe percepito se avesse lavorato). Si applica il più favorevole.",
+                "Daily Social Security Allowances (IJSS)": "Prestazioni erogate dall'Assicurazione Malattia ai dipendenti in caso di incapacità lavorativa."
+            },
+            "J": {
+                "Day of solidarity": "Giornata lavorativa non retribuita (entro 7 ore) per il dipendente, compensata da un contributo di solidarietà per l'autonomia del datore di lavoro."
+            },
+            "L": {
+                "Payroll book": "Documento riepilogativo emesso ogni fine mese che raggruppa le principali masse salariali, con dati nominativi per dipendente.",
+                "Payroll software": "Programma informatico dedicato alla gestione di salari, contributi e dichiarazioni sociali."
+            },
+            "M": {
+                "Occupational disease": "Malattia causata direttamente dall'esercizio abituale del lavoro del dipendente, riconosciuta come tale dalla Sicurezza Sociale.",
+                "Net Social Amount": "Rappresenta il reddito da dichiarare agli enti sociali (CAF, MSA) per il calcolo delle prestazioni (premio di attività, RSA), e deve apparire sulla busta paga dal 1° luglio 2023.",
+            },
+            "P": {
+                "Acquisition period (paid leave)": "Periodo durante il quale il dipendente matura diritti a ferie retribuite (generalmente dal 1° giugno N-1 al 31 maggio N).",
+                "Trial period": "Consente al datore di lavoro di valutare le competenze del dipendente nel suo lavoro.",
+                "Social Security Ceiling (PSS)": "Importo massimo in euro delle retribuzioni da prendere in considerazione per il calcolo di alcuni contributi.",
+                "Withholding Tax (PAS)": "Modalità di riscossione dell'imposta che consiste nel far prelevare l'importo dell'imposta da un terzo (il datore di lavoro) al momento del versamento dei redditi imponibili.",
+                "Providence (contribution)": "Legata a un contratto di previdenza che determina le basi e le aliquote. Obbligatoria per i dirigenti (1,5% del T1, 100% datore di lavoro)."
+            },
+            "R": {
+                "Salary arrears": "Somme dovute al dipendente a seguito di un errore o una decisione giudiziaria. Soggette ai tassi e ai massimali del periodo di impiego corrispondente.",
+                "Reduction of Working Time (RTT)": "Giorni di riposo compensativo per orari superiori alle 35 ore settimanali.",
+                "Deduction for absence (calculation)": "Detrazione operata sul salario lordo in caso di assenza del dipendente. Il metodo dell'orario effettivo è raccomandato per le assenze non retribuite.",
+                "Conventional termination": "Risoluzione consensuale del contratto di lavoro tra datore di lavoro e dipendente."
+            },
+            "S": {
+                "Gross salary": "Retribuzione totale del dipendente prima della deduzione dei contributi sociali e dell'imposta sul reddito.",
+                "Reference Daily Wage (SJR)": "Base di calcolo delle IJSS, determinata sugli ultimi 3 mesi di salari lordi.",
+                "Net salary to be paid": "Importo che il dipendente riceve effettivamente dopo tutte le detrazioni (contributi, ritenuta alla fonte, ecc.).",
+                "Subrogation (IJSS)": "Meccanismo che consente al datore di lavoro di riscuotere direttamente le IJSS destinate al dipendente in malattia, per poi versarle al dipendente."
+            },
+            "T": {
+                "Apprenticeship Tax (TA)": "Aliquota dello 0,68%, divisa in parte principale (0,59%) e saldo (0,09%) assegnabile tramite SOLTÉA.",
+                "Effective working time": "Tempo durante il quale il dipendente è a disposizione del datore di lavoro e deve conformarsi alle sue direttive senza poter dedicarsi liberamente alle sue occupazioni personali."
+            },
+            "U": {
+                "URSSAF": "Unioni di Riscossione dei Contributi di Sicurezza Sociale e Assegni Familiari (riscuote la maggior parte dei contributi)."
+            },
+            "V": {
+                "Legal monitoring": "Ricerca e identificazione di tutte le disposizioni legali attuali o in via di sviluppo, garantendo la conformità alle norme."
+            }
+        },
+        "pl": {
+            "A": {
+                "Job abandonment": "Nieoficjalne zakończenie umowy o pracę przez pracownika, często uważane za rezygnację w przypadku długotrwałej nieusprawiedliwionej nieobecności.",
+                "1.75% allowance (CSG/CRDS)": "Redukcja stosowana do wynagrodzenia brutto w celu obliczenia odliczalnego i nieodliczalnego CSG oraz nieodliczalnego CRDS.",
+                "Unpaid absences": "Okresy, w których pracownik nie otrzymuje wynagrodzenia, takie jak urlopy bezpłatne lub nieobecności bez uzasadnionego powodu.",
+                "Salary advance": "Wcześniejsza wypłata części wynagrodzenia należnego za już wykonaną pracę. Musi być przyznana przez pracodawcę od 15. dnia miesiąca.",
+                "Partial activity": "Mechanizm umożliwiający firmie w trudnej sytuacji tymczasowe ograniczenie lub zawieszenie działalności pracowników, z częściową rekompensatą.",
+                "Mandatory posting": "Informacje prawne, które pracodawca musi wywiesić w pomieszczeniach firmy (np. dane kontaktowe Inspekcji Pracy).",
+                "Seniority": "Okres obecności pracownika w firmie, mający wpływ na wynagrodzenie (premie), urlopy lub odprawy.",
+                "Contribution basis": "Kwota wynagrodzenia lub zysków, na podstawie której obliczane są składki na ubezpieczenie społeczne.",
+                "On-call duty": "Okresy, w których pracownik musi być w stanie interweniować, nie będąc w miejscu pracy. Nie jest to uważane za efektywny czas pracy, jeśli nie jest wymagana żadna aktywność.",
+                "Benefits in kind": "Towary lub usługi dostarczone pracownikowi przez pracodawcę bezpłatnie lub po cenie niższej niż ich rzeczywista wartość, uważane za uzupełnienie wynagrodzenia podlegające składkom społecznym."
+            },
+            "B": {
+                "Economic, Social, and Environmental Database (BDESE)": "Scentralizowane narzędzie informacyjne, które pracodawca udostępnia przedstawicielom pracowników do obowiązkowych konsultacji.",
+                "Pay slip": "Obowiązkowy dokument wydany pracownikowi przez pracodawcę, szczegółowo opisujący jego wynagrodzenie brutto, składki społeczne, potrącenia podatkowe i wynagrodzenie netto."
+            },
+            "C": {
+                "Waiting period (non-occupational illness IJSS)": "3-dniowy okres bez odszkodowania, stosowany przed wypłatą Dziennych Zasiłków Ubezpieczenia Społecznego (IJSS) z tytułu choroby niepowiązanej z pracą.",
+                "Employer social contributions": "Obowiązkowe składki społeczne płacone przez pracodawcę, obliczane na podstawie wynagrodzeń brutto.",
+                "Digital safe": "Bezpieczna przestrzeń online do przechowywania poufnych dokumentów elektronicznych pracowników (paski płac, umowy o pracę itp.).",
+                "Social and Economic Committee (CSE)": "Obowiązkowy organ reprezentacji pracowników w firmach zatrudniających 11 lub więcej pracowników.",
+                "Employer supplement (legal)": "Część wynagrodzenia, którą pracodawca zobowiązuje się wypłacać pracownikowi na zwolnieniu lekarskim, jako uzupełnienie IJSS, pod warunkiem stażu pracy.",
+                "Paid leave": "Płatne dni wolne przyznawane pracownikom co roku (5 tygodni rocznie).",
+                "Collective agreement": "Umowa wynegocjowana między organizacjami związkowymi pracowników i pracodawców w danym sektorze, dostosowująca Kodeks Pracy do specyfiki tego sektora.",
+                "Employee social contributions": "Obowiązkowe składki potrącane z wynagrodzenia brutto pracownika na finansowanie systemu ochrony socjalnej."
+            },
+            "D": {
+                "Pay lag": "Praktyka polegająca na wypłacaniu wynagrodzeń w miesiącu następującym po miesiącu aktywności. Stawki składek i PSS są stawkami obowiązującymi w okresie zatrudnienia.",
+                "Nominative Social Declaration (DSN)": "Upraszcza i zastępuje większość deklaracji społecznych. Plik generowany z list płac przeznaczony dla organów społecznych i podatkowych.",
+                "Specific Lump-Sum Deduction (DFS)": "Umożliwia pracodawcy odliczenie części wynagrodzenia brutto na wydatki zawodowe, zmniejszając tym samym podstawę obliczenia składek społecznych.",
+                "Social Law": "Autonomiczna gałąź prawa składająca się z dwóch elementów: prawa pracy i prawa ubezpieczeń społecznych."
+            },
+            "E": {
+                "Variable pay elements": "Składniki wynagrodzenia, które różnią się z miesiąca na miesiąc (nadgodziny, premie, nieobecności itp.).",
+                "Full-Time Equivalent (FTE)": "Jednostka miary używana do obliczania personelu."
+            },
+            "F": {
+                "Flat-rate days": "Indywidualna roczna umowa w dniach, często dla autonomicznych menedżerów, bez stosowania tygodniowego czasu pracy.",
+                "Social lump sum (Forfait social)": "Składka obciążająca pracodawcę, pobierana od wynagrodzeń wyłączonych z podstawy składek na ubezpieczenie społeczne, ale podlegających CSG (Możliwe stawki: 8%, 10%, 16%, 20%)."
+            },
+            "G": {
+                "In-house/outsourced payroll management": "Wybór firmy, czy zarządzać listami płac wewnętrznie, czy powierzyć je zewnętrznemu dostawcy.",
+                "Conventional pay scale": "Minimalne wynagrodzenia ustalone w układzie zbiorowym w zależności od stanowiska pracownika."
+            },
+            "H": {
+                "Supplementary hours": "Godziny pracy wykonywane przez pracownika w niepełnym wymiarze godzin poza czasem określonym w umowie, ale poniżej ustawowego wymiaru (35h/tydzień).",
+            },
+            "I": {
+                "Paid leave indemnity (calculation)": "Dwie metody: 1/10 (10% referencyjnego wynagrodzenia brutto) i utrzymania (wynagrodzenie, które pracownik otrzymałby, gdyby pracował). Stosuje się tę korzystniejszą.",
+                "Daily Social Security Allowances (IJSS)": "Świadczenia wypłacane przez Ubezpieczenie Zdrowotne pracownikom w przypadku czasowej niezdolności do pracy."
+            },
+            "J": {
+                "Day of solidarity": "Niepłatny dzień pracy (do 7h) dla pracownika, rekompensowany przez składkę solidarnościową na rzecz autonomii płaconą przez pracodawcę."
+            },
+            "L": {
+                "Payroll book": "Dokument zbiorcze wydawane co miesiąc, grupujące główne sumy pasków płac, z danymi imiennymi dla każdego pracownika.",
+                "Payroll software": "Program komputerowy przeznaczony do zarządzania płacami, składkami i deklaracjami społecznymi."
+            },
+            "M": {
+                "Occupational disease": "Choroba spowodowana bezpośrednio przez zwykłe wykonywanie pracy przez pracownika, uznana jako taka przez Ubezpieczenie Społeczne.",
+                "Net Social Amount": "Oznacza dochód, który należy zadeklarować organom społecznym (CAF, MSA) do celów obliczenia świadczeń (premia za aktywność, RSA) i musi być widoczny na pasku płac od 1 lipca 2023 r."
+            },
+            "P": {
+                "Acquisition period (paid leave)": "Okres, w którym pracownik nabywa prawa do płatnego urlopu (zazwyczaj od 1 czerwca N-1 do 31 maja N).",
+                "Trial period": "Pozwala pracodawcy ocenić umiejętności pracownika w jego pracy.",
+                "Social Security Ceiling (PSS)": "Maksymalna kwota w euro wynagrodzeń, którą należy wziąć pod uwagę przy obliczaniu niektórych składek.",
+                "Withholding Tax (PAS)": "Metoda poboru podatku, polegająca na potrąceniu kwoty podatku przez osobę trzecią (pracodawcę) w momencie wypłaty dochodów podlegających opodatkowaniu.",
+                "Providence (contribution)": "Związane z umową rentową określającą podstawy i stawki. Obowiązkowe dla menedżerów (1,5% T1, 100% pracodawca)."
+            },
+            "R": {
+                "Salary arrears": "Kwoty należne pracownikowi w wyniku błędu lub orzeczenia sądowego. Podlegają stawkom i pułapom odpowiadającym okresowi zatrudnienia.",
+                "Reduction of Working Time (RTT)": "Dni wolne wyrównawcze za godziny przekraczające 35 godzin tygodniowo.",
+                "Deduction for absence (calculation)": "Potrącenie dokonane z wynagrodzenia brutto w przypadku nieobecności pracownika. Metoda rzeczywistego czasu pracy jest zalecana w przypadku niepłatnych nieobecności.",
+                "Conventional termination": "Polubowne rozwiązanie umowy o pracę między pracodawcą a pracownikiem."
+            },
+            "S": {
+                "Gross salary": "Całkowite wynagrodzenie pracownika przed odliczeniem składek społecznych i podatku dochodowego.",
+                "Reference Daily Wage (SJR)": "Podstawa obliczenia IJSS, określona na podstawie ostatnich 3 miesięcy wynagrodzeń brutto.",
+                "Net salary to be paid": "Kwota, którą pracownik faktycznie otrzymuje po wszystkich potrąceniach (składki, podatek u źródła itp.).",
+                "Subrogation (IJSS)": "Mechanizm umożliwiający pracodawcy bezpośrednie otrzymanie IJSS przeznaczonych dla pracownika na zwolnieniu lekarskim, a następnie wypłacenie ich pracownikowi."
+            },
+            "T": {
+                "Apprenticeship Tax (TA)": "Obowiązkowy podatek finansujący szkolenia (0,68% wynagrodzenia brutto).",
+                "TS (Podatek od Wynagrodzeń)": "Podatek od wynagrodzeń wypłacanych przez pracodawców niepodlegających VAT."
+            },
+            "U": {
+                "URSSAF": "Związki ds. Odzyskiwania Składek na Ubezpieczenia Społeczne i Zasiłków Rodzinnych (pobierają większość składek)."
+            },
+            "V": {
+                "Legal monitoring": "Badanie i identyfikacja wszystkich aktualnych lub rozwijających się przepisów prawnych, zapewniając zgodność z normami."
+            }
+        }
+    };
+
+
+    // --- FONCTIONS GENERALES ---
+
+    // 1. Initialisation de la langue par défaut (Français)
+    const translatedTitles = {
+        'fr': '💫 PAÏA Academy : Lexique & Glossaire Paie RH (Multilingue)',
+        'en': '💫 PAÏA Academy : HR/Payroll Lexicon & Glossary (Multilingual)',
+        'es': '💫 PAÏA Academy : Léxico y Glosario de Nómina y RR.HH. (Multilingüe)',
+        'de': '💫 PAÏA Academy : HR/Gehaltsabrechnungs-Lexikon & Glossar (Mehrsprachig)',
+        'ja': '💫 PAÏA Academy : 人事/給与の用語集と語彙 (多言語)',
+        'ar': '💫 PAÏA Academy : المعجم ومسرد الأجور والموارد البشرية (متعدد اللغات)',
+        'zh': '💫 PAÏA Academy : 薪酬与人资词汇表与缩写 (多语言)',
+        'it': '💫 PAÏA Academy : Lessico & Glossario Paghe e RU (Multilingue)',
+        'pl': '💫 PAÏA Academy : Leksykon & Słownik Płacowo-Kadrowy (Wielojęzyczny)'
+    };
+    
+    let currentLanguage = 'fr';
+    
+    function changeLanguage(langCode, clickedButton) {
+        currentLanguage = langCode;
+
+        // 1. Masquer/Afficher le contenu statique
+        const contents = document.querySelectorAll('.lang-content');
+        contents.forEach(content => {
+            content.classList.remove('active');
+        });
+        const activeContent = document.querySelectorAll('.' + langCode);
+        activeContent.forEach(content => {
+            content.classList.add('active');
+        });
+
+        // 2. Mettre à jour l'état "active" sur les boutons de langue
+        const buttons = document.querySelectorAll('.lang-selector button');
+        buttons.forEach(button => {
+            button.classList.remove('active');
+        });
+        if (clickedButton) {
+            clickedButton.classList.add('active');
+        }
+
+        // 3. Mettre à jour la direction de lecture (pour le corps du document)
+        const body = document.body;
+        if (langCode === 'ar') {
+            body.style.direction = 'rtl';
+            body.style.textAlign = 'right';
+            body.classList.add('ar-content');
+        } else {
+            body.style.direction = 'ltr';
+            body.style.textAlign = 'left';
+            body.classList.remove('ar-content');
+        }
+
+        // 4. Mettre à jour le titre du document
+        document.getElementById('docTitle').textContent = translatedTitles[langCode];
+        document.documentElement.lang = langCode;
+        
+        // 5. Re-rendre les listes dynamiques avec la nouvelle langue
+        renderContent('Acronyms');
+        renderContent('Glossary');
+        
+        // 6. Mettre à jour les placeholders de recherche
+        const placeholders = {
+            'fr': { acronyms: "Rechercher un sigle ou une définition...", glossary: "Rechercher un terme ou une définition...", droit: "Rechercher un concept de Droit Social..." },
+            'en': { acronyms: "Search for acronym or definition...", glossary: "Search for term or definition...", droit: "Search for Employment Law concept..." },
+            'es': { acronyms: "Buscar sigla o definición...", glossary: "Buscar término o definición...", droit: "Buscar concepto de Derecho Social..." },
+            'de': { acronyms: "Akronym oder Definition suchen...", glossary: "Begriff oder Definition suchen...", droit: "Sozialrechtsbegriff suchen..." },
+            'ja': { acronyms: "頭字語または定義を検索...", glossary: "用語または定義を検索...", droit: "社会法コンセプトを検索..." },
+            'ar': { acronyms: "البحث عن اختصار أو تعريف...", glossary: "البحث عن مصطلح أو تعريف...", droit: "البحث عن مفهوم القانون الاجتماعي..." },
+            'zh': { acronyms: "搜索缩写或定义...", glossary: "搜索术语或定义...", droit: "搜索社会法概念..." },
+            'it': { acronyms: "Cerca sigla o definizione...", glossary: "Cerca termine o definizione...", droit: "Cerca concetto di Diritto del Lavoro..." },
+            'pl': { acronyms: "Szukaj skrótu lub definicji...", glossary: "Szukaj terminu lub definicji...", droit: "Szukaj pojęcia Prawa Pracy..." }
+        };
+
+        const currentPlaceholder = placeholders[langCode];
+        document.getElementById('search-acronyms').placeholder = currentPlaceholder.acronyms;
+        document.getElementById('search-glossary').placeholder = currentPlaceholder.glossary;
+        
+        // Réinitialiser la recherche lors du changement de langue pour éviter les filtres persistants
+        document.getElementById('search-acronyms').value = '';
+        document.getElementById('search-glossary').value = '';
+    }
+
+    // 2. Fonction d'ouverture des onglets (Tabs)
+    function openTab(evt, tabName) {
+        let i, tabcontent, tabbuttons;
+        
+        tabcontent = document.getElementsByClassName("tab-content");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+            tabcontent[i].classList.remove('active');
+        }
+
+        tabbuttons = document.getElementsByClassName("tab-button");
+        for (i = 0; i < tabbuttons.length; i++) {
+            tabbuttons[i].classList.remove("active");
+        }
+
+        document.getElementById(tabName).style.display = "block";
+        document.getElementById(tabName).classList.add('active');
+        evt.currentTarget.classList.add("active");
+        
+        // Assurer que le rendu de contenu se fait sur le nouvel onglet actif
+        if (tabName !== 'DroitSocial') { // Ne rend pas le contenu pour l'onglet vide
+            renderContent(tabName);
+        }
+    }
+
+    // 3. Rendu du contenu (Acronymes ou Glossaire)
+    function renderContent(type) {
+        const data = type === 'Acronyms' ? acronymsData[currentLanguage] : glossaryData[currentLanguage];
+        const contentElement = document.getElementById(type === 'Acronyms' ? 'acronyms-list' : 'glossary-list');
+        contentElement.innerHTML = ''; 
+
+        if (!data) return; 
+        
+        const sortedLetters = Object.keys(data).sort();
+        
+        sortedLetters.forEach(letter => {
+            const termsForLetter = data[letter];
+            if (Object.keys(termsForLetter).length > 0) {
+                const detailsElement = document.createElement('details');
+                detailsElement.className = 'lang-content ' + currentLanguage;
+
+                const summaryElement = document.createElement('summary');
+                summaryElement.textContent = letter;
+                detailsElement.appendChild(summaryElement);
+
+                const ulElement = document.createElement('ul');
+                const sortedTerms = Object.keys(termsForLetter).sort();
+
+                sortedTerms.forEach((term, index) => {
+                    const liElement = document.createElement('li');
+                    liElement.innerHTML = `<strong>${term}</strong> : ${termsForLetter[term]}`;
+                    ulElement.appendChild(liElement);
+                    
+                    // OUVRE LA SECTION PAR DÉFAUT SI C'EST LE PREMIER ÉLÉMENT DE LA LISTE
+                    if (index === 0) {
+                        detailsElement.open = true;
+                    }
+                });
+
+                detailsElement.appendChild(ulElement);
+                contentElement.appendChild(detailsElement);
+            }
+        });
+        
+        // Après le rendu, s'assurer que seuls les blocs de la langue active sont affichés
+        const allDetails = contentElement.querySelectorAll('details');
+        allDetails.forEach(detail => {
+            if (!detail.classList.contains(currentLanguage)) {
+                detail.style.display = 'none';
+            } else {
+                detail.style.display = 'block';
+            }
+        });
+    }
+
+    // 4. Fonction de recherche/filtrage (adaptée pour la nouvelle structure)
+    function searchContent(type) {
+        const searchInput = document.getElementById(type === 'Acronyms' ? 'search-acronyms' : 'search-glossary');
+        const searchTerm = searchInput.value.toLowerCase();
+        const contentList = document.getElementById(type === 'Acronyms' ? 'acronyms-list' : 'glossary-list');
+        const detailsElements = contentList.querySelectorAll('details');
+
+        detailsElements.forEach(details => {
+            // S'assurer que l'on ne filtre que le contenu de la langue active
+            if (!details.classList.contains(currentLanguage)) return;
+
+            const terms = details.querySelectorAll('li');
+            let hasVisibleTerms = false;
+
+            terms.forEach(li => {
+                const termText = li.textContent.toLowerCase();
+                const strongText = li.querySelector('strong')?.textContent.toLowerCase() || '';
+
+                if (termText.includes(searchTerm) || strongText.includes(searchTerm)) {
+                    li.style.display = ''; 
+                    hasVisibleTerms = true;
+                } else {
+                    li.style.display = 'none'; 
+                }
+            });
+
+            if (hasVisibleTerms || searchTerm === '') {
+                details.style.display = 'block';
+                // Ouvrir la section si on recherche
+                details.open = (searchTerm !== ''); 
+            } else {
+                details.style.display = 'none'; 
+            }
+        });
+    }
+
+    // 5. Initialisation
+    document.addEventListener('DOMContentLoaded', () => {
+        // Sélectionne le français au démarrage
+        const frButton = document.querySelector('.lang-selector button[onclick*="\'fr\'"]');
+        if (frButton) {
+            changeLanguage('fr', frButton);
+        }
+        
+        // Simuler le clic sur le premier onglet ("Acronymes") pour l'afficher par défaut
+        const defaultTabButton = document.querySelector('.tab-button');
+        if (defaultTabButton) {
+            defaultTabButton.click();
+        }
+    });
+
+</script>
+</body>
+</html>
