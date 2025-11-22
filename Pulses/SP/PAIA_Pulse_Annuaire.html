@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PAÏA Pulse 🟧 - Annuaire de Contenu</title>
+    <title>PAÏA Pulse - Annuaire de Contenu</title>
     <!-- Chargement de Tailwind CSS pour un design rapide et responsive -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -39,18 +39,40 @@
 
         /* Ajustement des couleurs de fond des cartes au Blanc/Ivoire très clair */
         .bg-white-custom { background-color: #FFFFFF; } 
+        
+        /* NOUVEAU STYLE POUR LA HEADER (pour intégrer le logo) */
+        .fiche-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2.5rem; /* mb-10 */
+        }
+        .logo-wrapper {
+            margin-right: 1.5rem; /* Espacement avant le titre */
+        }
+        .logo-wrapper img {
+            height: 48px; /* Taille approximative du logo */
+            width: auto;
+        }
     </style>
 </head>
 <body class="p-4 sm:p-8">
 
     <div class="max-w-4xl mx-auto bg-white-custom shadow-xl rounded-2xl p-6 sm:p-10">
-        <!-- En-tête du Hub -->
-        <header class="text-center mb-10">
-            <h1 class="text-3xl sm:text-4xl font-extrabold mb-2 flex items-center justify-center">
-                <span class="text-5xl mr-3" style="color: #0F2C48;">💫</span> PAÏA Pulse
-            </h1>
-            <p class="text-lg text-gray-700">Accédez à l'intégralité du contenu <br>🟧 Social &amp; Paie (SP).</p>
-            <p class="text-sm mt-1" style="color: #B4792A; font-weight: 500;">⚠️ Pour usage interne PAÏA (Phase Bêta)</p>
+        
+        <!-- En-tête du Hub (MIS A JOUR POUR ACCUEILLIR LE LOGO) -->
+        <header class="fiche-header text-center">
+            <div class="logo-wrapper">
+                <!-- ADAPTEZ LE CHEMIN ICI, VOTRE IMAGE DOIT ÊTRE ACCESSIBLE PUBLIQUEMENT -->
+                <!-- Exemple : <img src="/paia-pulse-content/asset/Logo Paia Pulse.jpg" alt="Logo PAÏA Pulse"> -->
+            </div>
+            <div>
+                <h1 class="text-3xl sm:text-4xl font-extrabold mb-2 flex items-center justify-center">
+                    <span class="text-5xl mr-3" style="color: #0F2C48;">💫</span> PAÏA Pulse
+                </h1>
+                <p class="text-lg text-gray-700">Accédez à l'intégralité du contenu <br>🟧 Social &amp; Paie (SP).</p>
+                <p class="text-sm mt-1" style="color: #B4792A; font-weight: 500;">⚠️ Pour usage interne PAÏA (Phase Bêta)</p>
+            </div>
         </header>
 
         <main class="space-y-8">
