@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PAÏA Pulse 🟧 - Annuaire de Contenu</title>
+    <!-- Chargement de Tailwind CSS pour un design rapide et responsive -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Couleurs et Typographie PAÏA */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F6F2E8; /* Ivoire */
+            color: #0A0A0A; /* Noir Profond Typo */
+        }
+        h1, h2 {
+            color: #0A0A0A; /* Noir Profond */
+        }
+        .card {
+            transition: transform 0.2s, box-shadow 0.2s;
+            border-radius: 12px; /* Coins plus arrondis */
+        }
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+        /* Style pour les liens individuels */
+        .pulse-link {
+            transition: color 0.1s;
+            color: #0F2C48; /* Bleu Nuit Profond pour le lien de base */
+        }
+        .pulse-link:hover {
+            color: #D9A526; /* Jaune Moutarde (Accent Premium) pour le survol */
+        }
+        /* Classes d'accentuation des cartes (utilise la palette principale) */
+        .card-accent-1 { border-top: 4px solid #D9A526; background-color: #FBF9F6; } /* Jaune Moutarde */
+        .card-accent-2 { border-top: 4px solid #0F2C48; background-color: #FBF9F6; } /* Bleu Nuit Profond */
+        .card-accent-3 { border-top: 4px solid #B4792A; background-color: #FBF9F6; } /* Ocre Bronze */
+
+        /* Ajustement des couleurs de fond des cartes au Blanc/Ivoire très clair */
+        .bg-white-custom { background-color: #FFFFFF; } 
+    </style>
+</head>
+<body class="p-4 sm:p-8">
+
+    <div class="max-w-4xl mx-auto bg-white-custom shadow-xl rounded-2xl p-6 sm:p-10">
+        <!-- En-tête du Hub -->
+        <header class="text-center mb-10">
+            <h1 class="text-3xl sm:text-4xl font-extrabold mb-2 flex items-center justify-center">
+                <span class="text-5xl mr-3" style="color: #0F2C48;">💫</span> PAÏA Pulse
+            </h1>
+            <p class="text-lg text-gray-700">Accédez à l'intégralité du contenu 🟧 Social &amp; Paie (SP).</p>
+            <p class="text-sm mt-1" style="color: #B4792A; font-weight: 500;">⚠️ Pour usage interne PAÏA (Phase Bêta)</p>
+        </header>
+
+        <main class="space-y-8">
+            <!-- PAIE FONDAMENTALE (Accent Jaune Moutarde) -->
+            <section id="paie-fondamentale" class="card p-5 card-accent-1 shadow-md">
+                <h2 class="text-2xl font-bold mb-4 flex items-center">
+                    <span class="mr-2 text-3xl">📁</span> SP_PF — PAIE FONDAMENTALE
+                </h2>
+                <ul class="space-y-2 list-disc pl-5">
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_PF/SP_PF_001.html" target="_blank" class="pulse-link">SP_PF_001 : STRUCTURE DE LA PAIE ET LOGIQUE DU SYSTEME DE REMUNERATION</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_PF/SP_PF_002.html" target="_blank" class="pulse-link">SP_PF_002 : BASE HORAIRE MENSUELLE FORFAIT JOURS ET 151.67H</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_PF/SP_PF_003.html" target="_blank" class="pulse-link">SP_PF_003 : SALAIRE BRUT NET NET IMPOSABLE ET SUPER BRUT</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_PF/SP_PF_004.html" target="_blank" class="pulse-link">SP_PF_004 : COTISATIONS SOCIALES ET ORGANISMES COLLECTEURS</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_PF/SP_PF_005.html" target="_blank" class="pulse-link">SP_PF_005 : PLAFOND SECURITE SOCIALE PSS</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_PF/SP_PF_006.html" target="_blank" class="pulse-link">SP_PF_006 : AVANTAGES EN NATURE ET FRAIS PROFESSIONNELS</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_PF/SP_PF_007.html" target="_blank" class="pulse-link">SP_PF_007 : EXONERATIONS ET ALLEGEMENTS FISCAUX SOCIAUX</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_PF/SP_PF_008.html" target="_blank" class="pulse-link">SP_PF_008 : MUTUELLE ET PREVOYANCE BASES</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_PF/SP_PF_009.html" target="_blank" class="pulse-link">SP_PF_009 : DSN ET CALENDRIER DE PAIE</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_PF/SP_PF_010.html" target="_blank" class="pulse-link">SP_PF_010 : DOCUMENTS PAIE OBLIGATOIRES</a></li>
+                </ul>
+            </section>
+
+            <!-- BULLETIN DE PAIE (Accent Bleu Nuit) -->
+            <section id="bulletin-paie" class="card p-5 card-accent-2 shadow-md">
+                <h2 class="text-2xl font-bold mb-4 flex items-center">
+                    <span class="mr-2 text-3xl">📘</span> SP_BP — BULLETIN DE PAIE
+                </h2>
+                <ul class="space-y-2 list-disc pl-5">
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_BP/SP_BP_001.html" target="_blank" class="pulse-link">SP_BP_001 : LECTURE ET COMPREHENSION DU BULLETIN DE PAIE</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_BP/SP_BP_002.html" target="_blank" class="pulse-link">SP_BP_002 : LIGNES OBLIGATOIRES DU BULLETIN</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_BP/SP_BP_003.html" target="_blank" class="pulse-link">SP_BP_003 : ELEMENTS DE REMUNERATION FIXE ET VARIABLE</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_BP/SP_BP_004.html" target="_blank" class="pulse-link">SP_BP_004 : COTISATIONS SALARIALES ET PATRONALES</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_BP/SP_BP_005.html" target="_blank" class="pulse-link">SP_BP_005 : CALCUL DES HEURES SUPPLEMENTAIRES</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_BP/SP_BP_006.html" target="_blank" class="pulse-link">SP_BP_006 : INDEMNITES PRIMES ET MAJORATIONS</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_BP/SP_BP_007.html" target="_blank" class="pulse-link">SP_BP_007 : IJSS SUBROGATION ET COMPLEMENT DE SALAIRE</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_BP/SP_BP_008.html" target="_blank" class="pulse-link">SP_BP_008 : PRELEVEMENT A LA SOURCE PAS</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_BP/SP_BP_009.html" target="_blank" class="pulse-link">SP_BP_009 : NET A PAYER ET NET IMPOSABLE</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_BP/SP_BP_010.html" target="_blank" class="pulse-link">SP_BP_010 : MENTIONS LEGALES ET ARCHIVAGE</a></li>
+                </ul>
+            </section>
+
+            <!-- TEMPS DE TRAVAIL (Accent Ocre Bronze) -->
+            <section id="temps-travail" class="card p-5 card-accent-3 shadow-md">
+                <h2 class="text-2xl font-bold mb-4 flex items-center">
+                    <span class="mr-2 text-3xl">⏰</span> SP_TT — TEMPS DE TRAVAIL
+                </h2>
+                <ul class="space-y-2 list-disc pl-5">
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_TT/SP_TT_001.html" target="_blank" class="pulse-link">SP_TT_001 : DUREE LEGALE HEBDOMADAIRE ET JOURNALIERES</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_TT/SP_TT_002.html" target="_blank" class="pulse-link">SP_TT_002 : TEMPS COMPLET TEMPS PARTIEL ET MODULATION</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_TT/SP_TT_003.html" target="_blank" class="pulse-link">SP_TT_003 : HEURES SUPPLEMENTAIRES ET COMPLEMENTAIRES</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_TT/SP_TT_004.html" target="_blank" class="pulse-link">SP_TT_004 : ASTREINTES DEPLACEMENTS TEMPS DE PAUSE</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_TT/SP_TT_005.html" target="_blank" class="pulse-link">SP_TT_005 : AMENAGEMENT DU TEMPS DE TRAVAIL</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_TT/SP_TT_006.html" target="_blank" class="pulse-link">SP_TT_006 : TRAVAIL DE NUIT JOURS FERIES ET DIMANCHE</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_TT/SP_TT_007.html" target="_blank" class="pulse-link">SP_TT_007 : CONTRATS SPECIFIQUES (APPRENTISSAGE PRO ETC)</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_TT/SP_TT_008.html" target="_blank" class="pulse-link">SP_TT_008 : CONTROLE DU TEMPS ET SUIVI DES HORAIRES</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_TT/SP_TT_009.html" target="_blank" class="pulse-link">SP_TT_009 : RISQUES LIES AU TEMPS DE TRAVAIL</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_TT/SP_TT_010.html" target="_blank" class="pulse-link">SP_TT_010 : DOCUMENTATION ET MODELES</a></li>
+                </ul>
+            </section>
+            
+            <!-- CONGÉS & ABSENCES (Cycle : Jaune Moutarde) -->
+            <section id="conges-absences" class="card p-5 card-accent-1 shadow-md">
+                <h2 class="text-2xl font-bold mb-4 flex items-center">
+                    <span class="mr-2 text-3xl">🌴</span> SP_CA — CONGÉS & ABSENCES
+                </h2>
+                <ul class="space-y-2 list-disc pl-5">
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_CA/SP_CA_001.html" target="_blank" class="pulse-link">SP_CA_001 : CONGES PAYES ET CALCUL DES DROITS</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_CA/SP_CA_002.html" target="_blank" class="pulse-link">SP_CA_002 : RTT CP ET JOURS DE REPOS</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_CA/SP_CA_003.html" target="_blank" class="pulse-link">SP_CA_003 : CONGES SPECIAUX ET EVENEMENTS FAMILIAUX</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_CA/SP_CA_004.html" target="_blank" class="pulse-link">SP_CA_004 : ABSENCE NON REMUNEREE</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_CA/SP_CA_005.html" target="_blank" class="pulse-link">SP_CA_005 : ABSENTEISME ET SUIVI</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_CA/SP_CA_006.html" target="_blank" class="pulse-link">SP_CA_006 : PROCEDURES ET JUSTIFICATIFS</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_CA/SP_CA_007.html" target="_blank" class="pulse-link">SP_CA_007 : CALCUL DES INDEMNITES ABSENCE</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_CA/SP_CA_008.html" target="_blank" class="pulse-link">SP_CA_008 : DOCUMENTATION SUPPORTS ET MODELES</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_CA/SP_CA_009.html" target="_blank" class="pulse-link">SP_CA_009 : CAS PARTICULIERS INTERNATIONAUX</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_CA/SP_CA_010.html" target="_blank" class="pulse-link">SP_CA_010 : ARCHIVAGE ET HISTORIQUE</a></li>
+                </ul>
+            </section>
+
+            <!-- MATERNITÉ & PATERNITÉ (Cycle : Bleu Nuit) -->
+            <section id="paternite-maternite" class="card p-5 card-accent-2 shadow-md">
+                <h2 class="text-2xl font-bold mb-4 flex items-center">
+                    <span class="mr-2 text-3xl">👶</span> SP_PM — PATERNITÉ & MATERNITÉ
+                </h2>
+                <ul class="space-y-2 list-disc pl-5">
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_PM/SP_PM_001.html" target="_blank" class="pulse-link">SP_PM_001 : MATERNITE DEMARCHES ET DROITS</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_PM/SP_PM_002.html" target="_blank" class="pulse-link">SP_PM_002 : PATERNITE ET ACCUEIL ENFANT</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_PM/SP_PM_003.html" target="_blank" class="pulse-link">SP_PM_003 : ADOPTION</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_PM/SP_PM_004.html" target="_blank" class="pulse-link">SP_PM_004 : CONGE PARENTAL ET AMENAGEMENT TEMPS</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_PM/SP_PM_005.html" target="_blank" class="pulse-link">SP_PM_005 : IJSS CALCUL ET SUBROGATION</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_PM/SP_PM_006.html" target="_blank" class="pulse-link">SP_PM_006 : PREVOYANCE COMPLEMENTS ET GARANTIES</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_PM/SP_PM_007.html" target="_blank" class="pulse-link">SP_PM_007 : PROTECTION LICENCIEMENT</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_PM/SP_PM_008.html" target="_blank" class="pulse-link">SP_PM_008 : CAS PARTICULIERS MULTIPLES ET PATHO</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_PM/SP_PM_009.html" target="_blank" class="pulse-link">SP_PM_009 : SUPPORT DOCUMENTS ET MODELES</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_PM/SP_PM_010.html" target="_blank" class="pulse-link">SP_PM_010 : RESSOURCES EXTERNES ET INSTITUTIONNELLES</a></li>
+                </ul>
+            </section>
+
+            <!-- MALADIE & ACCIDENT (Cycle : Ocre Bronze) -->
+            <section id="maladie-accident" class="card p-5 card-accent-3 shadow-md">
+                <h2 class="text-2xl font-bold mb-4 flex items-center">
+                    <span class="mr-2 text-3xl">🤒</span> SP_MA — MALADIE & ACCIDENT
+                </h2>
+                <ul class="space-y-2 list-disc pl-5">
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_MA/SP_MA_001.html" target="_blank" class="pulse-link">SP_MA_001 : MALADIE ARRET ET OBLIGATIONS</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_MA/SP_MA_002.html" target="_blank" class="pulse-link">SP_MA_002 : ACCIDENT DU TRAVAIL ET MALADIE PROFESSIONNELLE</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_MA/SP_MA_003.html" target="_blank" class="pulse-link">SP_MA_003 : DECLARATIONS CPAM ET ATTESTATIONS</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_MA/SP_MA_004.html" target="_blank" class="pulse-link">SP_MA_004 : IJSS SUBROGATION ET COMPLEMENTS</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_MA/SP_MA_005.html" target="_blank" class="pulse-link">SP_MA_005 : MI-TEMPS THERAPEUTIQUE</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_MA/SP_MA_006.html" target="_blank" class="pulse-link">SP_MA_006 : INVALIDITE</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_MA/SP_MA_007.html" target="_blank" class="pulse-link">SP_MA_007 : REPRISE ET VISITE MEDICALE</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_MA/SP_MA_008.html" target="_blank" class="pulse-link">SP_MA_008 : RECLAMATIONS ET LITIGES</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_MA/SP_MA_009.html" target="_blank" class="pulse-link">SP_MA_009 : SUPPORTS MODELES ET PROCEDURES</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_MA/SP_MA_010.html" target="_blank" class="pulse-link">SP_MA_010 : RISQUES ET PREVENTION</a></li>
+                </ul>
+            </section>
+
+            <!-- RUPTURE & CONTENTIEUX (Cycle : Jaune Moutarde) -->
+            <section id="rupture-contentieux" class="card p-5 card-accent-1 shadow-md">
+                <h2 class="text-2xl font-bold mb-4 flex items-center">
+                    <span class="mr-2 text-3xl">📜</span> SP_RC — RUPTURE & CONTENTIEUX
+                </h2>
+                <ul class="space-y-2 list-disc pl-5">
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_RC/SP_RC_001.html" target="_blank" class="pulse-link">SP_RC_001 : RUPTURE CONVENTIONNELLE ET PROCEDURES</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_RC/SP_RC_002.html" target="_blank" class="pulse-link">SP_RC_002 : LICENCIEMENT ET MOTIFS</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_RC/SP_RC_003.html" target="_blank" class="pulse-link">SP_RC_003 : DEMISSION ET ABANDON DE POSTE</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_RC/SP_RC_004.html" target="_blank" class="pulse-link">SP_RC_004 : PRUDHOMMES ET CONTENTIEUX</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_RC/SP_RC_005.html" target="_blank" class="pulse-link">SP_RC_005 : DOCUMENTS FIN DE CONTRAT</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_RC/SP_RC_006.html" target="_blank" class="pulse-link">SP_RC_006 : CALCUL DES INDEMNITES</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_RC/SP_RC_007.html" target="_blank" class="pulse-link">SP_RC_007 : TRANSACTION JURIDIQUE</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_RC/SP_RC_008.html" target="_blank" class="pulse-link">SP_RC_008 : CAS PARTICULIERS ET PROTECTIONS</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_RC/SP_RC_009.html" target="_blank" class="pulse-link">SP_RC_009 : OUTILS MODELES ET PROCEDURES</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_RC/SP_RC_010.html" target="_blank" class="pulse-link">SP_RC_010 : RISQUES JURIDIQUES ET PREVENTION</a></li>
+                </ul>
+            </section>
+
+            <!-- RISQUES & CONTRÔLES (Cycle : Bleu Nuit) -->
+            <section id="risques-controles" class="card p-5 card-accent-2 shadow-md">
+                <h2 class="text-2xl font-bold mb-4 flex items-center">
+                    <span class="mr-2 text-3xl">🕵️</span> SP_RS — RISQUES & CONTRÔLES
+                </h2>
+                <ul class="space-y-2 list-disc pl-5">
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_RS/SP_RS_001.html" target="_blank" class="pulse-link">SP_RS_001 : CONTROLES URSSAF</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_RS/SP_RS_002.html" target="_blank" class="pulse-link">SP_RS_002 : INSPECTION DU TRAVAIL</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_RS/SP_RS_003.html" target="_blank" class="pulse-link">SP_RS_003 : CAISSES RETRAITE ET ORGANISMES</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_RS/SP_RS_004.html" target="_blank" class="pulse-link">SP_RS_004 : SUIVI PENIBILITE ET DUERP</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_RS/SP_RS_005.html" target="_blank" class="pulse-link">SP_RS_005 : AUDIT PAIE INTERNE ET EXTERNE</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_RS/SP_RS_006.html" target="_blank" class="pulse-link">SP_RS_006 : TABLEAUX DE BORD ET REPORTING</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_RS/SP_RS_007.html" target="_blank" class="pulse-link">SP_RS_007 : RISQUES SOCIAUX ET SANCTIONS</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_RS/SP_RS_008.html" target="_blank" class="pulse-link">SP_RS_008 : ERREURS FREQUENTES ET SOLUTIONS</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_RS/SP_RS_009.html" target="_blank" class="pulse-link">SP_RS_009 : SECURISATION DE LA PAIE</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_RS/SP_RS_010.html" target="_blank" class="pulse-link">SP_RS_010 : VEILLE ET TENDANCES</a></li>
+                </ul>
+            </section>
+
+             <!-- VOS QUESTIONS (Cycle : Ocre Bronze) -->
+            <section id="vos-questions" class="card p-5 card-accent-3 shadow-md">
+                <h2 class="text-2xl font-bold mb-4 flex items-center">
+                    <span class="mr-2 text-3xl">❓</span> SP_QS — VOS QUESTIONS
+                </h2>
+                <ul class="space-y-2 list-disc pl-5">
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_QS/SP_QS_001.html" target="_blank" class="pulse-link">SP_QS_001 : QUESTIONS COURANTES</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_QS/SP_QS_002.html" target="_blank" class="pulse-link">SP_QS_002 : CAS PRATIQUES ET PROBLEMES CONCRETS</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_QS/SP_QS_003.html" target="_blank" class="pulse-link">SP_QS_003 : OUTILS ET RESSOURCES</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_QS/SP_QS_004.html" target="_blank" class="pulse-link">SP_QS_004 : MODELES ET TEMPLATES</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_QS/SP_QS_005.html" target="_blank" class="pulse-link">SP_QS_005 : SOLUTIONS RH PAIE ET EXPERTS</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_QS/SP_QS_006.html" target="_blank" class="pulse-link">SP_QS_006 : EXEMPLES ET ETUDES DE CAS</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_QS/SP_QS_007.html" target="_blank" class="pulse-link">SP_QS_007 : LIENS ET SOURCES OFFICIELLES</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_QS/SP_QS_008.html" target="_blank" class="pulse-link">SP_QS_008 : DOCUMENTATION ET SUPPORTS</a></li>
+                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_QS/SP_QS_009.html" target="_blank" class="pulse-link">SP_QS_009 : ERREURS FREQUENTES ET SOLUTIONS</a></li>
+                    <li><a href="https://projettechacademy.io/paia-pulse-content/Pulses/SP/SP_QS/SP_QS_010.html" target="_blank" class="pulse-link">SP_QS_010 : AIDES ET ASSISTANCE COLLECTIVE</a></li>
+                </ul>
+            </section>
+
+        </main>
+
+        <footer class="mt-10 pt-6 border-t border-gray-200 text-center text-sm text-gray-500" style="color: #0A0A0A;">
+            💫 PAÏA – Plateforme d’Actualisation &amp; d’Information (IA) | By Mathilde Martine PAISLEY<br>
+            © 2025 Tous droits réservés – Création : [date creation] – Dernière mise à jour : [date de mise à jour]
+        </footer>
+    </div>
+
+</body>
+</html>
