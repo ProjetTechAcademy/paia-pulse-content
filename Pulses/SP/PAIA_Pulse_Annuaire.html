@@ -43,38 +43,72 @@
         /* NOUVEAU STYLE POUR LA HEADER (pour intégrer le logo) */
         .fiche-header {
             display: flex;
+            flex-direction: column; /* Centrage vertical du contenu */
             align-items: center;
             justify-content: center;
             margin-bottom: 2.5rem; /* mb-10 */
         }
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
         .logo-wrapper {
-            margin-right: 1.5rem; /* Espacement avant le titre */
+            margin-right: 0.5rem; /* Réduit l'espace entre logo et étoile */
         }
         .logo-wrapper img {
-            height: 48px; /* Taille approximative du logo */
+            height: 30px; /* Taille du logo */
             width: auto;
+        }
+        /* Style pour le texte de description (pour le décalage) */
+        .header-description {
+             text-align: center;
+             margin-top: 0.5rem; /* Espace après le titre H1 */
+        }
+        
+        /* STYLE DU FOOTER COMPLET (Bleu Nuit #0F2C48) */
+        .full-width-footer {
+            background-color: #0F2C48; /* Bleu Nuit Profond */
+            color: #F6F2E8; /* Ivoire pour le texte */
+            width: 100%; /* Prend toute la largeur de la fenêtre */
+            padding: 1.5rem 0;
+            text-align: center;
+            /* Le footer doit être fixe/collé en bas */
         }
     </style>
 </head>
 <body class="p-4 sm:p-8">
 
-    <div class="max-w-4xl mx-auto bg-white-custom shadow-xl rounded-2xl p-6 sm:p-10">
+    <div class="max-w-4xl mx-auto bg-white-custom shadow-xl rounded-2xl p-6 sm:p-10 mb-8">
         
-        <!-- En-tête du Hub (MIS A JOUR POUR ACCUEILLIR LE LOGO) -->
+        <!-- En-tête du Hub -->
         <header class="fiche-header text-center">
-        <div class="logo-wrapper">
-            <!-- adapte le chemin si ton logo est ailleurs -->
-            <img src="/paia-pulse-content/asset/Logo_PAIA.jpg" alt="Logo PAÏA">
-        </div>
-            <div>
-                <h1 class="text-3xl sm:text-4xl font-extrabold mb-2 flex items-center justify-center">
-                    <span class="text-5xl mr-3" style="color: #0F2C48;">💫</span> PAÏA Pulse
-                </h1>
+            
+            <div class="header-content">
+                
+                <!-- 1. LOGO -->
+                <div class="logo-wrapper">
+                    <!-- ADAPTEZ LE CHEMIN ICI, VOTRE IMAGE DOIT ÊTRE ACCESSIBLE PUBLIQUEMENT -->
+                    <img src="/paia-pulse-content/asset/Logo_PAIA.jpg" alt="Logo PAÏA" style="height: 30px; margin-right: 0;"> 
+                </div>
+
+                <!-- 2. ÉTOILE + TITRE -->
+                <div>
+                    <h1 class="text-3xl sm:text-4xl font-extrabold mb-2 flex items-center justify-center">
+                        <!-- L'Étoile et le Titre sont maintenant alignés -->
+                        <span class="text-5xl mr-3" style="color: #0F2C48;">💫</span> PAÏA Pulse
+                    </h1>
+                </div>
+            </div>
+
+            <!-- Description sous le titre (Décalé après le H1) -->
+            <div class="header-description">
                 <p class="text-lg text-gray-700">Accédez à l'intégralité du contenu <br>🟧 Social &amp; Paie (SP).</p>
                 <p class="text-sm mt-1" style="color: #B4792A; font-weight: 500;">⚠️ Pour usage interne PAÏA (Phase Bêta)</p>
             </div>
         </header>
-
+        
         <main class="space-y-8">
             <!-- PAIE FONDAMENTALE (Accent Jaune Moutarde) -->
             <section id="paie-fondamentale" class="card p-5 card-accent-1 shadow-md">
