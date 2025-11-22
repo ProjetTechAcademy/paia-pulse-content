@@ -103,6 +103,8 @@
             gap: 0.5rem;
             box-shadow: 0 4px var(--paia-blue);
             font-size: 0.9rem;
+            min-width: 180px; /* Pour éviter le CLS lors du chargement */
+            justify-content: center;
         }
         
         #readButton:active {
@@ -411,15 +413,18 @@
 </head>
 <body>
 
+<div id="messageBox"></div>
 <div class="fiche-wrapper">
     
     <!-- SÉLECTEUR DE LANGUE AJOUTÉ ICI -->
+    <!-- J'EXCLUS LE SÉLECTEUR DE LA LECTURE GLOBALE -->
     <div class="lang-selector" role="tablist">
         <button onclick="changeLanguage('fr', this)" class="active" data-lang-code="fr" role="tab" aria-selected="true" aria-controls="main-content-view,lexique-view">Français 🇫🇷</button>
         <button onclick="changeLanguage('de', this)" data-lang-code="de" role="tab" aria-selected="false" aria-controls="main-content-view,lexique-view">Allemand 🇩🇪</button>
         <button onclick="changeLanguage('en', this)" data-lang-code="en" role="tab" aria-selected="false" aria-controls="main-content-view,lexique-view">Anglais 🇬🇧</button>
         <button onclick="changeLanguage('ar', this)" data-lang-code="ar" role="tab" aria-selected="false" aria-controls="main-content-view,lexique-view">Arabe 🇸🇦</button>
         <button onclick="changeLanguage('zh', this)" data-lang-code="zh" role="tab" aria-selected="false" aria-controls="main-content-view,lexique-view">Chinois 🇨🇳</button>
+        <!-- CORRECTION DU BOUTON ESPAGNOL -->
         <button onclick="changeLanguage('es', this)" data-lang-code="es" role="tab" aria-selected="false" aria-controls="main-content-view,lexique-view">Espagnol 🇪🇸</button>
         <button onclick="changeLanguage('it', this)" data-lang-code="it" role="tab" aria-selected="false" aria-controls="main-content-view,lexique-view">Italien 🇮🇹</button>
         <button onclick="changeLanguage('ja', this)" data-lang-code="ja" role="tab" aria-selected="false" aria-controls="main-content-view,lexique-view">Japonais 🇯🇵</button>
@@ -428,13 +433,13 @@
     <!-- FIN SÉLECTEUR DE LANGUE -->
 
     <!-- Bandeau haut -->
-    <header class="fiche-header">
+    <header class="fiche-header" id="ficheHeader">
         
         <!-- Bouton de Lecture Vocale ajouté ici -->
         <div class="read-button-container" style="text-align: center;">
              <button id="readButton" title="Démarrer la lecture vocale du contenu dans la langue sélectionnée" aria-live="polite">
                 <i class="fas fa-volume-up" aria-hidden="true"></i> 
-                <span>Lecture Vocale</span>
+                <span id="readButtonText">Lecture Vocale</span>
             </button>
         </div>
         <!-- Fin Bouton de Lecture Vocale -->
@@ -442,7 +447,8 @@
         <!-- LIGNE PRINCIPALE (LOGO + TITRE) -->
         <div class="header-main-line">
             <div class="logo-wrapper">
-                <img src="/paia-pulse-content/asset/Logo Paia Pulse.jpg" alt="Logo PAÏA Pulse">
+                <!-- CORRECTION DU LOGO : Maintien du chemin et ajout du fallback -->
+                <img src="/paia-pulse-content/asset/Logo Paia Pulse.jpg" alt="Logo PAÏA Pulse" onerror="this.onerror=null;this.src='https://placehold.co/50x50/0F2C48/D9A526?text=PP';">
             </div>
             <h1 class="fiche-header-title">💫 PAÏA Pulse</h1>
         </div>
@@ -482,7 +488,7 @@
     </header>
 
     <!-- NAVIGATION TABS -->
-    <!-- ARIA: role="tablist" -->
+    <!-- J'EXCLUS LA NAVIGATION DE LA LECTURE GLOBALE -->
     <div class="main-nav" role="tablist" aria-label="Navigation des contenus Pulse">
         <button id="tab-fiche" onclick="showContent('fiche', this)" class="active" role="tab" aria-selected="true" aria-controls="main-content-view">Pulse</button>
         <button id="tab-acronymes" onclick="showContent('acronymes', this)" role="tab" aria-selected="false" aria-controls="lexique-view">Acronymes</button>
@@ -695,7 +701,7 @@
                                 <li>La busta paga è un <span class="highlight">documento legale obbligatorio</span> consegnato al dipendente ad ogni pagamento.</li>
                                 <li>Riepiloga stipendio lordo, contributi, ritenute fiscali, importo sociale netto e netto pagato.</li>
                                 <li>È una <span class="highlight">prova dei diritti sociali</span> (pensione, disoccupazione, aiuti...).</li>
-                                <li>È vietato menzionare lo <span class="highlight">sciopero</span> o l'attività di rappresentanza dei dipendenti su di essa.</li>
+                                <li>È vietato menzionare lo <span class="highlight">sciopero</span> ou l'attività di rappresentanza dei dipendenti su di essa.</li>
                             </ul>
                         </div>
                     </div>
@@ -892,7 +898,7 @@
                         <div class="bloc-content">
                             <ul>
                                 <li>Wydawany pracownikowi <span class="highlight">przy każdej wypłacie wynagrodzenia</span>.</li>
-                                <li>Pracodawca przechowuje kopię przez <span class="highlight-yellow">5 lat</span>.</li>
+                                <li>Pracodawca przechowuje kopię przez <span class="highlight">5 lat</span>.</li>
                                 <li>Pracownik jest proszony o przechowywanie swoich pasków płacowych <span class="highlight">bez ograniczenia czasowego</span>.</li>
                                 <li>Nowy wzór z <span class="highlight-yellow">kwotą netto socjalną</span> obowiązuje dla płac wystawionych od <strong>1 lipca 2023 r.</strong>, wzór tymczasowy ważny do <strong>31 grudnia 2026 r.</strong></li>
                             </ul>
@@ -961,7 +967,7 @@
                         <h3 class="bloc-title"><span class="emoji">⚙️</span> ¿CÓMO?</h3>
                         <div class="bloc-content">
                             <ul>
-                                <li>Entrega posible en formato <span class="highlight">papel</span> o <span class="highlight">desmaterializado (digital)</span>.</li>
+                                <li>Entrega posible en formato <span class="highlight">papel</span> ou <span class="highlight">desmaterializado (digital)</span>.</li>
                                 <li>En caso de desmaterialización, el empleador debe garantizar el <span class="highlight">acceso, integridad, confidencialidad</span> y disponibilidad del documento.</li>
                                 <li>El empleado puede <span class="highlight-yellow">oponerse en cualquier momento</span> al formato desmaterializado por un medio que dé fecha cierta (correo electrónico, carta...).</li>
                                 <li>El orden de las secciones y la agrupación de la información están fijados reglamentariamente para asegurar la comparabilidad.</li>
@@ -983,7 +989,7 @@
                         <h3 class="bloc-title"><span class="emoji">⚙️</span> COME?</h3>
                         <div class="bloc-content">
                             <ul>
-                                <li>Consegna possibile in formato <span class="highlight">cartaceo</span> o <span class="highlight">dematerializzato</span>.</li>
+                                <li>Consegna possibile in formato <span class="highlight">cartaceo</span> ou <span class="highlight">dematerializzato</span>.</li>
                                 <li>In caso di dematerializzazione, il datore di lavoro deve garantire <span class="highlight">l'accesso, l'integrità, la riservatezza</span> e la disponibilità del documento.</li>
                                 <li>Il dipendente può <span class="highlight-yellow">opporsi in qualsiasi momento</span> al formato dematerializzato con un mezzo che dia data certa (e-mail, lettera...).</li>
                                 <li>L'ordine delle voci e il raggruppamento delle informazioni sono fissati dalla normativa per garantire la comparabilità.</li>
@@ -994,7 +1000,7 @@
                         <h3 class="bloc-title"><span class="emoji">⚙️</span> JAK?</h3>
                         <div class="bloc-content">
                             <ul>
-                                <li>Wydanie możliwe w formie <span class="highlight">papierowej</span> lub <span class="highlight">zdematerializowanej</span> (cyfrowej).</li>
+                                <li>Wydanie możliwe w formie <span class="highlight">papierowej</span> ou <span class="highlight">zdematerializowanej</span> (cyfrowej).</li>
                                 <li>W przypadku dematerializacji pracodawca musi zagwarantować <span class="highlight">dostęp, integralność, poufność</span> i dostępność dokumentu.</li>
                                 <li>Pracownik może <span class="highlight-yellow">w każdej chwili sprzeciwić się</span> zdematerializowanej formie za pomocą środka dającego pewną datę (e-mail, list...).</li>
                                 <li>Kolejność rubryk i grupowanie informacji są ustalone przepisami w celu zapewnienia porównywalności.</li>
@@ -1103,7 +1109,7 @@
                         <div class="bloc-content">
                             <ul>
                                 <li>Musi zawierać w szczególności:</li>
-                                <li>• <span class="highlight">Płaca brutto</span> i <span class="highlight">faktycznie wypłacona kwota netto</span>.</li>
+                                <li>• <span class="highlight">Płaca brutto</span> et <span class="highlight">faktycznie wypłacona kwota netto</span>.</li>
                                 <li>• <span class="highlight-yellow">Kwota netto socjalna</span>, <span class="highlight">netto podlegająca opodatkowaniu</span> i potrącenie u źródła (PAS).</li>
                                 <li>• Podstawy, stawki i kwoty obowiązkowych składek i wkładów socjalnych.</li>
                                 <li>• Całkowita kwota zwolnień / ulg w składkach, jeśli dotyczy.</li>
@@ -1968,7 +1974,7 @@
                             <span class="lexique-definition">Base di calcolo sulla quale si applicano le aliquote dei contributi sociali.</span>
                         </div>
                         <div class="lexique-item">
-                            <span class="lexique-acronyme">Contenzioso :</span>
+                            <span class="lexique-acronyme">Contentieux :</span>
                             <span class="lexique-definition">Insieme delle controversie (contestazioni, processi) legate all'applicazione del diritto del lavoro.</span>
                         </div>
                         <div class="lexique-item">
@@ -2198,6 +2204,396 @@
 
 <!-- SCRIPT JAVASCRIPT POUR LE CHANGEMENT DE LANGUE ET LA NAVIGATION -->
 <script>
+    // Configuration de l'API (la clé API est injectée automatiquement au runtime)
+    const API_KEY = ""; 
+    const TTS_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${API_KEY}`;
+    
+    // --- UTILITIES TTS (Audio PCM vers WAV) ---
+    
+    /** Convertit une chaîne Base64 en ArrayBuffer. */
+    function base64ToArrayBuffer(base64) {
+        const binaryString = atob(base64);
+        const len = binaryString.length;
+        const bytes = new Uint8Array(len);
+        for (let i = 0; i < len; i++) {
+            bytes[i] = binaryString.charCodeAt(i);
+        }
+        return bytes.buffer;
+    }
+    
+    /** Convertit les données PCM 16 bits en blob WAV jouable. */
+    function pcmToWav(pcm16, sampleRate) {
+        const pcmData = pcm16.buffer;
+        const numChannels = 1;
+        const bitsPerSample = 16;
+        const byteRate = sampleRate * numChannels * (bitsPerSample / 8);
+        const blockAlign = numChannels * (bitsPerSample / 8);
+
+        const dataLength = pcmData.byteLength;
+        const buffer = new ArrayBuffer(44 + dataLength);
+        const view = new DataView(buffer);
+        let offset = 0;
+
+        function writeString(str) {
+            for (let i = 0; i < str.length; i++) {
+                view.setUint8(offset + i, str.charCodeAt(i));
+            }
+            offset += str.length;
+        }
+
+        function writeUint32(value) {
+            view.setUint32(offset, value, true); // little-endian
+            offset += 4;
+        }
+
+        function writeUint16(value) {
+            view.setUint16(offset, value, true); // little-endian
+            offset += 2;
+        }
+
+        // RIFF chunk
+        writeString('RIFF');
+        writeUint32(36 + dataLength); // file size - 8
+        writeString('WAVE');
+
+        // fmt chunk
+        writeString('fmt ');
+        writeUint32(16);             // chunk size (16 for PCM)
+        writeUint16(1);              // format code (1 for PCM)
+        writeUint16(numChannels);
+        writeUint32(sampleRate);
+        writeUint32(byteRate);
+        writeUint16(blockAlign);
+        writeUint16(bitsPerSample);
+
+        // data chunk
+        writeString('data');
+        writeUint32(dataLength);
+        
+        // Copy PCM data
+        const pcmBytes = new Uint8Array(pcmData);
+        for (let i = 0; i < dataLength; i++) {
+            view.setUint8(offset + i, pcmBytes[i]);
+        }
+
+        return new Blob([view], { type: 'audio/wav' });
+    }
+    
+    // --- ÉTAT DE L'APPLICATION ---
+    let currentAudio = null;
+    const voiceMap = {
+        'fr': 'Kore', 
+        'en': 'Zephyr',
+        'es': 'Puck',
+        'de': 'Charon',
+        'it': 'Orus',
+        'pl': 'Umbriel',
+        'ja': 'Aoede',
+        'ar': 'Algieba',
+        'zh': 'Achird'
+    };
+    
+    const languageCodeMap = {
+        'fr': 'fr-FR',
+        'en': 'en-US',
+        'es': 'es-US',
+        'de': 'de-DE',
+        'it': 'it-IT',
+        'pl': 'pl-PL',
+        'ja': 'ja-JP',
+        'ar': 'ar-EG',
+        'zh': 'zh-CN'
+    };
+
+    // --- LOGIQUE DE LECTURE VOCALE ---
+    
+    /** Affiche une boîte de message temporaire */
+    function showMessage(text, duration = 3000) {
+        const box = document.getElementById('messageBox');
+        box.textContent = text;
+        box.style.display = 'block';
+        setTimeout(() => {
+            box.style.display = 'none';
+        }, duration);
+    }
+    
+    /** Met à jour le bouton de lecture (icône et texte) */
+    function updateReadButton(state = 'ready', currentLang = 'fr') {
+        const button = document.getElementById('readButton');
+        const icon = button.querySelector('i');
+        const textSpan = document.getElementById('readButtonText');
+        
+        // Arrêter l'audio si nécessaire
+        if (state === 'ready' && currentAudio) {
+            currentAudio.pause();
+            currentAudio = null;
+        }
+
+        button.disabled = (state === 'loading');
+
+        if (state === 'loading') {
+            icon.className = 'loading-spinner';
+            textSpan.textContent = 'Génération...';
+        } else if (state === 'playing') {
+            icon.className = 'fas fa-stop';
+            textSpan.textContent = 'Arrêter la Lecture';
+        } else { // 'ready' or 'error'
+            icon.className = 'fas fa-volume-up';
+            // Mettre à jour le texte du bouton selon la langue active
+            const langTexts = {
+                'fr': 'Lecture Vocale',
+                'en': 'Voice Play',
+                'es': 'Lectura Vocal',
+                'de': 'Sprachwiedergabe',
+                'it': 'Lettura Vocale',
+                'pl': 'Odtwarzanie Głosu',
+                'ja': '音声再生',
+                'ar': 'القراءة الصوتية',
+                'zh': '语音播放'
+            };
+            textSpan.textContent = langTexts[currentLang] || 'Lecture Vocale';
+        }
+    }
+    
+    /** Extrait le contenu textuel de la vue active */
+    function getActiveContentText(langCode) {
+        let contentToRead = "";
+        
+        const ficheView = document.getElementById('main-content-view');
+        const lexiqueView = document.getElementById('lexique-view');
+        
+        const activeLangSelector = `.lang-content.${langCode}.active`;
+        
+        // 1. Logique pour la vue Fiche (Pulse) - Lecture de l'entête et de la grille QQOQCCP
+        if (ficheView.classList.contains('active')) {
+            const headerLangContent = document.querySelector(`#header-content ${activeLangSelector}`);
+            const mainTitleLangContent = document.querySelector(`#main-title-content ${activeLangSelector}`);
+            
+            // a) Lire le titre et sous-titre de l'entête
+            if (headerLangContent) {
+                 const headerTitle = document.querySelector('.fiche-header-title')?.textContent.trim() || 'PAÏA Pulse.';
+                 const headerSubtitle = headerLangContent.querySelector('.fiche-header-subtitle')?.textContent.trim() || '';
+                 contentToRead += `${headerTitle}. ${headerSubtitle}. `;
+            }
+
+            // b) Lire le titre principal de la fiche
+            if (mainTitleLangContent) {
+                 const mainTitle = mainTitleLangContent.querySelector('.fiche-main-title')?.textContent.trim() || '';
+                 const mainSub = mainTitleLangContent.querySelector('.fiche-main-sub')?.textContent.trim() || '';
+                 contentToRead += `${mainTitle}. ${mainSub}. `;
+            }
+
+            // c) Parcourir tous les blocs QQOQCCP (articles avec la classe .bloc)
+            const blocs = ficheView.querySelectorAll(`.fiche-grid article.bloc`);
+            
+            blocs.forEach(bloc => {
+                const blocLangContent = bloc.querySelector(activeLangSelector);
+                if (blocLangContent) {
+                    // Créer un clone pour manipuler le contenu sans affecter l'affichage DOM
+                    const blocClone = blocLangContent.cloneNode(true);
+                    
+                    // Extraire le titre du bloc (ex: QUI ?) et nettoyer l'emoji
+                    const blocTitleElement = blocClone.querySelector('.bloc-title');
+                    // Retirer l'emoji, le point d'interrogation/d'exclamation pour un titre propre
+                    const blocTitle = blocTitleElement ? blocTitleElement.textContent.replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]|\?|\!/g, '').trim() : '';
+
+                    // Supprimer le titre pour ne garder que le contenu de la liste/texte
+                    if(blocTitleElement) {
+                        blocTitleElement.remove();
+                    }
+
+                    // --- LOGIQUE AMÉLIORÉE POUR EXTRAIRE LE CONTENU DE LISTE EN TEXTE CONTINU ---
+                    let blocContentText = '';
+                    const listItems = blocClone.querySelectorAll('.bloc-content li');
+                    
+                    if (listItems.length > 0) {
+                        // Concaténer les éléments de la liste en les séparant par un point.
+                        listItems.forEach(li => {
+                            // Nettoyer le texte de l'élément, en retirant les puces et les balises HTML de mise en évidence
+                            let itemText = li.textContent.replace(/[\u2022\u2023\u25E6]\s*/g, '').trim();
+                            
+                            // J'ajoute le point ici pour forcer la fin de phrase et la pause TTS
+                            if (itemText) {
+                                blocContentText += itemText + '. ';
+                            }
+                        });
+                        blocContentText = blocContentText.replace(/\.+/g, '.').trim(); // Nettoyer les points multiples
+                    } else {
+                        // S'il n'y a pas de liste, récupérer le texte brut du bloc-content
+                        blocContentText = blocClone.querySelector('.bloc-content')?.textContent.trim() || '';
+                    }
+                    
+                    // Cas spécial : SOURCES OFFICIELLES
+                    if (blocTitle.includes('SOURCES')) {
+                         contentToRead += `${blocTitle}: Les références sont listées dans la fiche. `;
+                    } else if (blocContentText) {
+                         // Assurer une bonne séparation entre le titre du bloc et son contenu.
+                         contentToRead += `${blocTitle}, ${blocContentText}. `;
+                    }
+                }
+            });
+
+        // 2. Logique pour la vue Lexique (Acronymes ou Glossaire)
+        } else if (lexiqueView.classList.contains('active')) {
+            const activeLexiqueContent = lexiqueView.querySelector('.lexique-content.active');
+            if (activeLexiqueContent) {
+                 const langContentElement = activeLexiqueContent.querySelector(activeLangSelector);
+                 if (langContentElement) {
+                     const title = langContentElement.querySelector('.lexique-title')?.textContent.trim() || '';
+                     contentToRead += title + '. ';
+
+                     const items = langContentElement.querySelectorAll('.lexique-item');
+                     items.forEach(item => {
+                         const acronyme = item.querySelector('.lexique-acronyme')?.textContent.replace('✨ ', '').trim().replace(':', '');
+                         const definition = item.querySelector('.lexique-definition')?.textContent.trim();
+                         contentToRead += `${acronyme} : ${definition}. `;
+                     });
+                 }
+            }
+        }
+        
+        // Nettoyage final : supprimer les espaces multiples et les points en double/triple
+        contentToRead = contentToRead.replace(/\s+/g, ' ').replace(/\.+/g, '.').trim();
+        
+        // On tronque le texte pour s'assurer qu'il ne dépasse pas une limite raisonnable pour l'API TTS
+        const MAX_TTS_CHARS = 1500;
+        if (contentToRead.length > MAX_TTS_CHARS) {
+            const lastPeriod = contentToRead.lastIndexOf('.', MAX_TTS_CHARS);
+            contentToRead = lastPeriod !== -1 ? contentToRead.substring(0, lastPeriod + 1) : contentToRead.substring(0, MAX_TTS_CHARS);
+        }
+
+        return contentToRead;
+    }
+
+
+    /** Lance la génération de l'audio via l'API TTS */
+    async function readText(text, langCode) {
+        if (!text) {
+            showMessage("Aucun contenu à lire dans cette langue.", 3000);
+            return;
+        }
+
+        const voiceName = voiceMap[langCode];
+        const languageCode = languageCodeMap[langCode];
+        
+        if (!voiceName || !languageCode) {
+            showMessage(`La langue sélectionnée (${langCode}) n'est pas supportée pour la lecture vocale.`, 3000);
+            return;
+        }
+
+        updateReadButton('loading', langCode);
+        
+        // Le prompt guide la voix pour la langue sélectionnée
+        const systemPrompt = `TTS the following text. The language is ${languageCode}. Read clearly and at a standard pace.`;
+
+        const payload = {
+            contents: [{
+                parts: [{ text: text }]
+            }],
+            generationConfig: {
+                responseModalities: ["AUDIO"],
+                speechConfig: {
+                    voiceConfig: {
+                        prebuiltVoiceConfig: { voiceName: voiceName }
+                    },
+                    audioConfig: {
+                        sampleRateHertz: 16000
+                    }
+                },
+            },
+            model: "gemini-2.5-flash-preview-tts"
+        };
+        
+        let response;
+        const maxRetries = 3;
+        for (let i = 0; i < maxRetries; i++) {
+            try {
+                response = await fetch(TTS_API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (response.ok) {
+                    break; 
+                } else if (response.status === 429) {
+                    const delay = Math.pow(2, i) * 1000;
+                    if (i < maxRetries - 1) {
+                        await new Promise(resolve => setTimeout(resolve, delay));
+                        continue;
+                    }
+                }
+                throw new Error(`Erreur HTTP: ${response.status} ${response.statusText}`);
+
+            } catch (error) {
+                if (i === maxRetries - 1) {
+                    console.error('TTS API error after retries:', error);
+                    updateReadButton('error', langCode);
+                    showMessage("Erreur de génération vocale. Veuillez réessayer. ❌", 5000);
+                    return;
+                }
+                const delay = Math.pow(2, i) * 1000;
+                await new Promise(resolve => setTimeout(resolve, delay));
+            }
+        }
+        
+        const result = await response.json();
+
+        const part = result?.candidates?.[0]?.content?.parts?.[0];
+        const audioData = part?.inlineData?.data;
+        const mimeType = part?.inlineData?.mimeType;
+
+        if (audioData && mimeType && mimeType.startsWith("audio/L16")) {
+            const match = mimeType.match(/rate=(\d+)/);
+            const sampleRate = match ? parseInt(match[1], 10) : 16000;
+            
+            const pcmData = base64ToArrayBuffer(audioData);
+            const pcm16 = new Int16Array(pcmData);
+            
+            const wavBlob = pcmToWav(pcm16, sampleRate);
+            const audioUrl = URL.createObjectURL(wavBlob);
+            
+            currentAudio = new Audio(audioUrl);
+            currentAudio.play();
+            
+            updateReadButton('playing', langCode);
+
+            currentAudio.onended = () => {
+                updateReadButton('ready', langCode);
+                URL.revokeObjectURL(audioUrl);
+            };
+
+            currentAudio.onerror = (e) => {
+                console.error("Erreur de lecture audio:", e);
+                updateReadButton('error', langCode);
+                showMessage("Erreur lors de la lecture de l'audio. 🎧", 5000);
+                URL.revokeObjectURL(audioUrl);
+            };
+
+        } else {
+            console.error("Réponse API TTS invalide:", result);
+            updateReadButton('error', langCode);
+            showMessage("Erreur: Format audio non reçu. ⚠️", 5000);
+        }
+    }
+    
+    // Événement pour le bouton de lecture
+    document.getElementById('readButton').addEventListener('click', () => {
+        const currentLangCode = document.documentElement.lang;
+        
+        if (currentAudio) {
+            currentAudio.pause();
+            currentAudio = null;
+            updateReadButton('ready', currentLangCode);
+            return;
+        }
+
+        const textToRead = getActiveContentText(currentLangCode);
+        readText(textToRead, currentLangCode);
+    });
+    
+    // --- GESTION DES VUES ET LANGUES (Code original adapté) ---
+
     // Liste des titres de documents traduits pour la balise <title>
     const translatedTitles = {
         'fr': '💫 PAÏA Pulse – SP_BP_001 – Règles générales relatives au bulletin de paie',
@@ -2228,17 +2624,16 @@
         const langButtons = document.querySelectorAll('.lang-selector button');
         langButtons.forEach(button => {
             button.classList.remove('active');
+            button.setAttribute('aria-selected', 'false');
         });
         if (clickedButton) {
             clickedButton.classList.add('active');
+            clickedButton.setAttribute('aria-selected', 'true');
         }
 
-        // 3. Mettre à jour la direction de lecture (pour le corps du document)
-        // ATTENTION : Cette partie ne doit affecter que le contenu principal, pas l'en-tête ou le sélecteur de langue.
-        // La correction est faite en CSS (direction: ltr !important sur les conteneurs fixes)
+        // 3. Mettre à jour la direction de lecture
         if (langCode === 'ar') {
             document.body.style.direction = 'rtl';
-            // On ne change pas l'alignement du body pour ne pas affecter les éléments centrés de l'en-tête.
         } else {
             document.body.style.direction = 'ltr';
         }
@@ -2249,33 +2644,42 @@
         // 5. Mettre à jour l'attribut lang de la balise HTML pour l'accessibilité
         document.documentElement.lang = langCode;
         
-        // S'assurer que le contenu actuel (fiche ou lexique) est bien visible
-        // Si on change de langue, on s'assure que le bon contenu (acronyme ou glossaire) est actif dans la vue lexique
+        // 6. S'assurer que le contenu actuel (fiche ou lexique) est bien visible
         const activeLexiqueView = document.querySelector('#lexique-view.active');
         if (activeLexiqueView) {
-             // Retrouver le tab actif (acronymes ou glossaire)
-            const activeTab = document.querySelector('.main-nav button.active');
-            if (activeTab) {
+             const activeTab = document.querySelector('.main-nav button.active');
+             if (activeTab) {
                 const contentType = activeTab.id.replace('tab-', '');
                 showLexiqueContent(contentType);
-            }
+             }
         }
+        
+        // 7. Mettre à jour le bouton de lecture (pour arrêter si en cours et changer le texte)
+        updateReadButton('ready', langCode);
     }
 
     // Fonction pour gérer la navigation entre Fiche, Acronymes et Glossaire
     function showContent(viewName, clickedButton) {
+        const currentLangCode = document.documentElement.lang;
+        
+        // Arrêter la lecture si en cours
+        updateReadButton('ready', currentLangCode);
+        
         // 1. Gérer les vues principales (Fiche ou Lexique)
         const ficheView = document.getElementById('main-content-view');
         const lexiqueView = document.getElementById('lexique-view');
 
         ficheView.classList.remove('active');
         lexiqueView.classList.remove('active');
+        ficheView.hidden = true;
+        lexiqueView.hidden = true;
 
         if (viewName === 'fiche') {
             ficheView.classList.add('active');
+            ficheView.hidden = false;
         } else {
             lexiqueView.classList.add('active');
-            // Afficher le contenu spécifique cliqué dans la vue Lexique
+            lexiqueView.hidden = false;
             showLexiqueContent(viewName);
         }
 
@@ -2283,8 +2687,10 @@
         const navButtons = document.querySelectorAll('.main-nav button');
         navButtons.forEach(button => {
             button.classList.remove('active');
+            button.setAttribute('aria-selected', 'false');
         });
         clickedButton.classList.add('active');
+        clickedButton.setAttribute('aria-selected', 'true');
     }
 
     // Fonction pour afficher le contenu spécifique (Acronymes ou Glossaire)
@@ -2295,10 +2701,17 @@
         acronymesContent.classList.remove('active');
         glossaireContent.classList.remove('active');
 
+        // Mettre à jour l'affichage de la langue active dans le lexique
+        const currentLangCode = document.documentElement.lang;
+        const allLangContents = document.querySelectorAll('#acronymes-content .lang-content, #glossaire-content .lang-content');
+        allLangContents.forEach(el => el.classList.remove('active'));
+        
         if (contentType === 'acronymes') {
             acronymesContent.classList.add('active');
+            acronymesContent.querySelector(`.lang-content.${currentLangCode}`)?.classList.add('active');
         } else if (contentType === 'glossaire') {
             glossaireContent.classList.add('active');
+            glossaireContent.querySelector(`.lang-content.${currentLangCode}`)?.classList.add('active');
         }
     }
 
@@ -2306,7 +2719,7 @@
     // Initialisation au chargement de la page
     document.addEventListener('DOMContentLoaded', () => {
         // 1. Force le français au chargement et met à jour les styles
-        const frButton = document.querySelector('.lang-selector button[onclick*="\'fr\'"]');
+        const frButton = document.querySelector('.lang-selector button[data-lang-code="fr"]');
         if (frButton) {
             changeLanguage('fr', frButton);
         }

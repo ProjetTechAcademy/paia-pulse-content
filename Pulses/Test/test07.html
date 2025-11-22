@@ -8,9 +8,6 @@
 
     <!-- Police Inter -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- Charger Font Awesome pour l'icône de lecture -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <style>
         /* PALETTE PAÏA */
@@ -44,6 +41,7 @@
         .fiche-header {
             text-align: center;
             margin-bottom: 2.5rem;
+            /* Point clé : Force l'en-tête à rester en LTR pour que le centrage fonctionne */
             direction: ltr !important; 
         }
 
@@ -53,18 +51,13 @@
             justify-content: center;
             margin-bottom: 0.5rem;
         }
-        
-        /* Conteneur pour le bouton de lecture (pour le centrage) */
-        .read-button-container {
-            margin-bottom: 1rem;
-        }
 
         .logo-wrapper {
-            margin-right: 10px;
+            margin-right: 10px; /* Espace entre le logo et le titre */
         }
 
         .logo-wrapper img {
-            width: 50px;
+            width: 50px; /* Logo plus petit */
             height: 50px;
             border-radius: 12px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
@@ -77,111 +70,26 @@
             margin: 0;
         }
 
+        /* Le conteneur du sous-titre est également forcé en LTR */
         #header-content {
             direction: ltr !important;
         }
 
         .fiche-header-subtitle {
-            font-size: 0.8rem;
+            font-size: 0.8rem; /* Rendu plus petit */
             color: #555;
-            margin: 0 0 1rem 0;
+            margin: 0 0 1rem 0; /* Espace après le sous-titre */
+            /* Point clé : Assure que le texte du sous-titre reste centré même s'il est en Arabe */
             text-align: center; 
         }
-        
-        /* Nouveau Bouton de Lecture Vocale */
-        #readButton {
-            background-color: var(--paia-bronze);
-            color: white;
-            border: none;
-            padding: 0.75rem 1.25rem;
-            font-weight: 700;
-            cursor: pointer;
-            border-radius: 8px;
-            transition: background-color 0.2s;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            box-shadow: 0 4px var(--paia-blue);
-            font-size: 0.9rem;
-        }
-        
-        #readButton:active {
-            box-shadow: 0 2px var(--paia-blue);
-            transform: translateY(2px);
-        }
-        
-        #readButton:disabled {
-            background-color: #ccc;
-            cursor: not-allowed;
-            box-shadow: none;
-            transform: none;
-        }
-        
-        .loading-spinner {
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            border-top: 3px solid white;
-            border-radius: 50%;
-            width: 15px;
-            height: 15px;
-            animation: spin 1s linear infinite;
-        }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        /* Message d'état */
-        #messageBox {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            padding: 15px 25px;
-            background-color: var(--paia-blue);
-            color: white;
-            border-radius: 8px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
-            z-index: 1000;
-            font-size: 1rem;
-            font-weight: 600;
-            display: none;
-            text-align: center;
-        }
-        
-        /* SÉLECTEUR DE LANGUE & NAVIGATION TABS */
-        .lang-selector {
-            text-align: center;
-            margin-bottom: 1.5rem;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            direction: ltr !important; 
-        }
-        .lang-selector button {
-            padding: 8px 12px; 
-            margin: 3px 2px;
-            cursor: pointer;
-            border: 1px solid var(--paia-blue);
-            background-color: var(--paia-ivory);
-            color: var(--paia-blue);
-            border-radius: 8px;
-            font-weight: 600;
-            transition: background-color 0.2s, color 0.2s;
-            font-size: 0.85rem; 
-            /* A11Y: Les boutons de langue sont des onglets logiques, même s'ils ne sont pas formellement des onglets ARIA */
-        }
-        .lang-selector button.active {
-            background-color: var(--paia-blue);
-            color: white;
-        }
-        
-        /* NAVIGATION PRINCIPALE */
+        /* NAVIGATION PRINCIPALE (ACRONYMES/GLOSSAIRE) */
         .main-nav {
             display: flex;
             justify-content: center;
             margin-bottom: 2rem;
             gap: 10px;
+            /* Le nav est déjà dans le body qui gère la direction, mais le centrage est fait par Flexbox LTR, donc stable */
             direction: ltr !important; 
         }
         .main-nav button {
@@ -194,6 +102,9 @@
             cursor: pointer;
             transition: background-color 0.2s;
             box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        .main-nav button:hover {
+            background-color: var(--paia-blue);
         }
         .main-nav button.active {
             background-color: var(--paia-yellow);
@@ -247,8 +158,7 @@
             grid-template-columns: repeat(3, minmax(0, 1fr));
             gap: 1rem;
         }
-        
-        /* Styles Responsive conservés */
+
         @media (max-width: 900px) {
             .fiche-grid {
                 grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -322,7 +232,7 @@
             color: var(--paia-yellow);
         }
         
-        /* Styles Multi-langues */
+        /* AJOUT DE STYLE MULTILINGUE */
         .lang-content {
             display: none;
         }
@@ -330,23 +240,72 @@
             display: block;
         }
         
+        /* Style spécifique pour la langue Arabe (Direction de droite à gauche) */
         .ar-content {
             direction: rtl;
             text-align: right;
         }
         
+        /* CORRECTION POUR QUE LE SÉLECTEUR DE LANGUE NE BOUGE JAMAIS */
+        .lang-selector {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            /* Point clé : Forcer la direction LTR sur le sélecteur lui-même */
+            direction: ltr !important; 
+        }
+        .lang-selector button {
+            padding: 8px 12px; 
+            margin: 3px 2px;
+            cursor: pointer;
+            border: 1px solid var(--paia-blue);
+            background-color: var(--paia-ivory);
+            color: var(--paia-blue);
+            border-radius: 8px;
+            font-weight: 600;
+            transition: background-color 0.2s, color 0.2s;
+            font-size: 0.85rem; 
+        }
+        .lang-selector button.active {
+            background-color: var(--paia-blue);
+            color: white;
+        }
+
+        /* Pour aligner les listes en RTL */
         .ar-content .bloc-content ul {
             padding-right: 1.1rem;
             padding-left: 0;
-            list-style-type: none;
+            list-style-type: none; /* Enlève la puce par défaut */
         }
         .ar-content .bloc-content li::before {
-            content: '•';
+            content: '•'; /* Ajoute une puce personnalisée à droite */
             margin-left: 0.5em;
             color: var(--paia-blue);
         }
+
+        /* Bas de page */
+        .fiche-footer {
+            font-size: 0.75rem;
+            color: #666;
+            text-align: center;
+            margin-top: 1.7rem;
+            line-height: 1.5; /* Ajout pour espacer les lignes */
+            /* Point clé : Forcer la direction LTR sur le footer si jamais la direction du body change */
+            direction: ltr !important;
+        }
+        /* Nouvelle ligne pour le pied de page */
+        .footer-line {
+            display: block;
+        }
+
+        .fiche-footer strong {
+            font-weight: 700;
+            color: var(--paia-blue);
+        }
         
-        /* Styles Lexique */
+        /* STYLE DU LEXIQUE MODIFIÉ */
         .lexique-section {
             background-color: var(--paia-blue);
             color: white;
@@ -366,7 +325,8 @@
             border-bottom: 2px solid var(--paia-yellow);
             padding-bottom: 0.5rem;
         }
-        
+
+        /* Passage à une seule colonne, car le mode en ligne rend la largeur des colonnes moins pertinente */
         .lexique-grid {
             display: grid;
             grid-template-columns: 1fr; 
@@ -374,74 +334,83 @@
             font-size: 0.9rem;
         }
         
+        /* Ajustement mobile non nécessaire car la grille est déjà à 1 colonne */
+        
         .lexique-item {
-            margin-bottom: 0.4rem; 
+            margin-bottom: 0.4rem; /* Espace réduit entre les éléments */
             line-height: 1.5;
+            /* Pas de bordure en bas */
         }
         
+        /* Modification pour aligner les éléments en ligne */
         .lexique-acronyme {
             font-weight: 700;
             color: var(--paia-yellow);
             margin-right: 0.3rem; 
-            display: inline; 
+            display: inline; /* Assure que le terme est sur la même ligne que la définition */
         }
         .lexique-acronyme::before {
-            content: '✨ ';
+            content: '✨ '; /* Ajout de l'emoji */
         }
         .lexique-definition {
             font-weight: 400;
             margin-left: 0; 
+            display: inline; /* Le point clé : tout sur la même ligne */
+        }
+        
+        /* Styles RTL pour le lexique */
+        .ar-content .lexique-item {
+            text-align: right;
+            direction: rtl;
+        }
+        .ar-content .lexique-acronyme {
+            margin-left: 0.3rem;
+            margin-right: 0;
             display: inline;
         }
-
-        /* Bas de page */
-        .fiche-footer {
-            font-size: 0.75rem;
-            color: #666;
-            text-align: center;
-            margin-top: 1.7rem;
-            line-height: 1.5; 
-            direction: ltr !important;
+        .ar-content .lexique-acronyme::before {
+            content: '✨ ';
+            margin-right: 0.3rem; 
         }
-        .footer-line {
+        .ar-content .lexique-definition {
+             display: inline;
+        }
+        
+        /* Permet d'afficher la bonne section de contenu */
+        .lexique-content {
+            display: none;
+        }
+        .lexique-content.active {
             display: block;
         }
 
     </style>
 </head>
 <body>
-
 <div class="fiche-wrapper">
     
     <!-- SÉLECTEUR DE LANGUE AJOUTÉ ICI -->
-    <div class="lang-selector" role="tablist">
-        <button onclick="changeLanguage('fr', this)" class="active" data-lang-code="fr" role="tab" aria-selected="true" aria-controls="main-content-view,lexique-view">Français 🇫🇷</button>
-        <button onclick="changeLanguage('de', this)" data-lang-code="de" role="tab" aria-selected="false" aria-controls="main-content-view,lexique-view">Allemand 🇩🇪</button>
-        <button onclick="changeLanguage('en', this)" data-lang-code="en" role="tab" aria-selected="false" aria-controls="main-content-view,lexique-view">Anglais 🇬🇧</button>
-        <button onclick="changeLanguage('ar', this)" data-lang-code="ar" role="tab" aria-selected="false" aria-controls="main-content-view,lexique-view">Arabe 🇸🇦</button>
-        <button onclick="changeLanguage('zh', this)" data-lang-code="zh" role="tab" aria-selected="false" aria-controls="main-content-view,lexique-view">Chinois 🇨🇳</button>
-        <button onclick="changeLanguage('es', this)" data-lang-code="es" role="tab" aria-selected="false" aria-controls="main-content-view,lexique-view">Espagnol 🇪🇸</button>
-        <button onclick="changeLanguage('it', this)" data-lang-code="it" role="tab" aria-selected="false" aria-controls="main-content-view,lexique-view">Italien 🇮🇹</button>
-        <button onclick="changeLanguage('ja', this)" data-lang-code="ja" role="tab" aria-selected="false" aria-controls="main-content-view,lexique-view">Japonais 🇯🇵</button>
-        <button onclick="changeLanguage('pl', this)" data-lang-code="pl" role="tab" aria-selected="false" aria-controls="main-content-view,lexique-view">Polonais 🇵🇱</button>
+    <!-- L'ordre des boutons a été mis à jour : Français en premier, puis alphabétique. -->
+    <div class="lang-selector">
+        <button onclick="changeLanguage('fr', this)" class="active">Français 🇫🇷</button>
+        <button onclick="changeLanguage('de', this)">Allemand 🇩🇪</button>
+        <button onclick="changeLanguage('en', this)">Anglais 🇬🇧</button>
+        <button onclick="changeLanguage('ar', this)">Arabe 🇸🇦</button>
+        <button onclick="changeLanguage('zh', this)">Chinois 🇨🇳</button>
+        <button onclick="changeLanguage('es', this)">Espagnol 🇪🇸</button>
+        <button onclick="changeLanguage('it', this)">Italien 🇮🇹</button>
+        <button onclick="changeLanguage('ja', this)">Japonais 🇯🇵</button>
+        <button onclick="changeLanguage('pl', this)">Polonais 🇵🇱</button>
     </div>
     <!-- FIN SÉLECTEUR DE LANGUE -->
 
     <!-- Bandeau haut -->
     <header class="fiche-header">
-        
-        <!-- Bouton de Lecture Vocale ajouté ici -->
-        <div class="read-button-container" style="text-align: center;">
-             <button id="readButton" title="Démarrer la lecture vocale du contenu dans la langue sélectionnée" aria-live="polite">
-                <i class="fas fa-volume-up" aria-hidden="true"></i> 
-                <span>Lecture Vocale</span>
-            </button>
-        </div>
-        <!-- Fin Bouton de Lecture Vocale -->
 
         <!-- LIGNE PRINCIPALE (LOGO + TITRE) -->
         <div class="header-main-line">
             <div class="logo-wrapper">
+                <!-- adapte le chemin si ton logo est ailleurs -->
                 <img src="/paia-pulse-content/asset/Logo Paia Pulse.jpg" alt="Logo PAÏA Pulse">
             </div>
             <h1 class="fiche-header-title">💫 PAÏA Pulse</h1>
@@ -449,6 +418,7 @@
         <!-- FIN LIGNE PRINCIPALE -->
 
         <!-- ZONE DE TEXTE MULTILINGUE (SOUS-TITRE) -->
+        <!-- Ce conteneur doit aussi être LTR pour rester centré sous le logo -->
         <div id="header-content" style="direction: ltr !important;">
             <div class="lang-content fr active">
                 <p class="fiche-header-subtitle" style="text-align: center;">Plateforme d’Actualisation & d’Information (IA)</p>
@@ -472,6 +442,7 @@
                 <p class="fiche-header-subtitle" style="text-align: center;">更新と情報提供プラットフォーム (AI)</p>
             </div>
             <div class="lang-content ar ar-content">
+                <!-- Ajout de text-align: center directement sur le p pour surcharger le rtl du ar-content et garantir le centrage -->
                 <p class="fiche-header-subtitle" style="text-align: center;">منصة التحديث والمعلومات (الذكاء الاصطناعي)</p>
             </div>
             <div class="lang-content zh">
@@ -482,22 +453,22 @@
     </header>
 
     <!-- NAVIGATION TABS -->
-    <!-- ARIA: role="tablist" -->
-    <div class="main-nav" role="tablist" aria-label="Navigation des contenus Pulse">
-        <button id="tab-fiche" onclick="showContent('fiche', this)" class="active" role="tab" aria-selected="true" aria-controls="main-content-view">Pulse</button>
-        <button id="tab-acronymes" onclick="showContent('acronymes', this)" role="tab" aria-selected="false" aria-controls="lexique-view">Acronymes</button>
-        <button id="tab-glossaire" onclick="showContent('glossaire', this)" role="tab" aria-selected="false" aria-controls="lexique-view">Glossaire</button>
+    <div class="main-nav">
+        <!-- RENOMMÉ Pulse Détaillée en Pulse -->
+        <button id="tab-fiche" onclick="showContent('fiche', this)" class="active">Pulse</button>
+        <button id="tab-acronymes" onclick="showContent('acronymes', this)">Acronymes</button>
+        <button id="tab-glossaire" onclick="showContent('glossaire', this)">Glossaire</button>
     </div>
     <!-- FIN NAVIGATION TABS -->
 
     <!-- VUE PRINCIPALE (FICHE DÉTAILLÉE) -->
-    <!-- ARIA: role="tabpanel" -->
-    <div id="main-content-view" class="active" role="tabpanel" aria-labelledby="tab-fiche">
-        <main class="fiche-card" id="mainContent">
+    <div id="main-content-view" class="active">
+        <main class="fiche-card">
 
             <!-- ZONE DE TEXTE MULTILINGUE (TITRE PRINCIPAL) -->
             <div id="main-title-content">
                 <div class="lang-content fr active">
+                    <!-- Suppression du Code Pulse dans le bouton Pulse, mais maintien ici où il est nécessaire -->
                     <div class="fiche-code">Code Pulse&nbsp;: <strong>SP_BP_001</strong></div>
                     <h2 class="fiche-main-title">Règles générales relatives au bulletin de paie</h2>
                     <p class="fiche-main-sub">Fiche de synthèse : obligation de remise, mentions obligatoires, modèle réglementaire, affichage du montant net social et règles de présentation.</p>
@@ -1314,7 +1285,7 @@
                             <ul>
                                 <li>Pasek płacowy to <span class="highlight">kluczowy dokument</span> łączący wynagrodzenie, prawa socjalne i podatki.</li>
                                 <li>Brak wydania lub niekompletny pasek płacowy naraża pracodawcę na <span class="highlight-yellow">sankcje</span> i ryzyko sporów sądowych.</li>
-                                <li><span class="highlight-yellow">Kwota netto socjalna</span> est punktem odniesienia dla RSA, premii za aktywność i innych świadczeń.</li>
+                                <li><span class="highlight-yellow">Kwota netto socjalna</span> jest punktem odniesienia dla RSA, premii za aktywność i innych świadczeń.</li>
                                 <li>Pracownik musi przechowywać swoje paski płacowe bez ograniczenia czasowego: służą one do celów emerytalnych, praw socjalnych i dowodu aktywności.</li>
                             </ul>
                         </div>
@@ -1453,8 +1424,7 @@
     <!-- FIN VUE PRINCIPALE -->
 
     <!-- VUE LEXIQUE (ACRONYMES & GLOSSAIRE) -->
-    <!-- ARIA: role="tabpanel" -->
-    <div id="lexique-view" role="tabpanel" aria-labelledby="tab-acronymes tab-glossaire" hidden>
+    <div id="lexique-view">
         <section class="lexique-section">
             
             <!-- CONTENU ACRONYMES -->
