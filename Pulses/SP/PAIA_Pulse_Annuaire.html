@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PAÏA Pulse - Annuaire de Contenu</title>
+    <title data-i18n="title">PAÏA Pulse - Annuaire de Contenu</title>
     <!-- Chargement de Tailwind CSS pour un design rapide et responsive -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
@@ -13,7 +13,8 @@
             background-color: #F6F2E8; /* Ivoire */
             color: #0A0A0A; /* Noir Profond Typo */
         }
-        h1, h2 {
+        h1, h2, .desc-part, .code-part {
+            /* Suppression du text-transform: uppercase pour passer en casse normale */
             color: #0A0A0A; /* Noir Profond */
         }
         .card {
@@ -24,41 +25,56 @@
             transform: translateY(-3px);
             box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
         }
-        /* Style pour les liens individuels */
+        /* Styles pour les liens/parties cliquables */
         .pulse-link {
             transition: color 0.1s;
             color: #0F2C48; /* Bleu Nuit Profond pour le lien de base */
+            text-decoration: none; /* Supprimer la soulignement par défaut */
         }
         .pulse-link:hover {
             color: #D9A526; /* Jaune Moutarde (Accent Premium) pour le survol */
         }
+        /* Rendre les titres de section cliquables pour le vocal */
+        main section h2 {
+            cursor: pointer;
+        }
+        /* Style pour la partie descriptive (vocal) */
+        .desc-part {
+            cursor: pointer;
+            padding-left: 0.25rem; /* Petit espace entre le code et la description */
+        }
+        .desc-part:hover {
+            text-decoration: underline; /* Souligne uniquement le descriptif au survol */
+        }
+        /* Style pour l'émoji de séparation */
+        .separator-emoji {
+            margin: 0 0.5rem;
+            color: #B4792A; /* Ocre Bronze pour la couleur de l'émoji */
+            font-size: 1rem;
+        }
+
         /* Classes d'accentuation des cartes (utilise la palette principale) */
         .card-accent-1 { border-top: 4px solid #D9A526; background-color: #FBF9F6; } /* Jaune Moutarde */
         .card-accent-2 { border-top: 4px solid #0F2C48; background-color: #FBF9F6; } /* Bleu Nuit Profond */
         .card-accent-3 { border-top: 4px solid #B4792A; background-color: #FBF9F6; } /* Ocre Bronze */
-
         /* Ajustement des couleurs de fond des cartes au Blanc/Ivoire très clair */
         .bg-white-custom { background-color: #FFFFFF; } 
         
-        /* NOUVEAU STYLE POUR LA HEADER (pour intégrer le logo) */
+        /* NOUVEAU STYLE POUR LA HEADER (POUR LE LOGO AU-DESSUS DU TITRE) */
         .fiche-header {
             display: flex;
-            flex-direction: column; /* Centrage vertical du contenu */
+            flex-direction: column; /* Empile les éléments verticalement */
             align-items: center;
             justify-content: center;
             margin-bottom: 2.5rem; /* mb-10 */
         }
-        .header-content {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-        }
+        /* Ancien .header-content non nécessaire pour cette structure, mais on garde .logo-wrapper pour la taille */
         .logo-wrapper {
-            margin-right: 0.5rem; /* Réduit l'espace entre logo et étoile */
+            margin-bottom: 0.5rem; /* Espace entre le logo et le titre H1 */
         }
-        .logo-wrapper img {
-            height: 30px; /* Taille du logo */
+        /* Logo plus grand */
+        #paia-logo {
+            height: 70px; /* Taille augmentée à 70px */
             width: auto;
         }
         /* Style pour le texte de description (pour le décalage) */
@@ -66,7 +82,6 @@
              text-align: center;
              margin-top: 0.5rem; /* Espace après le titre H1 */
         }
-        
         /* STYLE DU FOOTER COMPLET (Bleu Nuit #0F2C48) */
         .full-width-footer {
             background-color: #0F2C48; /* Bleu Nuit Profond */
@@ -74,7 +89,38 @@
             width: 100%; /* Prend toute la largeur de la fenêtre */
             padding: 1.5rem 0;
             text-align: center;
-            /* Le footer doit être fixe/collé en bas */
+        }
+        /* Style pour le sélecteur de langue */
+        #language-selector {
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            border: 1px solid #0F2C48;
+            border-radius: 8px;
+            background-color: #FBF9F6;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #0F2C48;
+            appearance: none; /* Cache la flèche par défaut */
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="%230F2C48"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.99l3.71-3.76a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" /></svg>');
+            background-repeat: no-repeat;
+            background-position: right 0.7rem center;
+            background-size: 1.2em;
+        }
+        /* Classe active pour le bouton de vitesse */
+        /* COULEUR ADAPTÉE : Bleu Nuit pour l'actif, Ivoire pour le texte */
+        .rate-btn.active-rate, #play-pause-btn {
+            background-color: #0F2C48 !important; /* Bleu Nuit */
+            color: #F6F2E8 !important; /* Ivoire pour le texte */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        /* Bouton normal de vitesse */
+        .rate-btn {
+            background-color: #D9A526; /* Jaune Moutarde pour les boutons inactifs */
+            color: #0A0A0A; /* Noir profond */
+        }
+        .rate-btn:hover {
+            background-color: #B4792A; /* Ocre Bronze au survol */
         }
     </style>
 </head>
@@ -85,209 +131,1894 @@
         <!-- En-tête du Hub -->
         <header class="fiche-header text-center">
             
-            <div class="header-content">
-                
-                <!-- 1. LOGO -->
-                <div class="logo-wrapper">
-                    <!-- ADAPTEZ LE CHEMIN ICI, VOTRE IMAGE DOIT ÊTRE ACCESSIBLE PUBLIQUEMENT -->
-                    <img src="/paia-pulse-content/asset/Logo_PAIA.jpg" alt="Logo PAÏA" style="height: 30px; margin-right: 0;"> 
-                </div>
-
-                <!-- 2. ÉTOILE + TITRE -->
-                <div>
-                    <h1 class="text-3xl sm:text-4xl font-extrabold mb-2 flex items-center justify-center">
-                        <!-- L'Étoile et le Titre sont maintenant alignés -->
-                        <span class="text-5xl mr-3" style="color: #0F2C48;">💫</span> PAÏA Pulse
-                    </h1>
-                </div>
+            <!-- 1. LOGO (Au-dessus) -->
+            <div class="logo-wrapper">
+                <img src="/paia-pulse-content/asset/Logo_PAIA.jpg" alt="Logo PAÏA" id="paia-logo"> 
             </div>
 
-            <!-- Description sous le titre (Décalé après le H1) -->
+            <!-- 2. TITRE (Au-dessous) -->
+            <h1 class="text-3xl sm:text-4xl font-extrabold mb-2 flex items-center justify-center">
+                <!-- Étoile réduite à 4xl -->
+                <span class="text-4xl mr-3" style="color: #0F2C48;">💫</span> <span data-i18n="headerTitle">PAÏA Pulse</span>
+            </h1>
+
+            <!-- Description sous le titre -->
             <div class="header-description">
-                <p class="text-lg text-gray-700">Accédez à l'intégralité du contenu <br>🟧 Social &amp; Paie (SP).</p>
-                <p class="text-sm mt-1" style="color: #B4792A; font-weight: 500;">⚠️ Pour usage interne PAÏA (Phase Bêta)</p>
+                <p class="text-lg text-gray-700">
+                    <span data-i18n="headerDescriptionLine1">Accédez à l'intégralité du contenu</span> <br>
+                    <span data-i18n="headerDescriptionLine2">🟧 Social &amp; Paie (SP).</span>
+                </p>
+                <p class="text-sm mt-1" style="color: #B4792A; font-weight: 500;" data-i18n="betaWarning">
+                    ⚠️ Pour usage interne PAÏA (Phase Bêta)
+                </p>
             </div>
+            
+            <!-- Sélecteur de Langue -->
+            <div class="mt-6">
+                <select id="language-selector" onchange="setLanguage(this.value)">
+                    <option value="fr">Français 🇫🇷</option>
+                    <option value="de">Allemand 🇩🇪</option>
+                    <option value="en">Anglais 🇬🇧</option>
+                    <option value="ar">Arabe 🇸🇦</option>
+                    <option value="zh">Chinois 🇨🇳</option>
+                    <option value="es">Espagnol 🇪🇸</option>
+                    <option value="it">Italien 🇮🇹</option>
+                    <option value="ja">Japonais 🇯🇵</option>
+                    <option value="pl">Polonais 🇵🇱</option>
+                </select>
+            </div>
+
         </header>
+
+        <!-- NOUVEAU : CONTRÔLES AUDIO (Vocal et Vitesse) -->
+        <section id="audio-controls" class="bg-gray-100 p-4 rounded-xl shadow-md mb-8 flex flex-col sm:flex-row justify-between items-center space-y-3 sm:space-y-0 card-accent-2">
+            <!-- Bouton Play/Pause/Stop -->
+            <button id="play-pause-btn" onclick="toggleSpeech()" 
+                    class="w-full sm:w-auto px-6 py-2 font-bold rounded-lg hover:opacity-90 transition duration-150 shadow-md">
+                <span data-i18n="audio_play">▶️ Lire le contenu</span>
+            </button>
+
+            <!-- Contrôles de Vitesse -->
+            <div class="flex items-center space-x-3">
+                <span class="text-sm font-semibold text-gray-700" data-i18n="audio_speed">Vitesse :</span>
+                <button data-rate="0.75" onclick="setSpeechRate(0.75, this)" 
+                        class="rate-btn px-3 py-1 rounded-lg hover:shadow-lg transition duration-150" data-i18n="audio_slow">
+                    Lent
+                </button>
+                <button data-rate="1.0" onclick="setSpeechRate(1.0, this)" 
+                        class="rate-btn px-3 py-1 rounded-lg hover:shadow-lg transition duration-150 active-rate" data-i18n="audio_normal">
+                    Normal
+                </button>
+                <button data-rate="1.5" onclick="setSpeechRate(1.5, this)" 
+                        class="rate-btn px-3 py-1 rounded-lg hover:shadow-lg transition duration-150" data-i18n="audio_fast">
+                    Rapide
+                </button>
+            </div>
+        </section>
         
         <main class="space-y-8">
             <!-- PAIE FONDAMENTALE (Accent Jaune Moutarde) -->
             <section id="paie-fondamentale" class="card p-5 card-accent-1 shadow-md">
-                <h2 class="text-2xl font-bold mb-4 flex items-center">
-                    <span class="mr-2 text-3xl">📁</span> SP_PF — PAIE FONDAMENTALE
+                <h2 class="text-2xl font-bold mb-4 flex items-center" onclick="startSelectiveSpeech(this)">
+                    <span class="mr-2 text-3xl">📁</span> SP_PF — <span data-i18n="sectionTitle_PF">Paie Fondamentale</span>
                 </h2>
                 <ul class="space-y-2 list-disc pl-5">
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_PF/SP_PF_001.html" target="_blank" class="pulse-link">SP_PF_001 : STRUCTURE DE LA PAIE ET LOGIQUE DU SYSTEME DE REMUNERATION</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_PF/SP_PF_002.html" target="_blank" class="pulse-link">SP_PF_002 : BASE HORAIRE MENSUELLE FORFAIT JOURS ET 151.67H</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_PF/SP_PF_003.html" target="_blank" class="pulse-link">SP_PF_003 : SALAIRE BRUT NET NET IMPOSABLE ET SUPER BRUT</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_PF/SP_PF_004.html" target="_blank" class="pulse-link">SP_PF_004 : COTISATIONS SOCIALES ET ORGANISMES COLLECTEURS</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_PF/SP_PF_005.html" target="_blank" class="pulse-link">SP_PF_005 : PLAFOND SECURITE SOCIALE PSS</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_PF/SP_PF_006.html" target="_blank" class="pulse-link">SP_PF_006 : AVANTAGES EN NATURE ET FRAIS PROFESSIONNELS</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_PF/SP_PF_007.html" target="_blank" class="pulse-link">SP_PF_007 : EXONERATIONS ET ALLEGEMENTS FISCAUX SOCIAUX</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_PF/SP_PF_008.html" target="_blank" class="pulse-link">SP_PF_008 : MUTUELLE ET PREVOYANCE BASES</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_PF/SP_PF_009.html" target="_blank" class="pulse-link">SP_PF_009 : DSN ET CALENDRIER DE PAIE</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_PF/SP_PF_010.html" target="_blank" class="pulse-link">SP_PF_010 : DOCUMENTS PAIE OBLIGATOIRES</a></li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_PF/SP_PF_001.html" target="_blank" class="pulse-link font-bold code-part">SP_PF_001</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_PF_001" onclick="startSelectiveSpeech(this)">Structure de la paie et logique du système de rémunération</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_PF/SP_PF_002.html" target="_blank" class="pulse-link font-bold code-part">SP_PF_002</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_PF_002" onclick="startSelectiveSpeech(this)">Base horaire mensuelle, forfait jours et 151,67 heures</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_PF/SP_PF_003.html" target="_blank" class="pulse-link font-bold code-part">SP_PF_003</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_PF_003" onclick="startSelectiveSpeech(this)">Salaire brut, net, net imposable et super brut</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_PF/SP_PF_004.html" target="_blank" class="pulse-link font-bold code-part">SP_PF_004</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_PF_004" onclick="startSelectiveSpeech(this)">Cotisations sociales et organismes collecteurs</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_PF/SP_PF_005.html" target="_blank" class="pulse-link font-bold code-part">SP_PF_005</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_PF_005" onclick="startSelectiveSpeech(this)">Plafond sécurité sociale PSS</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_PF/SP_PF_006.html" target="_blank" class="pulse-link font-bold code-part">SP_PF_006</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_PF_006" onclick="startSelectiveSpeech(this)">Avantages en nature et frais professionnels</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_PF/SP_PF_007.html" target="_blank" class="pulse-link font-bold code-part">SP_PF_007</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_PF_007" onclick="startSelectiveSpeech(this)">Exonérations et allègements fiscaux sociaux</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_PF/SP_PF_008.html" target="_blank" class="pulse-link font-bold code-part">SP_PF_008</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_PF_008" onclick="startSelectiveSpeech(this)">Mutuelle et prévoyance bases</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_PF/SP_PF_009.html" target="_blank" class="pulse-link font-bold code-part">SP_PF_009</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_PF_009" onclick="startSelectiveSpeech(this)">DSN et calendrier de paie</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_PF/SP_PF_010.html" target="_blank" class="pulse-link font-bold code-part">SP_PF_010</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_PF_010" onclick="startSelectiveSpeech(this)">Documents paie obligatoires</span>
+                    </li>
                 </ul>
             </section>
 
             <!-- BULLETIN DE PAIE (Accent Bleu Nuit) -->
             <section id="bulletin-paie" class="card p-5 card-accent-2 shadow-md">
-                <h2 class="text-2xl font-bold mb-4 flex items-center">
-                    <span class="mr-2 text-3xl">📘</span> SP_BP — BULLETIN DE PAIE
+                <h2 class="text-2xl font-bold mb-4 flex items-center" onclick="startSelectiveSpeech(this)">
+                    <span class="mr-2 text-3xl">📘</span> SP_BP — <span data-i18n="sectionTitle_BP">Bulletin de paie</span>
                 </h2>
                 <ul class="space-y-2 list-disc pl-5">
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_BP/SP_BP_001.html" target="_blank" class="pulse-link">SP_BP_001 : LECTURE ET COMPREHENSION DU BULLETIN DE PAIE</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_BP/SP_BP_002.html" target="_blank" class="pulse-link">SP_BP_002 : LIGNES OBLIGATOIRES DU BULLETIN</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_BP/SP_BP_003.html" target="_blank" class="pulse-link">SP_BP_003 : ELEMENTS DE REMUNERATION FIXE ET VARIABLE</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_BP/SP_BP_004.html" target="_blank" class="pulse-link">SP_BP_004 : COTISATIONS SALARIALES ET PATRONALES</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_BP/SP_BP_005.html" target="_blank" class="pulse-link">SP_BP_005 : CALCUL DES HEURES SUPPLEMENTAIRES</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_BP/SP_BP_006.html" target="_blank" class="pulse-link">SP_BP_006 : INDEMNITES PRIMES ET MAJORATIONS</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_BP/SP_BP_007.html" target="_blank" class="pulse-link">SP_BP_007 : IJSS SUBROGATION ET COMPLEMENT DE SALAIRE</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_BP/SP_BP_008.html" target="_blank" class="pulse-link">SP_BP_008 : PRELEVEMENT A LA SOURCE PAS</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_BP/SP_BP_009.html" target="_blank" class="pulse-link">SP_BP_009 : NET A PAYER ET NET IMPOSABLE</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_BP/SP_BP_010.html" target="_blank" class="pulse-link">SP_BP_010 : MENTIONS LEGALES ET ARCHIVAGE</a></li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_BP/SP_BP_001.html" target="_blank" class="pulse-link font-bold code-part">SP_BP_001</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_BP_001" onclick="startSelectiveSpeech(this)">Lecture et compréhension du bulletin de paie</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_BP/SP_BP_002.html" target="_blank" class="pulse-link font-bold code-part">SP_BP_002</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_BP_002" onclick="startSelectiveSpeech(this)">Lignes obligatoires du bulletin</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_BP/SP_BP_003.html" target="_blank" class="pulse-link font-bold code-part">SP_BP_003</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_BP_003" onclick="startSelectiveSpeech(this)">Éléments de rémunération fixe et variable</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_BP/SP_BP_004.html" target="_blank" class="pulse-link font-bold code-part">SP_BP_004</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_BP_004" onclick="startSelectiveSpeech(this)">Cotisations salariales et patronales</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_BP/SP_BP_005.html" target="_blank" class="pulse-link font-bold code-part">SP_BP_005</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_BP_005" onclick="startSelectiveSpeech(this)">Calcul des heures supplémentaires</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_BP/SP_BP_006.html" target="_blank" class="pulse-link font-bold code-part">SP_BP_006</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_BP_006" onclick="startSelectiveSpeech(this)">Indemnités primes et majorations</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_BP/SP_BP_007.html" target="_blank" class="pulse-link font-bold code-part">SP_BP_007</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_BP_007" onclick="startSelectiveSpeech(this)">IJSS subrogation et complément de salaire</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_BP/SP_BP_008.html" target="_blank" class="pulse-link font-bold code-part">SP_BP_008</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_BP_008" onclick="startSelectiveSpeech(this)">Prélèvement à la source PAS</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_BP/SP_BP_009.html" target="_blank" class="pulse-link font-bold code-part">SP_BP_009</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_BP_009" onclick="startSelectiveSpeech(this)">Net à payer et net imposable</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_BP/SP_BP_010.html" target="_blank" class="pulse-link font-bold code-part">SP_BP_010</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_BP_010" onclick="startSelectiveSpeech(this)">Mentions légales et archivage</span>
+                    </li>
                 </ul>
             </section>
 
             <!-- TEMPS DE TRAVAIL (Accent Ocre Bronze) -->
             <section id="temps-travail" class="card p-5 card-accent-3 shadow-md">
-                <h2 class="text-2xl font-bold mb-4 flex items-center">
-                    <span class="mr-2 text-3xl">⏰</span> SP_TT — TEMPS DE TRAVAIL
+                <h2 class="text-2xl font-bold mb-4 flex items-center" onclick="startSelectiveSpeech(this)">
+                    <span class="mr-2 text-3xl">⏰</span> SP_TT — <span data-i18n="sectionTitle_TT">Temps de travail</span>
                 </h2>
                 <ul class="space-y-2 list-disc pl-5">
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_TT/SP_TT_001.html" target="_blank" class="pulse-link">SP_TT_001 : DUREE LEGALE HEBDOMADAIRE ET JOURNALIERES</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_TT/SP_TT_002.html" target="_blank" class="pulse-link">SP_TT_002 : TEMPS COMPLET TEMPS PARTIEL ET MODULATION</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_TT/SP_TT_003.html" target="_blank" class="pulse-link">SP_TT_003 : HEURES SUPPLEMENTAIRES ET COMPLEMENTAIRES</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_TT/SP_TT_004.html" target="_blank" class="pulse-link">SP_TT_004 : ASTREINTES DEPLACEMENTS TEMPS DE PAUSE</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_TT/SP_TT_005.html" target="_blank" class="pulse-link">SP_TT_005 : AMENAGEMENT DU TEMPS DE TRAVAIL</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_TT/SP_TT_006.html" target="_blank" class="pulse-link">SP_TT_006 : TRAVAIL DE NUIT JOURS FERIES ET DIMANCHE</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_TT/SP_TT_007.html" target="_blank" class="pulse-link">SP_TT_007 : CONTRATS SPECIFIQUES (APPRENTISSAGE PRO ETC)</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_TT/SP_TT_008.html" target="_blank" class="pulse-link">SP_TT_008 : CONTROLE DU TEMPS ET SUIVI DES HORAIRES</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_TT/SP_TT_009.html" target="_blank" class="pulse-link">SP_TT_009 : RISQUES LIES AU TEMPS DE TRAVAIL</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_TT/SP_TT_010.html" target="_blank" class="pulse-link">SP_TT_010 : DOCUMENTATION ET MODELES</a></li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_TT/SP_TT_001.html" target="_blank" class="pulse-link font-bold code-part">SP_TT_001</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_TT_001" onclick="startSelectiveSpeech(this)">Durée légale hebdomadaire et journalière</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_TT/SP_TT_002.html" target="_blank" class="pulse-link font-bold code-part">SP_TT_002</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_TT_002" onclick="startSelectiveSpeech(this)">Temps complet, temps partiel et modulation</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_TT/SP_TT_003.html" target="_blank" class="pulse-link font-bold code-part">SP_TT_003</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_TT_003" onclick="startSelectiveSpeech(this)">Heures supplémentaires et complémentaires</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_TT/SP_TT_004.html" target="_blank" class="pulse-link font-bold code-part">SP_TT_004</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_TT_004" onclick="startSelectiveSpeech(this)">Astreintes, déplacements et temps de pause</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_TT/SP_TT_005.html" target="_blank" class="pulse-link font-bold code-part">SP_TT_005</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_TT_005" onclick="startSelectiveSpeech(this)">Aménagement du temps de travail</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_TT/SP_TT_006.html" target="_blank" class="pulse-link font-bold code-part">SP_TT_006</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_TT_006" onclick="startSelectiveSpeech(this)">Travail de nuit, jours fériés et dimanche</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_TT/SP_TT_007.html" target="_blank" class="pulse-link font-bold code-part">SP_TT_007</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_TT_007" onclick="startSelectiveSpeech(this)">Contrats spécifiques (apprentissage, pro, etc.)</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_TT/SP_TT_008.html" target="_blank" class="pulse-link font-bold code-part">SP_TT_008</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_TT_008" onclick="startSelectiveSpeech(this)">Contrôle du temps et suivi des horaires</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_TT/SP_TT_009.html" target="_blank" class="pulse-link font-bold code-part">SP_TT_009</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_TT_009" onclick="startSelectiveSpeech(this)">Risques liés au temps de travail</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_TT/SP_TT_010.html" target="_blank" class="pulse-link font-bold code-part">SP_TT_010</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_TT_010" onclick="startSelectiveSpeech(this)">Documentation et modèles</span>
+                    </li>
                 </ul>
             </section>
             
             <!-- CONGÉS & ABSENCES (Cycle : Jaune Moutarde) -->
             <section id="conges-absences" class="card p-5 card-accent-1 shadow-md">
-                <h2 class="text-2xl font-bold mb-4 flex items-center">
-                    <span class="mr-2 text-3xl">🌴</span> SP_CA — CONGÉS & ABSENCES
+                <h2 class="text-2xl font-bold mb-4 flex items-center" onclick="startSelectiveSpeech(this)">
+                    <span class="mr-2 text-3xl">🌴</span> SP_CA — <span data-i18n="sectionTitle_CA">Congés & Absences</span>
                 </h2>
                 <ul class="space-y-2 list-disc pl-5">
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_CA/SP_CA_001.html" target="_blank" class="pulse-link">SP_CA_001 : CONGES PAYES ET CALCUL DES DROITS</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_CA/SP_CA_002.html" target="_blank" class="pulse-link">SP_CA_002 : RTT CP ET JOURS DE REPOS</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_CA/SP_CA_003.html" target="_blank" class="pulse-link">SP_CA_003 : CONGES SPECIAUX ET EVENEMENTS FAMILIAUX</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_CA/SP_CA_004.html" target="_blank" class="pulse-link">SP_CA_004 : ABSENCE NON REMUNEREE</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_CA/SP_CA_005.html" target="_blank" class="pulse-link">SP_CA_005 : ABSENTEISME ET SUIVI</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_CA/SP_CA_006.html" target="_blank" class="pulse-link">SP_CA_006 : PROCEDURES ET JUSTIFICATIFS</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_CA/SP_CA_007.html" target="_blank" class="pulse-link">SP_CA_007 : CALCUL DES INDEMNITES ABSENCE</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_CA/SP_CA_008.html" target="_blank" class="pulse-link">SP_CA_008 : DOCUMENTATION SUPPORTS ET MODELES</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_CA/SP_CA_009.html" target="_blank" class="pulse-link">SP_CA_009 : CAS PARTICULIERS INTERNATIONAUX</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_CA/SP_CA_010.html" target="_blank" class="pulse-link">SP_CA_010 : ARCHIVAGE ET HISTORIQUE</a></li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_CA/SP_CA_001.html" target="_blank" class="pulse-link font-bold code-part">SP_CA_001</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_CA_001" onclick="startSelectiveSpeech(this)">Congés payés et calcul des droits</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_CA/SP_CA_002.html" target="_blank" class="pulse-link font-bold code-part">SP_CA_002</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_CA_002" onclick="startSelectiveSpeech(this)">RTT, CP et jours de repos</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_CA/SP_CA_003.html" target="_blank" class="pulse-link font-bold code-part">SP_CA_003</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_CA_003" onclick="startSelectiveSpeech(this)">Congés spéciaux et événements familiaux</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_CA/SP_CA_004.html" target="_blank" class="pulse-link font-bold code-part">SP_CA_004</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_CA_004" onclick="startSelectiveSpeech(this)">Absence non rémunérée</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_CA/SP_CA_005.html" target="_blank" class="pulse-link font-bold code-part">SP_CA_005</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_CA_005" onclick="startSelectiveSpeech(this)">Absentéisme et suivi</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_CA/SP_CA_006.html" target="_blank" class="pulse-link font-bold code-part">SP_CA_006</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_CA_006" onclick="startSelectiveSpeech(this)">Procédures et justificatifs</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_CA/SP_CA_007.html" target="_blank" class="pulse-link font-bold code-part">SP_CA_007</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_CA_007" onclick="startSelectiveSpeech(this)">Calcul des indemnités absence</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_CA/SP_CA_008.html" target="_blank" class="pulse-link font-bold code-part">SP_CA_008</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_CA_008" onclick="startSelectiveSpeech(this)">Documentation supports et modèles</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_CA/SP_CA_009.html" target="_blank" class="pulse-link font-bold code-part">SP_CA_009</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_CA_009" onclick="startSelectiveSpeech(this)">Cas particuliers internationaux</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_CA/SP_CA_010.html" target="_blank" class="pulse-link font-bold code-part">SP_CA_010</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_CA_010" onclick="startSelectiveSpeech(this)">Archivage et historique</span>
+                    </li>
                 </ul>
             </section>
 
             <!-- MATERNITÉ & PATERNITÉ (Cycle : Bleu Nuit) -->
             <section id="paternite-maternite" class="card p-5 card-accent-2 shadow-md">
-                <h2 class="text-2xl font-bold mb-4 flex items-center">
-                    <span class="mr-2 text-3xl">👶</span> SP_PM — PATERNITÉ & MATERNITÉ
+                <h2 class="text-2xl font-bold mb-4 flex items-center" onclick="startSelectiveSpeech(this)">
+                    <span class="mr-2 text-3xl">👶</span> SP_PM — <span data-i18n="sectionTitle_PM">Paternité & Maternité</span>
                 </h2>
                 <ul class="space-y-2 list-disc pl-5">
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_PM/SP_PM_001.html" target="_blank" class="pulse-link">SP_PM_001 : MATERNITE DEMARCHES ET DROITS</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_PM/SP_PM_002.html" target="_blank" class="pulse-link">SP_PM_002 : PATERNITE ET ACCUEIL ENFANT</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_PM/SP_PM_003.html" target="_blank" class="pulse-link">SP_PM_003 : ADOPTION</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_PM/SP_PM_004.html" target="_blank" class="pulse-link">SP_PM_004 : CONGE PARENTAL ET AMENAGEMENT TEMPS</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_PM/SP_PM_005.html" target="_blank" class="pulse-link">SP_PM_005 : IJSS CALCUL ET SUBROGATION</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_PM/SP_PM_006.html" target="_blank" class="pulse-link">SP_PM_006 : PREVOYANCE COMPLEMENTS ET GARANTIES</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_PM/SP_PM_007.html" target="_blank" class="pulse-link">SP_PM_007 : PROTECTION LICENCIEMENT</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_PM/SP_PM_008.html" target="_blank" class="pulse-link">SP_PM_008 : CAS PARTICULIERS MULTIPLES ET PATHO</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_PM/SP_PM_009.html" target="_blank" class="pulse-link">SP_PM_009 : SUPPORT DOCUMENTS ET MODELES</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_PM/SP_PM_010.html" target="_blank" class="pulse-link">SP_PM_010 : RESSOURCES EXTERNES ET INSTITUTIONNELLES</a></li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_PM/SP_PM_001.html" target="_blank" class="pulse-link font-bold code-part">SP_PM_001</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_PM_001" onclick="startSelectiveSpeech(this)">Maternité démarches et droits</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_PM/SP_PM_002.html" target="_blank" class="pulse-link font-bold code-part">SP_PM_002</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_PM_002" onclick="startSelectiveSpeech(this)">Paternité et accueil enfant</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_PM/SP_PM_003.html" target="_blank" class="pulse-link font-bold code-part">SP_PM_003</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_PM_003" onclick="startSelectiveSpeech(this)">Adoption</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_PM/SP_PM_004.html" target="_blank" class="pulse-link font-bold code-part">SP_PM_004</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_PM_004" onclick="startSelectiveSpeech(this)">Congé parental et aménagement temps</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_PM/SP_PM_005.html" target="_blank" class="pulse-link font-bold code-part">SP_PM_005</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_PM_005" onclick="startSelectiveSpeech(this)">IJSS calcul et subrogation</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_PM/SP_PM_006.html" target="_blank" class="pulse-link font-bold code-part">SP_PM_006</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_PM_006" onclick="startSelectiveSpeech(this)">Prévoyance compléments et garanties</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_PM/SP_PM_007.html" target="_blank" class="pulse-link font-bold code-part">SP_PM_007</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_PM_007" onclick="startSelectiveSpeech(this)">Protection licenciement</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_PM/SP_PM_008.html" target="_blank" class="pulse-link font-bold code-part">SP_PM_008</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_PM_008" onclick="startSelectiveSpeech(this)">Cas particuliers multiples et patho</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_PM/SP_PM_009.html" target="_blank" class="pulse-link font-bold code-part">SP_PM_009</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_PM_009" onclick="startSelectiveSpeech(this)">Support documents et modèles</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_PM/SP_PM_010.html" target="_blank" class="pulse-link font-bold code-part">SP_PM_010</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_PM_010" onclick="startSelectiveSpeech(this)">Ressources externes et institutionnelles</span>
+                    </li>
                 </ul>
             </section>
 
             <!-- MALADIE & ACCIDENT (Cycle : Ocre Bronze) -->
             <section id="maladie-accident" class="card p-5 card-accent-3 shadow-md">
-                <h2 class="text-2xl font-bold mb-4 flex items-center">
-                    <span class="mr-2 text-3xl">🤒</span> SP_MA — MALADIE & ACCIDENT
+                <h2 class="text-2xl font-bold mb-4 flex items-center" onclick="startSelectiveSpeech(this)">
+                    <span class="mr-2 text-3xl">🤒</span> SP_MA — <span data-i18n="sectionTitle_MA">Maladie & Accident</span>
                 </h2>
                 <ul class="space-y-2 list-disc pl-5">
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_MA/SP_MA_001.html" target="_blank" class="pulse-link">SP_MA_001 : MALADIE ARRET ET OBLIGATIONS</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_MA/SP_MA_002.html" target="_blank" class="pulse-link">SP_MA_002 : ACCIDENT DU TRAVAIL ET MALADIE PROFESSIONNELLE</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_MA/SP_MA_003.html" target="_blank" class="pulse-link">SP_MA_003 : DECLARATIONS CPAM ET ATTESTATIONS</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_MA/SP_MA_004.html" target="_blank" class="pulse-link">SP_MA_004 : IJSS SUBROGATION ET COMPLEMENTS</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_MA/SP_MA_005.html" target="_blank" class="pulse-link">SP_MA_005 : MI-TEMPS THERAPEUTIQUE</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_MA/SP_MA_006.html" target="_blank" class="pulse-link">SP_MA_006 : INVALIDITE</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_MA/SP_MA_007.html" target="_blank" class="pulse-link">SP_MA_007 : REPRISE ET VISITE MEDICALE</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_MA/SP_MA_008.html" target="_blank" class="pulse-link">SP_MA_008 : RECLAMATIONS ET LITIGES</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_MA/SP_MA_009.html" target="_blank" class="pulse-link">SP_MA_009 : SUPPORTS MODELES ET PROCEDURES</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_MA/SP_MA_010.html" target="_blank" class="pulse-link">SP_MA_010 : RISQUES ET PREVENTION</a></li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_MA/SP_MA_001.html" target="_blank" class="pulse-link font-bold code-part">SP_MA_001</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_MA_001" onclick="startSelectiveSpeech(this)">Maladie, arrêt et obligations</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_MA/SP_MA_002.html" target="_blank" class="pulse-link font-bold code-part">SP_MA_002</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_MA_002" onclick="startSelectiveSpeech(this)">Accident du travail et maladie professionnelle</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_MA/SP_MA_003.html" target="_blank" class="pulse-link font-bold code-part">SP_MA_003</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_MA_003" onclick="startSelectiveSpeech(this)">Déclarations CPAM et attestations</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_MA/SP_MA_004.html" target="_blank" class="pulse-link font-bold code-part">SP_MA_004</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_MA_004" onclick="startSelectiveSpeech(this)">IJSS subrogation et compléments</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_MA/SP_MA_005.html" target="_blank" class="pulse-link font-bold code-part">SP_MA_005</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_MA_005" onclick="startSelectiveSpeech(this)">Mi-temps thérapeutique</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_MA/SP_MA_006.html" target="_blank" class="pulse-link font-bold code-part">SP_MA_006</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_MA_006" onclick="startSelectiveSpeech(this)">Invalidité</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_MA/SP_MA_007.html" target="_blank" class="pulse-link font-bold code-part">SP_MA_007</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_MA_007" onclick="startSelectiveSpeech(this)">Reprise et visite médicale</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_MA/SP_MA_008.html" target="_blank" class="pulse-link font-bold code-part">SP_MA_008</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_MA_008" onclick="startSelectiveSpeech(this)">Réclamations et litiges</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_MA/SP_MA_009.html" target="_blank" class="pulse-link font-bold code-part">SP_MA_009</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_MA_009" onclick="startSelectiveSpeech(this)">Supports, modèles et procédures</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_MA/SP_MA_010.html" target="_blank" class="pulse-link font-bold code-part">SP_MA_010</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_MA_010" onclick="startSelectiveSpeech(this)">Risques et prévention</span>
+                    </li>
                 </ul>
             </section>
 
             <!-- RUPTURE & CONTENTIEUX (Cycle : Jaune Moutarde) -->
             <section id="rupture-contentieux" class="card p-5 card-accent-1 shadow-md">
-                <h2 class="text-2xl font-bold mb-4 flex items-center">
-                    <span class="mr-2 text-3xl">📜</span> SP_RC — RUPTURE & CONTENTIEUX
+                <h2 class="text-2xl font-bold mb-4 flex items-center" onclick="startSelectiveSpeech(this)">
+                    <span class="mr-2 text-3xl">📜</span> SP_RC — <span data-i18n="sectionTitle_RC">Rupture & Contentieux</span>
                 </h2>
                 <ul class="space-y-2 list-disc pl-5">
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_RC/SP_RC_001.html" target="_blank" class="pulse-link">SP_RC_001 : RUPTURE CONVENTIONNELLE ET PROCEDURES</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_RC/SP_RC_002.html" target="_blank" class="pulse-link">SP_RC_002 : LICENCIEMENT ET MOTIFS</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_RC/SP_RC_003.html" target="_blank" class="pulse-link">SP_RC_003 : DEMISSION ET ABANDON DE POSTE</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_RC/SP_RC_004.html" target="_blank" class="pulse-link">SP_RC_004 : PRUDHOMMES ET CONTENTIEUX</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_RC/SP_RC_005.html" target="_blank" class="pulse-link">SP_RC_005 : DOCUMENTS FIN DE CONTRAT</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_RC/SP_RC_006.html" target="_blank" class="pulse-link">SP_RC_006 : CALCUL DES INDEMNITES</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_RC/SP_RC_007.html" target="_blank" class="pulse-link">SP_RC_007 : TRANSACTION JURIDIQUE</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_RC/SP_RC_008.html" target="_blank" class="pulse-link">SP_RC_008 : CAS PARTICULIERS ET PROTECTIONS</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_RC/SP_RC_009.html" target="_blank" class="pulse-link">SP_RC_009 : OUTILS MODELES ET PROCEDURES</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_RC/SP_RC_010.html" target="_blank" class="pulse-link">SP_RC_010 : RISQUES JURIDIQUES ET PREVENTION</a></li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_RC/SP_RC_001.html" target="_blank" class="pulse-link font-bold code-part">SP_RC_001</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_RC_001" onclick="startSelectiveSpeech(this)">Rupture conventionnelle et procédures</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_RC/SP_RC_002.html" target="_blank" class="pulse-link font-bold code-part">SP_RC_002</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_RC_002" onclick="startSelectiveSpeech(this)">Licenciement et motifs</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_RC/SP_RC_003.html" target="_blank" class="pulse-link font-bold code-part">SP_RC_003</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_RC_003" onclick="startSelectiveSpeech(this)">Démission et abandon de poste</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_RC/SP_RC_004.html" target="_blank" class="pulse-link font-bold code-part">SP_RC_004</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_RC_004" onclick="startSelectiveSpeech(this)">Prudhommes et contentieux</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_RC/SP_RC_005.html" target="_blank" class="pulse-link font-bold code-part">SP_RC_005</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_RC_005" onclick="startSelectiveSpeech(this)">Documents fin de contrat</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_RC/SP_RC_006.html" target="_blank" class="pulse-link font-bold code-part">SP_RC_006</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_RC_006" onclick="startSelectiveSpeech(this)">Calcul des indemnités</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_RC/SP_RC_007.html" target="_blank" class="pulse-link font-bold code-part">SP_RC_007</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_RC_007" onclick="startSelectiveSpeech(this)">Transaction juridique</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_RC/SP_RC_008.html" target="_blank" class="pulse-link font-bold code-part">SP_RC_008</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_RC_008" onclick="startSelectiveSpeech(this)">Cas particuliers et protections</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_RC/SP_RC_009.html" target="_blank" class="pulse-link font-bold code-part">SP_RC_009</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_RC_009" onclick="startSelectiveSpeech(this)">Outils, modèles et procédures</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_RC/SP_RC_010.html" target="_blank" class="pulse-link font-bold code-part">SP_RC_010</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_RC_010" onclick="startSelectiveSpeech(this)">Risques juridiques et prévention</span>
+                    </li>
                 </ul>
             </section>
 
             <!-- RISQUES & CONTRÔLES (Cycle : Bleu Nuit) -->
             <section id="risques-controles" class="card p-5 card-accent-2 shadow-md">
-                <h2 class="text-2xl font-bold mb-4 flex items-center">
-                    <span class="mr-2 text-3xl">🕵️</span> SP_RS — RISQUES & CONTRÔLES
+                <h2 class="text-2xl font-bold mb-4 flex items-center" onclick="startSelectiveSpeech(this)">
+                    <span class="mr-2 text-3xl">🕵️</span> SP_RS — <span data-i18n="sectionTitle_RS">Risques & Contrôles</span>
                 </h2>
                 <ul class="space-y-2 list-disc pl-5">
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_RS/SP_RS_001.html" target="_blank" class="pulse-link">SP_RS_001 : CONTROLES URSSAF</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_RS/SP_RS_002.html" target="_blank" class="pulse-link">SP_RS_002 : INSPECTION DU TRAVAIL</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_RS/SP_RS_003.html" target="_blank" class="pulse-link">SP_RS_003 : CAISSES RETRAITE ET ORGANISMES</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_RS/SP_RS_004.html" target="_blank" class="pulse-link">SP_RS_004 : SUIVI PENIBILITE ET DUERP</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_RS/SP_RS_005.html" target="_blank" class="pulse-link">SP_RS_005 : AUDIT PAIE INTERNE ET EXTERNE</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_RS/SP_RS_006.html" target="_blank" class="pulse-link">SP_RS_006 : TABLEAUX DE BORD ET REPORTING</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_RS/SP_RS_007.html" target="_blank" class="pulse-link">SP_RS_007 : RISQUES SOCIAUX ET SANCTIONS</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_RS/SP_RS_008.html" target="_blank" class="pulse-link">SP_RS_008 : ERREURS FREQUENTES ET SOLUTIONS</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_RS/SP_RS_009.html" target="_blank" class="pulse-link">SP_RS_009 : SECURISATION DE LA PAIE</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_RS/SP_RS_010.html" target="_blank" class="pulse-link">SP_RS_010 : VEILLE ET TENDANCES</a></li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_RS/SP_RS_001.html" target="_blank" class="pulse-link font-bold code-part">SP_RS_001</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_RS_001" onclick="startSelectiveSpeech(this)">Contrôles URSSAF</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_RS/SP_RS_002.html" target="_blank" class="pulse-link font-bold code-part">SP_RS_002</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_RS_002" onclick="startSelectiveSpeech(this)">Inspection du travail</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_RS/SP_RS_003.html" target="_blank" class="pulse-link font-bold code-part">SP_RS_003</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_RS_003" onclick="startSelectiveSpeech(this)">Caisses retraite et organismes</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_RS/SP_RS_004.html" target="_blank" class="pulse-link font-bold code-part">SP_RS_004</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_RS_004" onclick="startSelectiveSpeech(this)">Suivi pénibilité et DUERP</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_RS/SP_RS_005.html" target="_blank" class="pulse-link font-bold code-part">SP_RS_005</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_RS_005" onclick="startSelectiveSpeech(this)">Audit paie interne et externe</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_RS/SP_RS_006.html" target="_blank" class="pulse-link font-bold code-part">SP_RS_006</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_RS_006" onclick="startSelectiveSpeech(this)">Tableaux de bord et reporting</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_RS/SP_RS_007.html" target="_blank" class="pulse-link font-bold code-part">SP_RS_007</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_RS_007" onclick="startSelectiveSpeech(this)">Risques sociaux et sanctions</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_RS/SP_RS_008.html" target="_blank" class="pulse-link font-bold code-part">SP_RS_008</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_RS_008" onclick="startSelectiveSpeech(this)">Erreurs fréquentes et solutions</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_RS/SP_RS_009.html" target="_blank" class="pulse-link font-bold code-part">SP_RS_009</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_RS_009" onclick="startSelectiveSpeech(this)">Sécurisation de la paie</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_RS/SP_RS_010.html" target="_blank" class="pulse-link font-bold code-part">SP_RS_010</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_RS_010" onclick="startSelectiveSpeech(this)">Veille et tendances</span>
+                    </li>
                 </ul>
             </section>
 
              <!-- VOS QUESTIONS (Cycle : Ocre Bronze) -->
             <section id="vos-questions" class="card p-5 card-accent-3 shadow-md">
-                <h2 class="text-2xl font-bold mb-4 flex items-center">
-                    <span class="mr-2 text-3xl">❓</span> SP_QS — VOS QUESTIONS
+                <h2 class="text-2xl font-bold mb-4 flex items-center" onclick="startSelectiveSpeech(this)">
+                    <span class="mr-2 text-3xl">❓</span> SP_QS — <span data-i18n="sectionTitle_QS">Vos Questions</span>
                 </h2>
                 <ul class="space-y-2 list-disc pl-5">
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_QS/SP_QS_001.html" target="_blank" class="pulse-link">SP_QS_001 : QUESTIONS COURANTES</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_QS/SP_QS_002.html" target="_blank" class="pulse-link">SP_QS_002 : CAS PRATIQUES ET PROBLEMES CONCRETS</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_QS/SP_QS_003.html" target="_blank" class="pulse-link">SP_QS_003 : OUTILS ET RESSOURCES</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_QS/SP_QS_004.html" target="_blank" class="pulse-link">SP_QS_004 : MODELES ET TEMPLATES</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_QS/SP_QS_005.html" target="_blank" class="pulse-link">SP_QS_005 : SOLUTIONS RH PAIE ET EXPERTS</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_QS/SP_QS_006.html" target="_blank" class="pulse-link">SP_QS_006 : EXEMPLES ET ETUDES DE CAS</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_QS/SP_QS_007.html" target="_blank" class="pulse-link">SP_QS_007 : LIENS ET SOURCES OFFICIELLES</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_QS/SP_QS_008.html" target="_blank" class="pulse-link">SP_QS_008 : DOCUMENTATION ET SUPPORTS</a></li>
-                    <li><a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_QS/SP_QS_009.html" target="_blank" class="pulse-link">SP_QS_009 : ERREURS FREQUENTES ET SOLUTIONS</a></li>
-                    <li><a href="https://projettechacademy.io/paia-pulse-content/Pulses/SP/SP_QS/SP_QS_010.html" target="_blank" class="pulse-link">SP_QS_010 : AIDES ET ASSISTANCE COLLECTIVE</a></li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_QS/SP_QS_001.html" target="_blank" class="pulse-link font-bold code-part">SP_QS_001</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_QS_001" onclick="startSelectiveSpeech(this)">Questions courantes</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_QS/SP_QS_002.html" target="_blank" class="pulse-link font-bold code-part">SP_QS_002</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_QS_002" onclick="startSelectiveSpeech(this)">Cas pratiques et problèmes concrets</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_QS/SP_QS_003.html" target="_blank" class="pulse-link font-bold code-part">SP_QS_003</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_QS_003" onclick="startSelectiveSpeech(this)">Outils et ressources</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_QS/SP_QS_004.html" target="_blank" class="pulse-link font-bold code-part">SP_QS_004</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_QS_004" onclick="startSelectiveSpeech(this)">Modèles et templates</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_QS/SP_QS_005.html" target="_blank" class="pulse-link font-bold code-part">SP_QS_005</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_QS_005" onclick="startSelectiveSpeech(this)">Solutions RH paie et experts</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_QS/SP_QS_006.html" target="_blank" class="pulse-link font-bold code-part">SP_QS_006</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_QS_006" onclick="startSelectiveSpeech(this)">Exemples et études de cas</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_QS/SP_QS_007.html" target="_blank" class="pulse-link font-bold code-part">SP_QS_007</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_QS_007" onclick="startSelectiveSpeech(this)">Liens et sources officielles</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_QS/SP_QS_008.html" target="_blank" class="pulse-link font-bold code-part">SP_QS_008</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_QS_008" onclick="startSelectiveSpeech(this)">Documentation et supports</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.github.io/paia-pulse-content/Pulses/SP/SP_QS/SP_QS_009.html" target="_blank" class="pulse-link font-bold code-part">SP_QS_009</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_QS_009" onclick="startSelectiveSpeech(this)">Erreurs fréquentes et solutions</span>
+                    </li>
+                    <li class="flex items-baseline">
+                        <a href="https://projettechacademy.io/paia-pulse-content/Pulses/SP/SP_QS/SP_QS_010.html" target="_blank" class="pulse-link font-bold code-part">SP_QS_010</a>
+                        <span class="separator-emoji">➡️</span>
+                        <span class="pulse-link desc-part" data-i18n="link_QS_010" onclick="startSelectiveSpeech(this)">Aides et assistance collective</span>
+                    </li>
                 </ul>
             </section>
 
         </main>
 
         <footer class="mt-10 pt-6 border-t border-gray-200 text-center text-sm text-gray-500" style="color: #0A0A0A;">
-            💫 PAÏA – Plateforme d’Actualisation &amp; d’Information (IA) | By Mathilde Martine PAISLEY<br>
-            © 2025 Tous droits réservés – Création : [date creation] – Dernière mise à jour : [date de mise à jour]
+            <span data-i18n="footerCopyrightLine1">💫 PAÏA – Plateforme d’Actualisation &amp; d’Information (IA) | By Mathilde Martine PAISLEY</span><br>
+            <span data-i18n="footerCopyrightLine2">© 2025 Tous droits réservés – Création : [date creation] – Dernière mise à jour : [date de mise à jour]</span>
         </footer>
     </div>
 
+    <script>
+        // --- LOGIQUE VOCALE (TTS - Text to Speech) ---
+        let synth = window.speechSynthesis;
+        let utterance = null;
+        let isSpeaking = false;
+        let currentRate = 1.0;
+        let currentLang = 'fr'; 
+        
+        // Fonction pour obtenir le texte à lire (titres des sections et des liens)
+        function getBodyContentText() {
+            let text = "";
+            
+            // 1. Titre de la page
+            const headerTitle = document.querySelector('[data-i18n="headerTitle"]');
+            if (headerTitle) {
+                text += headerTitle.textContent + ". ";
+            }
+
+            // 2. Parcourt toutes les sections de contenu
+            document.querySelectorAll('main section').forEach(section => {
+                const sectionTitleElement = section.querySelector('h2 > span:last-child');
+                if (sectionTitleElement) {
+                    text += sectionTitleElement.textContent + ". "; // Lit le titre de la section
+                }
+                
+                // Lit SEULEMENT le contenu de chaque lien (la partie descriptive dans le span.desc-part)
+                section.querySelectorAll('ul li .desc-part').forEach(descSpan => {
+                    // Le contenu du span est la partie descriptive
+                    const readableText = descSpan.textContent.trim();
+                    if (readableText) {
+                         text += readableText + ". ";
+                    }
+                });
+            });
+            return text;
+        }
+
+        // Fonction pour démarrer la lecture du contenu
+        function startSpeech() {
+            if (!synth) {
+                console.error("Web Speech API non supportée par ce navigateur.");
+                return;
+            }
+
+            // Stoppe la lecture précédente si elle existe
+            synth.cancel();
+            
+            const content = getBodyContentText();
+            utterance = new SpeechSynthesisUtterance(content);
+
+            // Tente de trouver la voix correspondant à la langue courante
+            const voices = synth.getVoices();
+            const voice = voices.find(v => v.lang.startsWith(currentLang));
+            if (voice) {
+                utterance.voice = voice;
+            } else {
+                // Utilise la langue si aucune voix spécifique n'est trouvée
+                utterance.lang = currentLang;
+            }
+            
+            utterance.rate = currentRate;
+
+            utterance.onstart = () => {
+                isSpeaking = true;
+                updateButtonState('audio_pause', '⏸ Pauser'); // Mis à jour
+            };
+            
+            utterance.onend = () => {
+                isSpeaking = false;
+                updateButtonState('audio_play', '▶️ Lire le contenu'); // Mis à jour
+            };
+
+            synth.speak(utterance);
+        }
+        
+        // Nouvelle fonction pour démarrer la lecture d'un élément spécifique
+        function startSelectiveSpeech(element) {
+            if (!synth) {
+                console.error("Web Speech API non supportée par ce navigateur.");
+                return;
+            }
+
+            // 1. Annuler la parole en cours (intégrale ou sélective)
+            synth.cancel();
+
+            let contentToSpeak = "";
+            
+            // 2. Extraire le texte spécifique à lire
+            if (element.tagName === 'SPAN' && element.classList.contains('desc-part')) {
+                // Clic sur la partie descriptive du lien (balise span.desc-part)
+                contentToSpeak = element.textContent.trim() + ". "; 
+            } 
+            else if (element.tagName === 'H2') {
+                // Clic sur le titre de la section
+                const translatedSpan = element.querySelector('[data-i18n]');
+                if (translatedSpan) {
+                    contentToSpeak = translatedSpan.textContent + ". ";
+                } else {
+                    contentToSpeak = element.textContent + ". ";
+                }
+            }
+            
+            if (contentToSpeak.trim() === "") return;
+
+            utterance = new SpeechSynthesisUtterance(contentToSpeak);
+
+            // 3. Appliquer la voix et la vitesse courantes
+            const voices = synth.getVoices();
+            const voice = voices.find(v => v.lang.startsWith(currentLang));
+            
+            if (voice) {
+                utterance.voice = voice;
+            } else {
+                utterance.lang = currentLang;
+            }
+            
+            utterance.rate = currentRate;
+
+            utterance.onstart = () => {
+                isSpeaking = true;
+                // Pas de mise à jour du bouton global lors de la lecture sélective
+            };
+            
+            utterance.onend = () => {
+                isSpeaking = false;
+                // Assure que le bouton global reste en mode 'Play'
+            };
+
+            synth.speak(utterance);
+        }
+
+        // Fonction pour basculer entre Play/Pause/Reprise
+        function toggleSpeech() {
+            if (synth.speaking) {
+                if (synth.paused) {
+                    synth.resume();
+                    updateButtonState('audio_pause', '⏸ Pauser');
+                } else {
+                    synth.pause();
+                    updateButtonState('audio_resume', '⏯ Reprendre');
+                }
+            } else {
+                startSpeech();
+            }
+        }
+        
+        // Fonction pour mettre à jour la vitesse de lecture
+        function setSpeechRate(rate, buttonElement) {
+            currentRate = rate;
+            
+            // Met à jour la vitesse de l'utterance si elle est déjà active
+            if (utterance) {
+                utterance.rate = currentRate;
+                // Si la parole est en pause, la relance pour appliquer le changement de taux immédiatement
+                if (synth.paused) {
+                    synth.resume();
+                }
+            }
+            
+            // Met à jour l'état visuel des boutons de vitesse
+            document.querySelectorAll('.rate-btn').forEach(btn => {
+                btn.classList.remove('active-rate');
+            });
+            if (buttonElement) {
+                buttonElement.classList.add('active-rate');
+            }
+        }
+        
+        // Fonction utilitaire pour mettre à jour le bouton principal
+        function updateButtonState(key, defaultText) {
+            const btn = document.getElementById('play-pause-btn');
+            if (btn) {
+                // Récupère la traduction courante, sinon utilise le texte par défaut
+                const text = translations[currentLang][key] || defaultText;
+                btn.textContent = text;
+            }
+        }
+        
+        // --- LOGIQUE DE TRADUCTION ET INITIALISATION ---
+        const translations = {
+            fr: {
+                title: "PAÏA Pulse - Annuaire de Contenu",
+                headerTitle: "PAÏA Pulse",
+                headerDescriptionLine1: "Accédez à l'intégralité du contenu",
+                headerDescriptionLine2: "🟧 Social & Paie (SP).",
+                betaWarning: "⚠️ Pour usage interne PAÏA (Phase Bêta)",
+                footerCopyrightLine1: "💫 PAÏA – Plateforme d’Actualisation & d’Information (IA) | By Mathilde Martine PAISLEY",
+                footerCopyrightLine2: "© 2025 Tous droits réservés – Création : [date creation] – Dernière mise à jour : [date de mise à jour]",
+                sectionTitle_PF: "Paie fondamentale",
+                sectionTitle_BP: "Bulletin de paie",
+                sectionTitle_TT: "Temps de travail",
+                sectionTitle_CA: "Congés & absences",
+                sectionTitle_PM: "Paternité & maternité",
+                sectionTitle_MA: "Maladie & accident",
+                sectionTitle_RC: "Rupture & contentieux",
+                sectionTitle_RS: "Risques & contrôles",
+                sectionTitle_QS: "Vos questions",
+                audio_play: "▶️ Lire le contenu",
+                audio_pause: "⏸ Pauser",
+                audio_resume: "⏯ Reprendre",
+                audio_speed: "Vitesse :",
+                audio_slow: "Lent",
+                audio_normal: "Normal",
+                audio_fast: "Rapide",
+                link_PF_001: "Structure de la paie et logique du système de rémunération",
+                link_PF_002: "Base horaire mensuelle, forfait jours et 151,67 heures",
+                link_PF_003: "Salaire brut, net, net imposable et super brut",
+                link_PF_004: "Cotisations sociales et organismes collecteurs",
+                link_PF_005: "Plafond sécurité sociale PSS",
+                link_PF_006: "Avantages en nature et frais professionnels",
+                link_PF_007: "Exonérations et allègements fiscaux sociaux",
+                link_PF_008: "Mutuelle et prévoyance bases",
+                link_PF_009: "DSN et calendrier de paie",
+                link_PF_010: "Documents paie obligatoires",
+                link_BP_001: "Lecture et compréhension du bulletin de paie",
+                link_BP_002: "Lignes obligatoires du bulletin",
+                link_BP_003: "Éléments de rémunération fixe et variable",
+                link_BP_004: "Cotisations salariales et patronales",
+                link_BP_005: "Calcul des heures supplémentaires",
+                link_BP_006: "Indemnités primes et majorations",
+                link_BP_007: "IJSS subrogation et complément de salaire",
+                link_BP_008: "Prélèvement à la source PAS",
+                link_BP_009: "Net à payer et net imposable",
+                link_BP_010: "Mentions légales et archivage",
+                link_TT_001: "Durée légale hebdomadaire et journalière",
+                link_TT_002: "Temps complet, temps partiel et modulation",
+                link_TT_003: "Heures supplémentaires et complémentaires",
+                link_TT_004: "Astreintes, déplacements et temps de pause",
+                link_TT_005: "Aménagement du temps de travail",
+                link_TT_006: "Travail de nuit, jours fériés et dimanche",
+                link_TT_007: "Contrats spécifiques (apprentissage, pro, etc.)",
+                link_TT_008: "Contrôle du temps et suivi des horaires",
+                link_TT_009: "Risques liés au temps de travail",
+                link_TT_010: "Documentation et modèles",
+                link_CA_001: "Congés payés et calcul des droits",
+                link_CA_002: "RTT, CP et jours de repos",
+                link_CA_003: "Congés spéciaux et événements familiaux",
+                link_CA_004: "Absence non rémunérée",
+                link_CA_005: "Absentéisme et suivi",
+                link_CA_006: "Procédures et justificatifs",
+                link_CA_007: "Calcul des indemnités absence",
+                link_CA_008: "Documentation supports et modèles",
+                link_CA_009: "Cas particuliers internationaux",
+                link_CA_010: "Archivage et historique",
+                link_PM_001: "Maternité démarches et droits",
+                link_PM_002: "Paternité et accueil enfant",
+                link_PM_003: "Adoption",
+                link_PM_004: "Congé parental et aménagement temps",
+                link_PM_005: "IJSS calcul et subrogation",
+                link_PM_006: "Prévoyance compléments et garanties",
+                link_PM_007: "Protection licenciement",
+                link_PM_008: "Cas particuliers multiples et patho",
+                link_PM_009: "Support documents et modèles",
+                link_PM_010: "Ressources externes et institutionnelles",
+                link_MA_001: "Maladie, arrêt et obligations",
+                link_MA_002: "Accident du travail et maladie professionnelle",
+                link_MA_003: "Déclarations CPAM et attestations",
+                link_MA_004: "IJSS subrogation et compléments",
+                link_MA_005: "Mi-temps thérapeutique",
+                link_MA_006: "Invalidité",
+                link_MA_007: "Reprise et visite médicale",
+                link_MA_008: "Réclamations et litiges",
+                link_MA_009: "Supports, modèles et procédures",
+                link_MA_010: "Risques et prévention",
+                link_RC_001: "Rupture conventionnelle et procédures",
+                link_RC_002: "Licenciement et motifs",
+                link_RC_003: "Démission et abandon de poste",
+                link_RC_004: "Prudhommes et contentieux",
+                link_RC_005: "Documents fin de contrat",
+                link_RC_006: "Calcul des indemnités",
+                link_RC_007: "Transaction juridique",
+                link_RC_008: "Cas particuliers et protections",
+                link_RC_009: "Outils, modèles et procédures",
+                link_RC_010: "Risques juridiques et prévention",
+                link_RS_001: "Contrôles URSSAF",
+                link_RS_002: "Inspection du travail",
+                link_RS_003: "Caisses retraite et organismes",
+                link_RS_004: "Suivi pénibilité et DUERP",
+                link_RS_005: "Audit paie interne et externe",
+                link_RS_006: "Tableaux de bord et reporting",
+                link_RS_007: "Risques sociaux et sanctions",
+                link_RS_008: "Erreurs fréquentes et solutions",
+                link_RS_009: "Sécurisation de la paie",
+                link_RS_010: "Veille et tendances",
+                link_QS_001: "Questions courantes",
+                link_QS_002: "Cas pratiques et problèmes concrets",
+                link_QS_003: "Outils et ressources",
+                link_QS_004: "Modèles et templates",
+                link_QS_005: "Solutions RH paie et experts",
+                link_QS_006: "Exemples et études de cas",
+                link_QS_007: "Liens et sources officielles",
+                link_QS_008: "Documentation et supports",
+                link_QS_009: "Erreurs fréquentes et solutions",
+                link_QS_010: "Aides et assistance collective"
+            },
+            de: {
+                title: "PAÏA Pulse - Inhaltsverzeichnis",
+                headerTitle: "PAÏA Pulse",
+                headerDescriptionLine1: "Greifen Sie auf den gesamten Inhalt zu",
+                headerDescriptionLine2: "🟧 Sozial- & Gehaltsabrechnung (SP).",
+                betaWarning: "⚠️ Zur internen Nutzung von PAÏA (Beta-Phase)",
+                footerCopyrightLine1: "💫 PAÏA – Plattform für Aktualisierung & Information (KI) | Von Mathilde Martine PAISLEY",
+                footerCopyrightLine2: "© 2025 Alle Rechte vorbehalten – Erstellung: [date creation] – Letzte Aktualisierung: [date de mise à jour]",
+                sectionTitle_PF: "Grundlegende Gehaltsabrechnung",
+                sectionTitle_BP: "Gehaltsabrechnung",
+                sectionTitle_TT: "Arbeitszeit",
+                sectionTitle_CA: "Urlaub & Abwesenheiten",
+                sectionTitle_PM: "Vater- & Mutterschaft",
+                sectionTitle_MA: "Krankheit & Unfall",
+                sectionTitle_RC: "Vertragsauflösung & Streitigkeiten",
+                sectionTitle_RS: "Risiken & Kontrollen",
+                sectionTitle_QS: "Ihre Fragen",
+                audio_play: "▶️ Inhalt lesen",
+                audio_pause: "⏸ Pause",
+                audio_resume: "⏯ Fortsetzen",
+                audio_speed: "Geschwindigkeit :",
+                audio_slow: "Langsam",
+                audio_normal: "Normal",
+                audio_fast: "Schnell",
+                link_PF_001: "Struktur der Gehaltsabrechnung und Logik des Vergütungssystems",
+                link_PF_002: "Monatliche Stundenbasis, Tagespauschale und 151,67 Stunden",
+                link_PF_003: "Bruttolohn, Nettolohn, steuerpflichtiger Nettolohn und Super Brutto",
+                link_PF_004: "Sozialbeiträge und Einzugsstellen",
+                link_PF_005: "Sozialversicherungsdeckel PSS",
+                link_PF_006: "Sachbezüge und Berufskosten",
+                link_PF_007: "Steuerliche und soziale Befreiungen und Erleichterungen",
+                link_PF_008: "Kranken- und Zusatzversicherung Grundlagen",
+                link_PF_009: "DSN und Gehaltsabrechnungskalender",
+                link_PF_010: "Obligatorische Lohndokumente",
+                link_BP_001: "Lesen und Verstehen der Gehaltsabrechnung",
+                link_BP_002: "Obligatorische Zeilen des Abrechnungsbelegs",
+                link_BP_003: "Feste und variable Vergütungselemente",
+                link_BP_004: "Arbeitnehmer- und Arbeitgeberbeiträge",
+                link_BP_005: "Berechnung von Überstunden",
+                link_BP_006: "Entschädigungen, Prämien und Zuschläge",
+                link_BP_007: "Tägliche Sozialversicherungszulagen, Subrogation und Lohnausgleich",
+                link_BP_008: "Quellensteuer PAS",
+                link_BP_009: "Auszahlungsnetto und steuerpflichtiges Netto",
+                link_BP_010: "Gesetzliche Angaben und Archivierung",
+                link_TT_001: "Gesetzliche wöchentliche und tägliche Arbeitszeit",
+                link_TT_002: "Vollzeit, Teilzeit und Gleitzeit",
+                link_TT_003: "Überstunden und zusätzliche Stunden",
+                link_TT_004: "Bereitschaftsdienste, Reisen, Pausenzeit",
+                link_TT_005: "Gestaltung der Arbeitszeit",
+                link_TT_006: "Nachtarbeit, Feier- und Sonntagarbeit",
+                link_TT_007: "Spezifische Verträge (Ausbildung, Pro etc)",
+                link_TT_008: "Zeitkontrolle und Stundenüberwachung",
+                link_TT_009: "Risiken im Zusammenhang mit der Arbeitszeit",
+                link_TT_010: "Dokumentation und Modelle",
+                link_CA_001: "Bezahlter Urlaub und Berechnung der Ansprüche",
+                link_CA_002: "RTT, bezahlter Urlaub und Ruhetage",
+                link_CA_003: "Sonderurlaub und Familienereignisse",
+                link_CA_004: "Unbezahlte Abwesenheit",
+                link_CA_005: "Abwesenheit und Überwachung",
+                link_CA_006: "Verfahren und Belege",
+                link_CA_007: "Berechnung der Abwesenheitsentschädigung",
+                link_CA_008: "Dokumentation, Unterlagen und Modelle",
+                link_CA_009: "Internationale Sonderfälle",
+                link_CA_010: "Archivierung und Verlauf",
+                link_PM_001: "Mutterschaft, Verfahren und Rechte",
+                link_PM_002: "Vaterschaft und Empfang des Kindes",
+                link_PM_003: "Adoption",
+                link_PM_004: "Elternzeit und Arbeitszeitgestaltung",
+                link_PM_005: "Tägliche Sozialversicherungszulagen, Berechnung und Subrogation",
+                link_PM_006: "Zusatzversicherung, Ergänzungen und Garantien",
+                link_PM_007: "Kündigungsschutz",
+                link_PM_008: "Mehrfach- und pathologische Sonderfälle",
+                link_PM_009: "Unterstützungsdokumente und Modelle",
+                link_PM_010: "Externe und institutionelle Ressourcen",
+                link_MA_001: "Krankheit, Krankschreibung und Pflichten",
+                link_MA_002: "Arbeitsunfall und Berufskrankheit",
+                link_MA_003: "Erklärungen und Bescheinigungen der Krankenkasse",
+                link_MA_004: "Tägliche Sozialversicherungszulagen, Subrogation und Zuschüsse",
+                link_MA_005: "Therapeutische Halbzeit",
+                link_MA_006: "Invalidität",
+                link_MA_007: "Wiederaufnahme und ärztliche Untersuchung",
+                link_MA_008: "Beschwerden und Streitigkeiten",
+                link_MA_009: "Unterlagen, Modelle und Verfahren",
+                link_MA_010: "Risiken und Prävention",
+                link_RC_001: "Einvernehmliche Trennung und Verfahren",
+                link_RC_002: "Kündigung und Gründe",
+                link_RC_003: "Kündigung durch Arbeitnehmer und vorzeitiger Austreit",
+                link_RC_004: "Arbeitsgericht und Streitigkeiten",
+                link_RC_005: "Dokumente bei Vertragsende",
+                link_RC_006: "Berechnung von Abfindungen",
+                link_RC_007: "Rechtsvergleich",
+                link_RC_008: "Sonderfälle und Schutz",
+                link_RC_009: "Werkzeuge, Modelle und Verfahren",
+                link_RC_010: "Rechtsrisiken und Prävention",
+                link_RS_001: "URSSAF Kontrollen",
+                link_RS_002: "Arbeitsinspektion",
+                link_RS_003: "Renten- und Kassenorganisationen",
+                link_RS_004: "Überwachung von erschwerter Arbeit und DUERP",
+                link_RS_005: "Interne und externe Lohnaudits",
+                link_RS_006: "Dashboards und Berichterstattung",
+                link_RS_007: "Soziale Risiken und Sanktionen",
+                link_RS_008: "Häufige Fehler und Lösungen",
+                link_RS_009: "Sicherung der Gehaltsabrechnung",
+                link_RS_010: "Überwachung und Trends",
+                link_QS_001: "Häufig gestellte Fragen",
+                link_QS_002: "Praktische Fälle und konkrete Probleme",
+                link_QS_003: "Werkzeuge und Ressourcen",
+                link_QS_004: "Modelle und Vorlagen",
+                link_QS_005: "HR-Lohnlösungen und Experten",
+                link_QS_006: "Beispiele und Fallstudien",
+                link_QS_007: "Offizielle Links und Quellen",
+                link_QS_008: "Dokumentation und Unterlagen",
+                link_QS_009: "Häufige Fehler und Lösungen",
+                link_QS_010: "Kollektive Hilfe und Unterstützung"
+            },
+            en: {
+                title: "PAÏA Pulse - Content Directory",
+                headerTitle: "PAÏA Pulse",
+                headerDescriptionLine1: "Access the complete content",
+                headerDescriptionLine2: "🟧 Social & Payroll (SP).",
+                betaWarning: "⚠️ For internal PAÏA use (Beta Phase)",
+                footerCopyrightLine1: "💫 PAÏA – Update & Information Platform (AI) | By Mathilde Martine PAISLEY",
+                footerCopyrightLine2: "© 2025 All rights reserved – Creation: [date creation] – Last update: [date de mise à jour]",
+                sectionTitle_PF: "Fundamental payroll",
+                sectionTitle_BP: "Payslip",
+                sectionTitle_TT: "Working time",
+                sectionTitle_CA: "Leave & absences",
+                sectionTitle_PM: "Paternity & maternity",
+                sectionTitle_MA: "Sickness & accident",
+                sectionTitle_RC: "Termination & litigation",
+                sectionTitle_RS: "Risks & controls",
+                sectionTitle_QS: "Your questions",
+                audio_play: "▶️ Read Content",
+                audio_pause: "⏸ Pause",
+                audio_resume: "⏯ Resume",
+                audio_speed: "Speed :",
+                audio_slow: "Slow",
+                audio_normal: "Normal",
+                audio_fast: "Fast",
+                link_PF_001: "Payroll structure and remuneration system logic",
+                link_PF_002: "Monthly hourly base, daily flat rate and 151.67 hours",
+                link_PF_003: "Gross pay, net pay, taxable net pay and super gross",
+                link_PF_004: "Social contributions and collection agencies",
+                link_PF_005: "Social security ceiling PSS",
+                link_PF_006: "Benefits in kind and professional expenses",
+                link_PF_007: "Social and tax exemptions and reliefs",
+                link_PF_008: "Mutual insurance and basic pension",
+                link_PF_009: "DSN and payroll calendar",
+                link_PF_010: "Mandatory payroll documents",
+                link_BP_001: "Reading and understanding the payslip",
+                link_BP_002: "Mandatory payslip lines",
+                link_BP_003: "Fixed and variable remuneration elements",
+                link_BP_004: "Employee and employer contributions",
+                link_BP_005: "Calculation of overtime hours",
+                link_BP_006: "Allowances, bonuses, and increases",
+                link_BP_007: "Daily social security allowances, subrogation, and salary supplement",
+                link_BP_008: "Pay as you earn PAS",
+                link_BP_009: "Net payable and taxable net",
+                link_BP_010: "Legal notices and archiving",
+                link_TT_001: "Legal weekly and daily working hours",
+                link_TT_002: "Full-time, part-time and modulation",
+                link_TT_003: "Overtime and supplementary hours",
+                link_TT_004: "On-call duty, travel, break time",
+                link_TT_005: "Working time arrangement",
+                link_TT_006: "Night work, public holidays and Sunday work",
+                link_TT_007: "Specific contracts (apprenticeship, pro, etc.)",
+                link_TT_008: "Time control and schedule monitoring",
+                link_TT_009: "Risks related to working time",
+                link_TT_010: "Documentation and models",
+                link_CA_001: "Paid leave and calculation of rights",
+                link_CA_002: "RTT, paid leave and rest days",
+                link_CA_003: "Special leave and family events",
+                link_CA_004: "Unpaid absence",
+                link_CA_005: "Absenteeism and monitoring",
+                link_CA_006: "Procedures and justification documents",
+                link_CA_007: "Calculation of absence allowances",
+                link_CA_008: "Support documentation and models",
+                link_CA_009: "International special cases",
+                link_CA_010: "Archiving and history",
+                link_PM_001: "Maternity, procedures and rights",
+                link_PM_002: "Paternity and child reception",
+                link_PM_003: "Adoption",
+                link_PM_004: "Parental leave and time arrangement",
+                link_PM_005: "Daily social security allowances, calculation and subrogation",
+                link_PM_006: "Pension, supplements and guarantees",
+                link_PM_007: "Dismissal protection",
+                link_PM_008: "Multiple and pathological special cases",
+                link_PM_009: "Support documents and models",
+                link_PM_010: "External and institutional resources",
+                link_MA_001: "Sickness, leave, and obligations",
+                link_MA_002: "Work accident and occupational disease",
+                link_MA_003: "Health insurance declarations and certificates",
+                link_MA_004: "Daily social security allowances, subrogation and supplements",
+                link_MA_005: "Therapeutic part-time",
+                link_MA_006: "Disability",
+                link_MA_007: "Return to work and medical visit",
+                link_MA_008: "Claims and disputes",
+                link_MA_009: "Supports, models and procedures",
+                link_MA_010: "Risks and prevention",
+                link_RC_001: "Conventional termination and procedures",
+                link_RC_002: "Dismissal and grounds",
+                link_RC_003: "Resignation and job abandonment",
+                link_RC_004: "Labor tribunal and litigation",
+                link_RC_005: "End of contract documents",
+                link_RC_006: "Calculation of indemnities",
+                link_RC_007: "Legal transaction",
+                link_RC_008: "Special cases and protections",
+                link_RC_009: "Tools, models and procedures",
+                link_RC_010: "Legal risks and prevention",
+                link_RS_001: "URSSAF controls",
+                link_RS_002: "Labor inspection",
+                link_RS_003: "Pension funds and organizations",
+                link_RS_004: "Hardship monitoring and DUERP",
+                link_RS_005: "Internal and external payroll audit",
+                link_RS_006: "Dashboards and reporting",
+                link_RS_007: "Social risks and sanctions",
+                link_RS_008: "Frequent errors and solutions",
+                link_RS_009: "Payroll securing",
+                link_RS_010: "Monitoring and trends",
+                link_QS_001: "Common questions",
+                link_QS_002: "Practical cases and concrete problems",
+                link_QS_003: "Tools and resources",
+                link_QS_004: "Models and templates",
+                link_QS_005: "HR payroll solutions and experts",
+                link_QS_006: "Examples and case studies",
+                link_QS_007: "Official links and sources",
+                link_QS_010: "Collective aid and assistance",
+                link_QS_008: "Documentation and support",
+                link_QS_009: "Frequent errors and solutions"
+            },
+            ar: {
+                title: "PAÏA Pulse - دليل المحتوى",
+                headerTitle: "PAÏA Pulse",
+                headerDescriptionLine1: "الوصول إلى المحتوى الكامل",
+                headerDescriptionLine2: "🟧 الاجتماعي وكشوف المرتبات (SP).",
+                betaWarning: "⚠️ للاستخدام الداخلي لـ PAÏA (مرحلة بيتا)",
+                footerCopyrightLine1: "💫 PAÏA – منصة التحديث والمعلومات (الذكاء الاصطناعي) | بواسطة Mathilde Martine PAISLEY",
+                footerCopyrightLine2: "© 2025 جميع الحقوق محفوظة – الإنشاء: [date creation] – آخر تحديث: [date de mise à jour]",
+                sectionTitle_PF: "كشوف المرتبات الأساسية",
+                sectionTitle_BP: "قسيمة الراتب",
+                sectionTitle_TT: "وقت العمل",
+                sectionTitle_CA: "الإجازات والغيابات",
+                sectionTitle_PM: "الأبوة والأمومة",
+                sectionTitle_MA: "المرض والحوادث",
+                sectionTitle_RC: "إنهاء الخدمة والتقاضي",
+                sectionTitle_RS: "المخاطر والضوابط",
+                sectionTitle_QS: "أسئلتكم",
+                audio_play: "▶️ قراءة المحتوى",
+                audio_pause: "⏸ إيقاف مؤقت",
+                audio_resume: "⏯ استئناف",
+                audio_speed: "السرعة :",
+                audio_slow: "بطيء",
+                audio_normal: "عادي",
+                audio_fast: "سريع",
+                link_PF_001: "هيكل كشوف المرتبات ومنطق نظام الأجور",
+                link_PF_002: "الأساس الشهري للساعات، والتعويض اليومي الثابت، و151,67 ساعة",
+                link_PF_003: "الراتب الإجمالي، والصافي، والصافي الخاضع للضريبة، والإجمالي الفائق",
+                link_PF_004: "الاشتراكات الاجتماعية وهيئات التحصيل",
+                link_PF_005: "سقف الضمان الاجتماعي PSS",
+                link_PF_006: "المزايا العينية والمصاريف المهنية",
+                link_PF_007: "الإعفاءات والتخفيفات الضريبية والاجتماعية",
+                link_PF_008: "التأمين المتبادل والأساسيات الاحترازية",
+                link_PF_009: "DSN وجدول المرتبات",
+                link_PF_010: "وثائق كشوف المرتبات الإلزامية",
+                link_BP_001: "قراءة وفهم قسيمة الراتب",
+                link_BP_002: "السطور الإلزامية في قسيمة الراتب",
+                link_BP_003: "عناصر الأجر الثابتة والمتغيرة",
+                link_BP_004: "اشتراكات الموظف وصاحب العمل",
+                link_BP_005: "حساب ساعات العمل الإضافي",
+                link_BP_006: "البدلات والمكافآت والزيادات",
+                link_BP_007: "IJSS (بدل الضمان الاجتماعي اليومي)، الحلول محل، وتكملة الراتب",
+                link_BP_008: "الاقتطاع من المصدر PAS",
+                link_BP_009: "الصافي المستحق الدفع والصافي الخاضع للضريبة",
+                link_BP_010: "الإشعارات القانونية والأرشفة",
+                link_TT_001: "مدة العمل القانونية الأسبوعية واليومية",
+                link_TT_002: "الدوام الكامل والدوام الجزئي والتعديل",
+                link_TT_003: "ساعات العمل الإضافي والتكميلية",
+                link_TT_004: "الاستدعاءات والتنقلات ووقت الراحة",
+                link_TT_005: "تنظيم وقت العمل",
+                link_TT_006: "العمل الليلي والعطلات الرسمية والأحد",
+                link_TT_007: "العقود الخاصة (التدريب المهني، وما إلى ذلك)",
+                link_TT_008: "التحكم في الوقت ومراقبة الجداول الزمنية",
+                link_TT_009: "المخاطر المتعلقة بوقت العمل",
+                link_TT_010: "الوثائق والنماذج",
+                link_CA_001: "الإجازات مدفوعة الأجر وحساب الحقوق",
+                link_CA_002: "RTT (تخفيض وقت العمل)، والإجازات مدفوعة الأجر، وأيام الراحة",
+                link_CA_003: "الإجازات الخاصة والمناسبات العائلية",
+                link_CA_004: "الغياب غير مدفوع الأجر",
+                link_CA_005: "التغيب والمراقبة",
+                link_CA_006: "الإجراءات والمبررات",
+                link_CA_007: "حساب بدلات الغياب",
+                link_CA_008: "وثائق الدعم والنماذج",
+                link_CA_009: "الحالات الدولية الخاصة",
+                link_CA_010: "الأرشفة والتاريخ",
+                link_PM_001: "الأمومة، الإجراءات والحقوق",
+                link_PM_002: "الأبوة واستقبال الطفل",
+                link_PM_003: "التبني",
+                link_PM_004: "إجازة الوالدين وتنظيم الوقت",
+                link_PM_005: "IJSS (بدل الضمان الاجتماعي اليومي)، الحساب والحلول محل",
+                link_PM_006: "الاحتياط، والمكملات، والضمانات",
+                link_PM_007: "الحماية من الفصل",
+                link_PM_008: "حالات خاصة متعددة ومرضية",
+                link_PM_009: "وثائق الدعم والنماذج",
+                link_PM_010: "الموارد الخارجية والمؤسسية",
+                link_MA_001: "المرض، والإجازات، والالتزامات",
+                link_MA_002: "حادث العمل والمرض المهني",
+                link_MA_003: "إعلانات وشهادات صندوق التأمين الصحي",
+                link_MA_004: "IJSS (بدل الضمان الاجتماعي اليومي)، والحلول محل، والمكملات",
+                link_MA_005: "نصف الوقت العلاجي",
+                link_MA_006: "العجز",
+                link_MA_007: "العودة إلى العمل والفحص الطبي",
+                link_MA_008: "الشكاوى والنزاعات",
+                link_MA_009: "الدعم والنماذج والإجراءات",
+                link_MA_010: "المخاطر والوقاية",
+                link_RC_001: "إنهاء الخدمة بالتراضي والإجراءات",
+                link_RC_002: "الفصل والأسباب",
+                link_RC_003: "الاستقالة وترك العمل",
+                link_RC_004: "محكمة العمل والتقاضي",
+                link_RC_005: "وثائق نهاية العقد",
+                link_RC_006: "حساب التعويضات",
+                link_RC_007: "المعاملة القانونية",
+                link_RC_008: "الحالات الخاصة والحماية",
+                link_RC_009: "الأدوات والنماذج والإجراءات",
+                link_RC_010: "المخاطر القانونية والوقاية",
+                link_RS_001: "ضوابط URSSAF",
+                link_RS_002: "تفتيش العمل",
+                link_RS_003: "صناديق التقاعد والمنظمات",
+                link_RS_004: "مراقبة المشقة وDUERP",
+                link_RS_005: "تدقيق كشوف المرتبات الداخلي والخارجي",
+                link_RS_006: "لوحات المعلومات وإعداد التقارير",
+                link_RS_007: "المخاطر الاجتماعية والعقوبات",
+                link_RS_008: "الأخطاء المتكررة والحلول",
+                link_RS_009: "تأمين كشوف المرتبات",
+                link_RS_010: "المراقبة والاتجاهات",
+                link_QS_001: "الأسئلة الشائعة",
+                link_QS_002: "الحالات العملية والمشاكل الملموسة",
+                link_QS_003: "الأدوات والموارد",
+                link_QS_004: "النماذج والقوالب",
+                link_QS_005: "حلول الموارد البشرية وكشوف المرتبات والخبراء",
+                link_QS_006: "أمثلة ودراسات حالة",
+                link_QS_007: "الروابط والمصادر الرسمية",
+                link_QS_008: "الوثائق والدعم",
+                link_QS_009: "الأخطاء المتكررة والحلول",
+                link_QS_010: "المساعدة الجماعية والدعم"
+            },
+            zh: {
+                title: "PAÏA Pulse - 内容目录",
+                headerTitle: "PAÏA Pulse",
+                headerDescriptionLine1: "访问全部内容",
+                headerDescriptionLine2: "🟧 社会与薪酬 (SP).",
+                betaWarning: "⚠️ 供 PAÏA 内部使用 (测试阶段)",
+                footerCopyrightLine1: "💫 PAÏA – 更新与信息平台 (AI) | 作者：Mathilde Martine PAISLEY",
+                footerCopyrightLine2: "© 2025 版权所有 – 创建：[date creation] – 最后更新：[date de mise à jour]",
+                sectionTitle_PF: "基本工资核算",
+                sectionTitle_BP: "工资单",
+                sectionTitle_TT: "工作时间",
+                sectionTitle_CA: "休假与缺勤",
+                sectionTitle_PM: "父亲和母亲产假",
+                sectionTitle_MA: "疾病与事故",
+                sectionTitle_RC: "合同终止与诉讼",
+                sectionTitle_RS: "风险与控制",
+                sectionTitle_QS: "您的问题",
+                audio_play: "▶️ 阅读内容",
+                audio_pause: "⏸ 暂停",
+                audio_resume: "⏯ 继续",
+                audio_speed: "速度 :",
+                audio_slow: "慢速",
+                audio_normal: "正常",
+                audio_fast: "快速",
+                link_PF_001: "工资结构和薪酬体系逻辑",
+                link_PF_002: "每月小时基数、日包干制和 151.67 小时",
+                link_PF_003: "总薪、净薪、应税净薪和超总薪",
+                link_PF_004: "社会缴款和征收机构",
+                link_PF_005: "社会保障上限 PSS",
+                link_PF_006: "实物福利和专业费用",
+                link_PF_007: "社会和税收减免与宽减",
+                link_PF_008: "互助保险和预先基础",
+                link_PF_009: "DSN 和薪酬日历",
+                link_PF_010: "强制性薪酬文件",
+                link_BP_001: "阅读和理解工资单",
+                link_BP_002: "工资单上的强制行",
+                link_BP_003: "固定和可变薪酬要素",
+                link_BP_004: "员工和雇主缴款",
+                link_BP_005: "加班费计算",
+                link_BP_006: "津贴、奖金和增加额",
+                link_BP_007: "IJSS (每日社会保障津贴)、代位权和工资补足",
+                link_BP_008: "源头预扣税 PAS",
+                link_BP_009: "应付净额和应税净额",
+                link_BP_010: "法律声明和归档",
+                link_TT_001: "法定每周和每日工作时间",
+                link_TT_002: "全职、兼职和调制",
+                link_TT_003: "加班和补充时间",
+                link_TT_004: "待命、出差、休息时间",
+                link_TT_005: "工作时间安排",
+                link_TT_006: "夜间工作、公共假日和周日工作",
+                link_TT_007: "特定合同 (学徒、专业等)",
+                link_TT_008: "时间控制和日程监控",
+                link_TT_009: "与工作时间相关的风险",
+                link_TT_010: "文件和模型",
+                link_CA_001: "带薪休假和权利计算",
+                link_CA_002: "RTT (减少工作时间)、带薪休假和休息日",
+                link_CA_003: "特殊休假和家庭事件",
+                link_CA_004: "无薪缺勤",
+                link_CA_005: "缺勤和监控",
+                link_CA_006: "程序和证明文件",
+                link_CA_007: "缺勤津贴计算",
+                link_CA_008: "支持文件和模型",
+                link_CA_009: "国际特殊情况",
+                link_CA_010: "归档和历史记录",
+                link_PM_001: "产假、手续和权利",
+                link_PM_002: "陪产假和迎接孩子",
+                link_PM_003: "收养",
+                link_PM_004: "育儿假和时间安排",
+                link_PM_005: "IJSS (每日社会保障津贴)、计算和代位权",
+                link_PM_006: "预先、补足和保障",
+                link_PM_007: "解雇保护",
+                link_PM_008: "多重和病理性特殊情况",
+                link_PM_009: "支持文件和模型",
+                link_PM_010: "外部和机构资源",
+                link_MA_001: "疾病、休假和义务",
+                link_MA_002: "工伤事故和职业病",
+                link_MA_003: "健康保险申报和证明",
+                link_MA_004: "IJSS (每日社会保障津貼)、代位权和补足",
+                link_MA_005: "治疗性半职",
+                link_MA_006: "残疾",
+                link_MA_007: "复工和体检",
+                link_MA_008: "索赔和争议",
+                link_MA_009: "支持、模型和程序",
+                link_MA_010: "リスクと予防",
+                link_RC_001: "协商解除合同和程序",
+                link_RC_002: "解雇和理由",
+                link_RC_003: "辞职和放弃职位",
+                link_RC_004: "劳动法庭和诉讼",
+                link_RC_005: "合同终止文件",
+                link_RC_006: "赔偿金计算",
+                link_RC_007: "法律交易",
+                link_RC_008: "特殊情况和保护",
+                link_RC_009: "工具、模型和程序",
+                link_RC_010: "法律リスクと予防",
+                link_RS_001: "URSSAF 控制",
+                link_RS_002: "劳动监察",
+                link_RS_003: "养老基金和组织",
+                link_RS_004: "劳累监测和 DUERP",
+                link_RS_005: "内部和外部薪酬审计",
+                link_RS_006: "仪表板和报告",
+                link_RS_007: "社会风险和制裁",
+                link_RS_008: "常见错误和解决方案",
+                link_RS_009: "薪酬安全保障",
+                link_RS_010: "监测和趋势",
+                link_QS_001: "常见问题",
+                link_QS_002: "实际案例和具体问题",
+                link_QS_003: "工具和资源",
+                link_QS_004: "模型和模板",
+                link_QS_005: "人力资源薪酬解决方案和专家",
+                link_QS_006: "示例和案例研究",
+                link_QS_007: "官方链接和来源",
+                link_QS_008: "ドキュメントとサポート",
+                link_QS_009: "頻繁なエラーと解決策",
+                link_QS_010: "集団的な支援とサポート"
+            },
+            es: {
+                title: "PAÏA Pulse - Directorio de Contenido",
+                headerTitle: "PAÏA Pulse",
+                headerDescriptionLine1: "Acceda al contenido completo",
+                headerDescriptionLine2: "🟧 Social y Nómina (SP).",
+                betaWarning: "⚠️ Para uso interno de PAÏA (Fase Beta)",
+                footerCopyrightLine1: "💫 PAÏA – Plataforma de Actualización e Información (IA) | Por Mathilde Martine PAISLEY",
+                footerCopyrightLine2: "© 2025 Todos los derechos reservados – Creación: [date creation] – Última actualización: [date de mise a jour]",
+                sectionTitle_PF: "Nómina fundamental",
+                sectionTitle_BP: "Boletín de nómina",
+                sectionTitle_TT: "Tiempo de trabajo",
+                sectionTitle_CA: "Vacaciones y ausencias",
+                sectionTitle_PM: "Paternidad y maternidad",
+                sectionTitle_MA: "Enfermedad y accidente",
+                sectionTitle_RC: "Ruptura y contenciosos",
+                sectionTitle_RS: "Riesgos y controles",
+                sectionTitle_QS: "Sus preguntas",
+                audio_play: "▶️ Leer contenido",
+                audio_pause: "⏸ Pausar",
+                audio_resume: "⏯ Reanudar",
+                audio_speed: "Velocidad :",
+                audio_slow: "Lenta",
+                audio_normal: "Normal",
+                audio_fast: "Rápida",
+                link_PF_001: "Estructura de la nómina y lógica del sistema de remuneración",
+                link_PF_002: "Base horaria mensual, tarifa plana diaria y 151,67 horas",
+                link_PF_003: "Salario bruto, neto, neto imponible y súper bruto",
+                link_PF_004: "Cotizaciones sociales y organismos recaudadores",
+                link_PF_005: "Tope de la seguridad social PSS",
+                link_PF_006: "Beneficios en especie y gastos profesionales",
+                link_PF_007: "Exenciones y alivios fiscales y sociales",
+                link_PF_008: "Mutual y previsión básica",
+                link_PF_009: "DSN y calendario de nóminas",
+                link_PF_010: "Documentos de nómina obligatorios",
+                link_BP_001: "Lectura y comprensión del boletín de nómina",
+                link_BP_002: "Líneas obligatorias del boletín",
+                link_BP_003: "Elementos de remuneración fija y variable",
+                link_BP_004: "Cotizaciones salariales y patronales",
+                link_BP_005: "Cálculo de las horas extra",
+                link_BP_006: "Indemnizaciones, primas y recargos",
+                link_BP_007: "IJSS (subsidio diario de la seguridad social), subrogación y complemento salarial",
+                link_BP_008: "Retención en la fuente PAS",
+                link_BP_009: "Neto a pagar y neto imponible",
+                link_BP_010: "Menciones legales y archivo",
+                link_TT_001: "Duración legal semanal y diaria",
+                link_TT_002: "Tiempo completo, tiempo parcial y modulación",
+                link_TT_003: "Horas extra y complementarias",
+                link_TT_004: "Disponibilidad, desplazamientos y tiempo de pausa",
+                link_TT_005: "Adaptación del tiempo de trabajo",
+                link_TT_006: "Trabajo nocturno, días festivos y domingo",
+                link_TT_007: "Contratos específicos (aprendizaje, pro, etc.)",
+                link_TT_008: "Control del tiempo y seguimiento de horarios",
+                link_TT_009: "Riesgos relacionados con el tiempo de trabajo",
+                link_TT_010: "Documentación y modelos",
+                link_CA_001: "Vacaciones pagadas y cálculo de derechos",
+                link_CA_002: "RTT (reducción del tiempo de trabajo), vacaciones pagadas y días de descanso",
+                link_CA_003: "Vacaciones especiales y eventos familiares",
+                link_CA_004: "Ausencia no remunerada",
+                link_CA_005: "Absentismo y seguimiento",
+                link_CA_006: "Procedimientos y justificantes",
+                link_CA_007: "Cálculo de indemnizaciones por ausencia",
+                link_CA_008: "Documentación de apoyo y modelos",
+                link_CA_009: "Casos particulares múltiples e internacionales",
+                link_CA_010: "Archivo e historial",
+                link_PM_001: "Maternidad, trámites y derechos",
+                link_PM_002: "Paternidad y acogida del niño",
+                link_PM_003: "Adopción",
+                link_PM_004: "Permiso parental y adaptación del tiempo",
+                link_PM_005: "IJSS (subsidio diario de la seguridad social), cálculo y subrogación",
+                link_PM_006: "Previsión, complementos y garantías",
+                link_PM_007: "Protección contra el despido",
+                link_PM_008: "Casos particulares múltiples y patológicos",
+                link_PM_009: "Documentos de apoyo y modelos",
+                link_PM_010: "Recursos externos e institucionales",
+                link_MA_001: "Enfermedad, baja y obligaciones",
+                link_MA_002: "Accidente de trabajo y enfermedad profesional",
+                link_MA_003: "Declaraciones y certificados del seguro de salud",
+                link_MA_004: "IJSS (subsidio diario de la seguridad social), subrogación y complementos",
+                link_MA_005: "Media jornada terapéutica",
+                link_MA_006: "Invalidez",
+                link_MA_007: "Reincorporación y visita médica",
+                link_MA_008: "Reclamaciones y litigios",
+                link_MA_009: "Apoyos, modelos y procedimientos",
+                link_MA_010: "Riesgos y prevención",
+                link_RC_001: "Ruptura convencional y procedimientos",
+                link_RC_002: "Despido y motivos",
+                link_RC_003: "Dimisión y abandono de puesto",
+                link_RC_004: "Juzgados de lo social y contenciosos",
+                link_RC_005: "Documentos fin de contrato",
+                link_RC_006: "Cálculo de indemnizaciones",
+                link_RC_007: "Transacción jurídica",
+                link_RC_008: "Casos particulares y protecciones",
+                link_RC_009: "Herramientas, modelos y procedimientos",
+                link_RC_010: "Riesgos legales y prevención",
+                link_RS_001: "Controles URSSAF",
+                link_RS_002: "Inspección de trabajo",
+                link_RS_003: "Cajas de jubilación y organismos",
+                link_RS_004: "Seguimiento de penosidad y DUERP",
+                link_RS_005: "Auditoría de nómina interna y externa",
+                link_RS_006: "Paneles de control y reporting",
+                link_RS_007: "Riesgos sociales y sanciociones",
+                link_RS_008: "Errores frecuentes y soluciones",
+                link_RS_009: "Aseguramiento de la nómina",
+                link_RS_010: "Vigilancia y tendencias",
+                link_QS_001: "Preguntas frecuentes",
+                link_QS_002: "Casos prácticos y problemas concretos",
+                link_QS_003: "Herramientas y recursos",
+                link_QS_004: "Modelos y plantillas",
+                link_QS_005: "Soluciones RH nómina y expertos",
+                link_QS_006: "Ejemplos y estudios de casos",
+                link_QS_007: "Enlaces y fuentes oficiales",
+                link_QS_008: "Documentación y apoyo",
+                link_QS_009: "Errores frecuentes y soluciones",
+                link_QS_010: "Ayudas y asistencia colectiva"
+            },
+            it: {
+                title: "PAÏA Pulse - Elenco Contenuti",
+                headerTitle: "PAÏA Pulse",
+                headerDescriptionLine1: "Accedi al contenuto completo",
+                headerDescriptionLine2: "🟧 Sociale e Busta Paga (SP).",
+                betaWarning: "⚠️ Per uso interno PAÏA (Fase Beta)",
+                footerCopyrightLine1: "💫 PAÏA – Piattaforma di Aggiornamento e Informazione (IA) | Di Mathilde Martine PAISLEY",
+                footerCopyrightLine2: "© 2025 Tutti i diritti riservati – Creazione: [date creation] – Ultimo aggiornamento: [date de mise à jour]",
+                sectionTitle_PF: "Busta paga fondamentale",
+                sectionTitle_BP: "Busta paga",
+                sectionTitle_TT: "Orario di lavoro",
+                sectionTitle_CA: "Ferie e assenze",
+                sectionTitle_PM: "Paternità e maternità",
+                sectionTitle_MA: "Malattia e infortunio",
+                sectionTitle_RC: "Cessazione e contenzioso",
+                sectionTitle_RS: "Rischi e controlli",
+                sectionTitle_QS: "Le vostre domande",
+                audio_play: "▶️ Leggi contenuto",
+                audio_pause: "⏸ Pausa",
+                audio_resume: "⏯ Riprendi",
+                audio_speed: "Velocità :",
+                audio_slow: "Lenta",
+                audio_normal: "Normale",
+                audio_fast: "Veloce",
+                link_PF_001: "Struttura busta paga e logica del sistema di retribuzione",
+                link_PF_002: "Base oraria mensile, forfait giorni e 151,67 ore",
+                link_PF_003: "Salario lordo, netto, netto imponibile e super lordo",
+                link_PF_004: "Contributi sociali e organismi di riscossione",
+                link_PF_005: "Massimale di sicurezza sociale PSS",
+                link_PF_006: "Vantaggi in natura e spese professionali",
+                link_PF_007: "Esenzioni e agevolazioni fiscali e sociali",
+                link_PF_008: "Mutua e previdenza basi",
+                link_PF_009: "DSN e calendario della busta paga",
+                link_PF_010: "Documenti busta paga obbligatori",
+                link_BP_001: "Lettura e comprensione della busta paga",
+                link_BP_002: "Righe obbligatorie della busta paga",
+                link_BP_003: "Elementi di retribuzione fissa e variabile",
+                link_BP_004: "Contributi salariali e datoriali",
+                link_BP_005: "Calcolo delle ore supplementari",
+                link_BP_006: "Indennità, premi e maggiorazioni",
+                link_BP_007: "IJSS (indennità giornaliera di sicurezza sociale), surrogazione e complemento salariale",
+                link_BP_008: "Prelievo alla fonte PAS",
+                link_BP_009: "Netto da pagare e netto imponibile",
+                link_BP_010: "Note legali e archiviazione",
+                link_TT_001: "Durata legale settimanale e giornaliera",
+                link_TT_002: "Tempo pieno, tempo parziale e modulazione",
+                link_TT_003: "Ore supplementari e complementari",
+                link_TT_004: "Reperibilità, trasferte e tempo di pausa",
+                link_TT_005: "Organizzazione dell'orario di lavoro",
+                link_TT_006: "Lavoro notturno, festivi e domenica",
+                link_TT_007: "Contratti specifici (apprendistato, pro, ecc.)",
+                link_TT_008: "Controllo orario e monitoraggio degli orari",
+                link_TT_010: "Documentazione e modelli",
+                link_CA_001: "Ferie pagate e calcolo dei diritti",
+                link_CA_002: "RTT, ferie pagate e giorni di riposo",
+                link_CA_003: "Congedi speciali ed eventi familiari",
+                link_CA_004: "Assenza non retribuita",
+                link_CA_005: "Assenteismo e monitoraggio",
+                link_CA_006: "Procedure e giustificativi",
+                link_CA_007: "Calcolo delle indennità di assenza",
+                link_CA_008: "Documentazione di supporto e modelli",
+                link_CA_009: "Casi particolari internazionali",
+                link_CA_010: "Archiviazione e storico",
+                link_PM_001: "Maternità, procedure e diritti",
+                link_PM_002: "Paternità e accoglienza bambino",
+                link_PM_003: "Adozione",
+                link_PM_004: "Congedo parentale e organizzazione del tempo",
+                link_PM_005: "IJSS (indennità giornaliera di sicurezza sociale), calcolo e surrogazione",
+                link_PM_006: "Previdenza, complementi e garanzie",
+                link_PM_007: "Protezione dal licenziamento",
+                link_PM_008: "Casi particolari multipli e patologici",
+                link_PM_009: "Documenti di supporto e modelli",
+                link_PM_010: "Risorse esterne e istituzionali",
+                link_MA_001: "Malattia, congedo e obblighi",
+                link_MA_002: "Infortunio sul lavoro e malattia professionale",
+                link_MA_003: "Dichiarazioni e attestazioni cassa malattia",
+                link_MA_004: "IJSS (indennità giornaliera di sicurezza sociale), surrogazione e complementi",
+                link_MA_005: "Part-time terapeutico",
+                link_MA_006: "Invalidità",
+                link_MA_007: "Ripresa e visita medica",
+                link_MA_008: "Reclami e contenzioso",
+                link_MA_009: "Supporti, modelli e procedure",
+                link_MA_010: "Rischi e prevenzione",
+                link_RC_001: "Risoluzione convenzionale e procedure",
+                link_RC_002: "Licenziamento e motivi",
+                link_RC_003: "Dimissioni e abbandono del posto",
+                link_RC_004: "Giudice del lavoro e contenzioso",
+                link_RC_005: "Documenti fine contratto",
+                link_RC_006: "Calcolo delle indennità",
+                link_RC_007: "Transazione giuridica",
+                link_RC_008: "Casi particolari e protezioni",
+                link_RC_009: "Strumenti, modelli e procedure",
+                link_RC_010: "Rischi legali e prevenzione"
+            },
+            ja: {
+                title: "PAÏA Pulse - コンテンツディレクトリ",
+                headerTitle: "PAÏA Pulse",
+                headerDescriptionLine1: "すべてのコンテンツにアクセス",
+                headerDescriptionLine2: "🟧 社会保険と給与計算 (SP).",
+                betaWarning: "⚠️ PAÏA内部使用向け (ベータ版)",
+                footerCopyrightLine1: "💫 PAÏA – 更新および情報プラットフォーム (AI) | 作成者：Mathilde Martine PAISLEY",
+                footerCopyrightLine2: "© 2025 全著作権所有 – 作成日：[date creation] – 最終更新日：[date de mise à jour]",
+                sectionTitle_PF: "基本給与計算",
+                sectionTitle_BP: "給与明細",
+                sectionTitle_TT: "労働時間",
+                sectionTitle_CA: "休暇と欠勤",
+                sectionTitle_PM: "父性・母性",
+                sectionTitle_MA: "病気と事故",
+                sectionTitle_RC: "契約解除と係争",
+                sectionTitle_RS: "リスクと管理",
+                sectionTitle_QS: "あなたの質問",
+                audio_play: "▶️ 内容を読む",
+                audio_pause: "⏸ 一時停止",
+                audio_resume: "⏯ 再開",
+                audio_speed: "速度 :",
+                audio_slow: "遅い",
+                audio_normal: "標準",
+                audio_fast: "速い",
+                link_PF_001: "給与計算の構造と報酬システムのロジック",
+                link_PF_002: "月間時間ベース、日額パッケージ、および 151.67時間",
+                link_PF_003: "総支給額、手取り額、課税対象手取り額、およびスーパーグロス",
+                link_PF_004: "社会保険料と徴収機関",
+                link_PF_005: "社会保障上限 PSS",
+                link_PF_006: "現物給付と専門費用",
+                link_PF_007: "税制および社会保険の免除と軽減措置",
+                link_PF_008: "共済保険と基本的な年金制度",
+                link_PF_009: "DSN (社会申告) と給与計算カレンダー",
+                link_PF_010: "義務的な給与計算書類",
+                link_BP_001: "給与明細の読み方と理解",
+                link_BP_002: "明細書の必須項目",
+                link_BP_003: "固定および変動報酬要素",
+                link_BP_004: "従業員および雇用主の拠出金",
+                link_BP_005: "残業時間の計算",
+                link_BP_006: "手当、ボーナス、および割増",
+                link_BP_007: "IJSS (日額社会保障手当)、代位弁済、および給与補足",
+                link_BP_008: "源泉徴収 PAS",
+                link_BP_009: "支払手取額と課税対象手取額",
+                link_BP_010: "法的通知とアーカイブ",
+                link_TT_001: "法定週次および日次労働時間",
+                link_TT_002: "フルタイム、パートタイム、およびモジュレーション",
+                link_TT_003: "残業時間と補足時間",
+                link_TT_004: "待機、出張、休憩時間",
+                link_TT_005: "労働時間の調整",
+                link_TT_006: "深夜労働、祝日、および日曜労働",
+                link_TT_007: "特定の契約 (見習い、プロなど)",
+                link_TT_008: "時間管理とスケジュール監視",
+                link_TT_009: "労働時間に関連するリスク",
+                link_TT_010: "ドキュメントとモデル",
+                link_CA_001: "有給休暇と権利の計算",
+                link_CA_002: "RTT (労働時間短縮)、有給休暇、および休息日",
+                link_CA_003: "特別休暇と家族イベント",
+                link_CA_004: "無給欠勤",
+                link_CA_005: "欠勤と監視",
+                link_CA_006: "手続きと証明書類",
+                link_CA_007: "欠勤手当の計算",
+                link_CA_008: "サポートドキュメントとモデル",
+                link_CA_009: "国際的な特殊なケース",
+                link_CA_010: "アーカイブと履歴",
+                link_PM_001: "母性、手続き、および権利",
+                link_PM_002: "父性および子供の迎え入れ",
+                link_PM_003: "養子縁組",
+                link_PM_004: "育児休暇と時間の調整",
+                link_PM_005: "IJSS (日額社会保障手当)、計算、および代位弁済",
+                link_PM_006: "年金、補足、および保証",
+                link_PM_007: "解雇保護",
+                link_PM_008: "多重および病理的な特殊なケース",
+                link_PM_009: "サポートドキュメントとモデル",
+                link_PM_010: "外部および機関のリソース",
+                link_MA_001: "病気、休暇、および義務",
+                link_MA_002: "労働災害と職業病",
+                link_MA_003: "健康保険の申告と証明書",
+                link_MA_004: "IJSS (日額社会保障手当)、代位弁済、および補足",
+                link_MA_005: "治療的パートタイム",
+                link_MA_006: "残疾",
+                link_MA_007: "復職と健康診断",
+                link_MA_008: "苦情と紛争",
+                link_MA_009: "サポート、モデル、および手続き",
+                link_MA_010: "リスクと予防",
+                link_RC_001: "合意解約と手続き",
+                link_RC_002: "解雇と理由",
+                link_RC_003: "辞職と職場放棄",
+                link_RC_004: "労働裁判所と係争",
+                link_RC_005: "契約終了時の書類",
+                link_RC_006: "補償金の計算",
+                link_RC_007: "法的取引",
+                link_RC_008: "特殊なケースと保護",
+                link_RC_009: "ツール、モデル、および手続き",
+                link_RC_010: "法的リスクと予防",
+                link_RS_001: "URSSAF 検査",
+                link_RS_002: "労働監督",
+                link_RS_003: "年金基金と組織",
+                link_RS_004: "負担度の監視と DUERP",
+                link_RS_005: "内部と外部の給与監査",
+                link_RS_006: "ダッシュボードとレポート",
+                link_RS_007: "社会リスクと制裁",
+                link_RS_008: "頻繁なエラーと解決策",
+                link_RS_009: "給与計算のセキュリティ",
+                link_RS_010: "監視とトレンド",
+                link_QS_001: "よくある質問",
+                link_QS_002: "実戦的なケースと具体的な問題",
+                link_QS_003: "ツールとリソース",
+                link_QS_004: "モデルとテンプレート",
+                link_QS_005: "人事・給与ソリューションと専門家",
+                link_QS_006: "例とケーススタディ",
+                link_QS_007: "公式リンクと情報源",
+                link_QS_008: "ドキュメントとサポート",
+                link_QS_009: "頻繁なエラーと解決策",
+                link_QS_010: "集団的な支援とサポート"
+            },
+            pl: {
+                title: "PAÏA Pulse - Katalog Treści",
+                headerTitle: "PAÏA Pulse",
+                headerDescriptionLine1: "Uzyskaj dostęp do pełnej treści",
+                headerDescriptionLine2: "🟧 Społeczne i Płacowe (SP).",
+                betaWarning: "⚠️ Do użytku wewnętrznego PAÏA (Faza Beta)",
+                footerCopyrightLine1: "💫 PAÏA – Platforma Aktualizacji i Informacji (AI) | Autor: Mathilde Martine PAISLEY",
+                footerCopyrightLine2: "© 2025 Wszelkie prawa zastrzeżone – Utworzenie: [date creation] – Ostatnia aktualizacja: [date de mise à jour]",
+                sectionTitle_PF: "Podstawowa lista płac",
+                sectionTitle_BP: "Pasek płac",
+                sectionTitle_TT: "Czas pracy",
+                sectionTitle_CA: "Urlopy i nieobecności",
+                sectionTitle_PM: "Ojcostwo i macierzyństwo",
+                sectionTitle_MA: "Choroba i wypadek",
+                sectionTitle_RC: "Rozwiązanie i spory",
+                sectionTitle_RS: "Ryzyka i kontrole",
+                sectionTitle_QS: "Państwa pytania",
+                audio_play: "▶️ Czytaj treść",
+                audio_pause: "⏸ Pauza",
+                audio_resume: "⏯ Wznów",
+                audio_speed: "Prędkość :",
+                audio_slow: "Wolno",
+                audio_normal: "Normalnie",
+                audio_fast: "Szybko",
+                link_PF_001: "Struktura płac i logika systemu wynagrodzeń",
+                link_PF_002: "Miesięczna baza godzinowa, ryczałt dniowy i 151,67 godzin",
+                link_PF_003: "Wynagrodzenie brutto, netto, netto opodatkowane i super brutto",
+                link_PF_004: "Składki społeczne i organizmy pobierające",
+                link_PF_005: "Pułap bezpieczeństwa społecznego PSS",
+                link_PF_006: "Świadczenia w naturze i koszty zawodowe",
+                link_PF_007: "Zwolnienia i ulgi podatkowo-społeczne",
+                link_PF_008: "Ubezpieczenie wzajemne i podstawy zapobiegawcze",
+                link_PF_009: "DSN i kalendarz płac",
+                link_PF_010: "Obowiązkowe dokumenty płacowe",
+                link_BP_001: "Czytanie i rozumienie paska płac",
+                link_BP_002: "Obowiązkowe linie paska",
+                link_BP_003: "Elementy wynagrodzenia stałe i zmienne",
+                link_BP_004: "Składki pracownicze i pracodawcy",
+                link_BP_005: "Obliczanie godzin nadliczbowych",
+                link_BP_006: "Odszkodowania, premie i zwiększenia",
+                link_BP_007: "IJSS (dzienny zasiłek z ubezpieczenia społecznego), subrogacja i uzupełnienie wynagrodzenia",
+                link_BP_008: "Potrącenie u źródła PAS",
+                link_BP_009: "Netto do wypłaty i netto opodatkowane",
+                link_BP_010: "Noty prawne i archiwizacja",
+                link_TT_001: "Prawny czas pracy tygodniowy i dzienny",
+                link_TT_002: "Pełny etat, częściowy etat i modulacja",
+                link_TT_003: "Godziny nadliczbowe i uzupełniające",
+                link_TT_004: "Dyżury, delegacje, czas przerwy",
+                link_TT_005: "Organizacja czasu pracy",
+                link_TT_006: "Praca w nocy, święta i niedziele",
+                link_TT_007: "Umowy specjalne (nauka zawodu, pro, etc.)",
+                link_TT_008: "Kontrola czasu i monitorowanie godzin",
+                link_TT_009: "Ryzyka związane z czasem pracy",
+                link_TT_010: "Dokumentacja i modeły",
+                link_CA_001: "Urlop płatny i obliczanie uprawnień",
+                link_CA_002: "RTT (skrócenie czasu pracy), urlop płatny i dni wolne",
+                link_CA_003: "Urlopy specjalne i wydarzenia rodzinne",
+                link_CA_004: "Nieobecność niepłatna",
+                link_CA_005: "Absentyzm i monitorowanie",
+                link_CA_006: "Procedury i dokumenty uzasadniające",
+                link_CA_007: "Obliczanie odszkodowań za nieobecność",
+                link_CA_008: "Dokumentacja wsparcia i modeły",
+                link_CA_009: "Szczególne przypadki międzynarodowe",
+                link_CA_010: "Archiwizacja i historia",
+                link_PM_001: "Macierzyństwo, formalności i prawa",
+                link_PM_002: "Ojcostwo i przyjęcie dziecka",
+                link_PM_003: "Adopcja",
+                link_PM_004: "Urlop rodzicielski i organizacja czasu",
+                link_PM_005: "IJSS (dzienny zasiłek z ubezpieczenia społecznego), obliczanie i subrogacja",
+                link_PM_006: "Ubezpieczenia, uzupełnienia i gwarancje",
+                link_PM_007: "Ochrona przed zwolnieniem",
+                link_PM_008: "Wiele i patologicznych przypadków specjalnych",
+                link_PM_009: "Dokumenty wsparcia i modeły",
+                link_PM_010: "Zasoby zewnętrzne i instytucjonalne",
+                link_MA_001: "Choroba, zwolnienie i obowiązki",
+                link_MA_002: "Wypadek przy pracy i choroba zawodowa",
+                link_MA_003: "Deklaracje i zaświadczenia kasy chorych",
+                link_MA_004: "IJSS (dzienny zasiłek z ubezpieczenia społecznego), subrogacja i uzupełnienia",
+                link_MA_005: "Terapeutyczny pół etat",
+                link_MA_006: "Niepełnosprawność",
+                link_MA_007: "Powrót do pracy i wizyta lekarska",
+                link_MA_008: "Reklamacje i spory",
+                link_MA_009: "Wsparcie, modeły i procedury",
+                link_MA_010: "Ryzyka i prewencja",
+                link_RC_001: "Porozumienie o rozwiązaniu umowy i procedury",
+                link_RC_002: "Zwolnienie i powody",
+                link_RC_003: "Rezygnacja i porzucenie pracy",
+                link_RC_004: "Sądy pracy i spory",
+                link_RC_005: "Dokumenty końca umowy",
+                link_RC_006: "Obliczanie odszkodowań",
+                link_RC_007: "Transakcja prawna",
+                link_RC_008: "Przypadki specjalne i ochrona",
+                link_RC_009: "Narzędzia, modeły i procedury",
+                link_RC_010: "Ryzyka prawne i prewencja"
+            }
+        };
+
+        // Fonction pour changer la langue
+        function setLanguage(lang) {
+            currentLang = lang;
+            const currentTranslations = translations[lang];
+            if (!currentTranslations) return;
+
+            // Arrête la lecture vocale si la langue change pour éviter les erreurs de voix
+            if (synth.speaking) {
+                synth.cancel();
+            }
+
+            // 1. Mise à jour des titres (H1, H2) et des éléments simples (footer, headers)
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (!key.startsWith('link_') && currentTranslations[key]) {
+                    element.textContent = currentTranslations[key];
+                }
+            });
+
+            // 2. Mise à jour du titre de la page
+            document.querySelector('title').textContent = currentTranslations.title;
+            
+            // 3. Mise à jour manuelle du bouton vocal (garantit que le texte est correct)
+            updateButtonState('audio_play', '▶️ Lire le contenu');
+            
+            // 4. Mise à jour des liens (dissociation navigation/vocal)
+            document.querySelectorAll('main ul li').forEach(li => {
+                const codeAnchor = li.querySelector('.code-part');
+                const descSpan = li.querySelector('.desc-part');
+                const separator = li.querySelector('.separator-emoji');
+                
+                if (descSpan) {
+                    const key = descSpan.getAttribute('data-i18n');
+                    if (currentTranslations[key]) {
+                        // Le texte traduit est injecté uniquement dans le SPAN descriptif
+                        descSpan.textContent = currentTranslations[key];
+                    }
+                }
+
+                // Pour maintenir l'ordre visuel en mode RTL (Arabe)
+                if (lang === 'ar') {
+                    // Les éléments du <li> doivent être en ordre inversé pour RTL
+                    li.style.flexDirection = 'row-reverse';
+                    if (codeAnchor) {
+                        codeAnchor.style.fontWeight = 'normal'; // Optionnel: Ajuster le poids si besoin
+                        // Ajuster la marge de l'émoji pour RTL
+                        if (separator) {
+                            separator.style.marginRight = '0.5rem';
+                            separator.style.marginLeft = '0';
+                        }
+                    }
+                } else {
+                    li.style.flexDirection = 'row';
+                    // Rétablir la marge de l'émoji pour LTR
+                    if (separator) {
+                        separator.style.marginRight = '0.5rem';
+                        separator.style.marginLeft = '0.5rem';
+                    }
+                }
+            });
+
+
+            // 5. Gestion de la direction du texte (RTL pour l'Arabe)
+            const html = document.documentElement;
+            if (lang === 'ar') {
+                html.setAttribute('dir', 'rtl');
+                // Force l'alignement des listes de liens en RTL (les puces à droite)
+                document.querySelectorAll('.list-disc').forEach(ul => ul.style.textAlign = 'right');
+                
+            } else {
+                html.removeAttribute('dir');
+                document.querySelectorAll('.list-disc').forEach(ul => ul.style.textAlign = 'left');
+            }
+
+            // 6. Mettre à jour l'attribut lang de la balise <html>
+            html.setAttribute('lang', lang);
+
+            // 7. Sauvegarder la sélection (optionnel mais pratique)
+            localStorage.setItem('paiaPulseLang', lang);
+        }
+
+        // Initialisation : Charger la langue préférée au chargement de la page
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem('paiaPulseLang') || 'fr';
+            const selector = document.getElementById('language-selector');
+            if (selector) {
+                selector.value = savedLang;
+            }
+            
+            // Assure que les voix sont chargées avant d'appeler setLanguage pour la première fois
+            setLanguage(savedLang); 
+
+            if (synth.onvoiceschanged !== undefined) {
+                synth.onvoiceschanged = () => {
+                    // Appelle setLanguage si la liste des voix change
+                    setLanguage(currentLang);
+                };
+            }
+        });
+        
+        // Initialisation des boutons de vitesse au chargement
+        document.addEventListener('DOMContentLoaded', () => {
+            const normalRateButton = document.querySelector('.rate-btn[data-rate="1.0"]');
+            // Mettre à jour l'état actif sans changer la vitesse au chargement
+            document.querySelectorAll('.rate-btn').forEach(btn => btn.classList.remove('active-rate'));
+            if(normalRateButton) normalRateButton.classList.add('active-rate');
+        });
+    </script>
 </body>
 </html>
