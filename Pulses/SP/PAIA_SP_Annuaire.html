@@ -95,13 +95,13 @@
         }
         .header-nav-link:hover { color: #D9A526; border-bottom-color: #D9A526; }
         
-        /* Menu Déroulant (Dropdown) pour Pulse */
+        /* Menu Déroulant (Dropdown) pour Pulse et LexiQ */
         .nav-item-dropdown { position: relative; display: inline-block; }
         .dropdown-menu {
             display: none;
             position: absolute;
             background-color: white;
-            min-width: 260px;
+            min-width: 300px; /* Un peu plus large pour LexiQ */
             box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
             z-index: 100;
             border-radius: 8px;
@@ -110,6 +110,8 @@
             margin-top: 0.5rem;
             padding: 0.5rem 0;
             text-align: left; /* Force l'alignement à gauche dans le menu */
+            max-height: 80vh; /* Sécurité hauteur */
+            overflow-y: auto; /* Scroll si nécessaire */
         }
         .nav-item-dropdown:hover .dropdown-menu { display: block; }
         .dropdown-link {
@@ -124,6 +126,18 @@
         }
         .dropdown-link:last-child { border-bottom: none; }
         .dropdown-link:hover { background-color: #F6F2E8; color: #D9A526; }
+        
+        /* Titres de section dans le dropdown */
+        .dropdown-section-title {
+            background-color: #F3F4F6;
+            color: #6B7280;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            padding: 0.5rem 1rem;
+            border-bottom: 1px solid #E5E7EB;
+            letter-spacing: 0.05em;
+        }
 
         /* Langue */
         #language-selector {
@@ -177,7 +191,14 @@
             gap: 1.5rem; 
             align-items: center;
         }
-        #status-legend-bar .legend-item { display: flex; align-items: center; font-weight: 500; }
+        #status-legend-bar .legend-item { 
+            display: flex; 
+            align-items: center; 
+            font-weight: 500; 
+            cursor: pointer; /* Indique que c'est cliquable */
+            transition: opacity 0.2s;
+        }
+        #status-legend-bar .legend-item:hover { opacity: 0.7; }
         #status-legend-bar .emoji-key { font-size: 1.1rem; margin-right: 0.4rem; }
         
         /* Burger Menu (Mobile) */
@@ -186,12 +207,27 @@
             display: none; /* Hidden by default */
             padding: 1rem;
             border-top: 1px solid rgba(255,255,255,0.1);
+            max-height: 80vh;
+            overflow-y: auto;
         }
         #mobile-menu a {
             display: block;
             color: white;
             padding: 0.5rem 0;
             border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        /* Classe de surbrillance pour la lecture audio */
+        .reading-highlight {
+            background-color: #fef9c3; /* Jaune très pâle */
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 0 0 2px #D9A526; /* Légère bordure dorée */
+        }
+        /* Cas spécifique pour le footer ou éléments foncés */
+        #app-footer-band .reading-highlight {
+            background-color: rgba(217, 165, 38, 0.3); /* Doré transparent */
+            box-shadow: 0 0 0 2px #F6F2E8;
         }
     </style>
 </head>
@@ -218,6 +254,9 @@
                 <!-- Desktop Navigation -->
                 <nav class="hidden xl:flex items-center space-x-6 text-sm font-semibold">
                     
+                    <!-- NOUVEAU BOUTON START -->
+                    <a href="#" class="header-nav-link" data-i18n="nav_start">Start</a>
+
                     <!-- Menu Déroulant Pulse -->
                     <div class="nav-item-dropdown">
                         <a href="#" class="header-nav-link flex items-center" data-i18n="nav_pulse">
@@ -233,7 +272,30 @@
                         </div>
                     </div>
 
-                    <a href="#" class="header-nav-link" data-i18n="nav_lexique">LexiQ</a>
+                    <!-- Menu Déroulant LexiQ -->
+                    <div class="nav-item-dropdown">
+                        <a href="#" class="header-nav-link flex items-center" data-i18n="nav_lexique">
+                            LexiQ <span class="ml-1 text-xs">▼</span>
+                        </a>
+                        <div class="dropdown-menu shadow-xl">
+                            <!-- 1 Glossaire -->
+                            <div class="dropdown-section-title">1 📁 Glossaire</div>
+                            <a href="#" class="dropdown-link"><span class="mr-2">🟨</span> AF — ADMINISTRATION FINANCIÈRE</a>
+                            <a href="#" class="dropdown-link"><span class="mr-2">🟦</span> DV — DIGITAL & VEILLE / OUTILS</a>
+                            <a href="#" class="dropdown-link"><span class="mr-2">🟪</span> MC — MARKETING & COMMUNICATION</a>
+                            <a href="#" class="dropdown-link"><span class="mr-2">🟥</span> RH — RESSOURCES HUMAINES</a>
+                            <a href="#" class="dropdown-link"><span class="mr-2">🟧</span> SP — SOCIALE & PAIE</a>
+                            
+                            <!-- 2 Acronymes -->
+                            <div class="dropdown-section-title">2 📁 Acronymes</div>
+                            <a href="#" class="dropdown-link"><span class="mr-2">🟨</span> AF — ADMINISTRATION FINANCIÈRE</a>
+                            <a href="#" class="dropdown-link"><span class="mr-2">🟦</span> DV — DIGITAL & VEILLE / OUTILS</a>
+                            <a href="#" class="dropdown-link"><span class="mr-2">🟪</span> MC — MARKETING & COMMUNICATION</a>
+                            <a href="#" class="dropdown-link"><span class="mr-2">🟥</span> RH — RESSOURCES HUMAINES</a>
+                            <a href="#" class="dropdown-link"><span class="mr-2">🟧</span> SP — SOCIALE & PAIE</a>
+                        </div>
+                    </div>
+
                     <a href="#" class="header-nav-link" data-i18n="nav_hub">Hub</a>
                     <a href="#" class="header-nav-link" data-i18n="nav_veille">Veille</a>
                 </nav>
@@ -260,14 +322,38 @@
 
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="xl:hidden">
+            <!-- NOUVEAU START MOBILE -->
+            <a href="#" class="block px-4 py-2 text-white font-bold uppercase bg-white/10 mb-2" data-i18n="nav_start">Start</a>
+
+            <!-- Pulse Section -->
             <strong class="text-gray-400 text-xs uppercase mt-2 block">Pulse</strong>
             <a href="#" class="pl-4 text-sm">AF — Administration Financière</a>
             <a href="#" class="pl-4 text-sm">DV — Digital & Veille</a>
             <a href="#" class="pl-4 text-sm">MC — Marketing</a>
             <a href="#" class="pl-4 text-sm">RH — Ressources Humaines</a>
             <a href="#" class="pl-4 text-sm font-bold text-[#D9A526]">SP — Sociale & Paie</a>
+            
             <div class="border-t border-white/10 my-2"></div>
-            <a href="#" data-i18n="nav_lexique">LexiQ</a>
+            
+            <!-- LexiQ Section -->
+            <strong class="text-gray-400 text-xs uppercase mt-2 block" data-i18n="nav_lexique">LexiQ</strong>
+            <div class="pl-2 mt-1">
+                <span class="text-gray-500 text-xs font-bold uppercase block px-2 py-1">1 📁 Glossaire</span>
+                <a href="#" class="pl-6 text-sm">AF — Administration Financière</a>
+                <a href="#" class="pl-6 text-sm">DV — Digital & Veille</a>
+                <a href="#" class="pl-6 text-sm">MC — Marketing</a>
+                <a href="#" class="pl-6 text-sm">RH — Ressources Humaines</a>
+                <a href="#" class="pl-6 text-sm">SP — Sociale & Paie</a>
+                
+                <span class="text-gray-500 text-xs font-bold uppercase block px-2 py-1 mt-2">2 📁 Acronymes</span>
+                <a href="#" class="pl-6 text-sm">AF — Administration Financière</a>
+                <a href="#" class="pl-6 text-sm">DV — Digital & Veille</a>
+                <a href="#" class="pl-6 text-sm">MC — Marketing</a>
+                <a href="#" class="pl-6 text-sm">RH — Ressources Humaines</a>
+                <a href="#" class="pl-6 text-sm">SP — Sociale & Paie</a>
+            </div>
+
+            <div class="border-t border-white/10 my-2"></div>
             <a href="#" data-i18n="nav_hub">Hub</a>
             <a href="#" data-i18n="nav_veille">Veille</a>
         </div>
@@ -475,11 +561,11 @@
             
             <!-- LÉGENDE DES STATUTS -->
             <div id="status-legend-bar" class="w-full">
-                <div class="legend-item"><span class="emoji-key">✅</span> <span data-i18n="legend_validated_short">Validé</span></div>
-                <div class="legend-item"><span class="emoji-key">🚧</span> <span data-i18n="legend_in_progress_short">En Construction</span></div>
-                <div class="legend-item"><span class="emoji-key">⛔️</span> <span data-i18n="legend_unavailable_short">Non Disponible</span></div>
-                <div class="legend-item"><span class="emoji-key">📴</span> <span data-i18n="legend_update_urgent_short">À Actualiser</span></div>
-                <div class="legend-item"><span class="emoji-key">🛂</span> <span data-i18n="legend_updated_ok_short">Actualisé</span></div>
+                <div class="legend-item" onclick="startSelectiveSpeech(this)"><span class="emoji-key">✅</span> <span data-i18n="legend_validated_short">Validé</span></div>
+                <div class="legend-item" onclick="startSelectiveSpeech(this)"><span class="emoji-key">🚧</span> <span data-i18n="legend_in_progress_short">En Construction</span></div>
+                <div class="legend-item" onclick="startSelectiveSpeech(this)"><span class="emoji-key">⛔️</span> <span data-i18n="legend_unavailable_short">Non Disponible</span></div>
+                <div class="legend-item" onclick="startSelectiveSpeech(this)"><span class="emoji-key">📴</span> <span data-i18n="legend_update_urgent_short">À Actualiser</span></div>
+                <div class="legend-item" onclick="startSelectiveSpeech(this)"><span class="emoji-key">🛂</span> <span data-i18n="legend_updated_ok_short">Actualisé</span></div>
             </div>
 
         </main>
@@ -487,7 +573,7 @@
     </div>
 
     <!-- BANDE DE PIED DE PAGE -->
-    <footer id="app-footer-band" class="w-full mt-8">
+    <footer id="app-footer-band" class="w-full mt-8" onclick="startSelectiveSpeech(this)" style="cursor: pointer;">
         <div class="max-w-6xl mx-auto px-4 sm:px-8 text-center text-sm">
             <span data-i18n="footerCopyrightLine1">💫 PAÏA – Plateforme d’Actualisation & d’Information (IA) | By Mathilde Martine PAISLEY</span><br>
             <span data-i18n="footerCopyrightLine2">© 2025 Tous droits réservés – Création : 01 novembre 2025 – Dernière mise à jour : 23 novembre 2025</span>
@@ -501,6 +587,7 @@
         let isSpeaking = false;
         let currentRate = 1.0;
         let currentLang = 'fr'; 
+        let currentHighlightedElement = null; // Suivi de l'élément surligné
         
         function getBodyContentText() {
             let text = "";
@@ -521,13 +608,27 @@
             return text;
         }
 
+        // Fonction de nettoyage des émojis et caractères spéciaux pour la lecture
+        function cleanTextForSpeech(text) {
+            if (!text) return "";
+            // Regex pour enlever les emojis courants et symboles divers
+            // Plage Unicode approximative pour les Emojis + symboles spécifiques utilisés
+            return text.replace(/([\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF])/g, '').trim();
+        }
+
         function startSpeech() {
             if (!synth) return;
             synth.cancel();
+            if(currentHighlightedElement) {
+                currentHighlightedElement.classList.remove('reading-highlight');
+                currentHighlightedElement = null;
+            }
             
             // On récupère le texte visible (qui sera déjà traduit grâce à setLanguage)
-            const content = getBodyContentText();
-            utterance = new SpeechSynthesisUtterance(content);
+            const rawContent = getBodyContentText();
+            const cleanContent = cleanTextForSpeech(rawContent);
+
+            utterance = new SpeechSynthesisUtterance(cleanContent);
             
             const voices = synth.getVoices();
             let voice = null;
@@ -562,17 +663,41 @@
         function startSelectiveSpeech(element) {
             if (!synth) return;
             synth.cancel();
+            
+            // Gestion du surlignage visuel
+            if (currentHighlightedElement) {
+                currentHighlightedElement.classList.remove('reading-highlight');
+            }
+            currentHighlightedElement = element;
+            element.classList.add('reading-highlight');
+
             let contentToSpeak = "";
             
+            // Logique pour extraire le texte selon le type d'élément
             if (element.tagName === 'SPAN' && element.classList.contains('desc-part')) {
                 contentToSpeak = element.textContent.trim() + ". "; 
             } else if (element.tagName === 'H2') {
                 const translatedSpan = element.querySelector('[data-i18n]');
                 contentToSpeak = translatedSpan ? translatedSpan.textContent + ". " : element.textContent + ". ";
+            } else if (element.classList.contains('legend-item')) {
+                // Pour la légende, on prend tout le texte (l'emoji sera nettoyé après)
+                contentToSpeak = element.textContent.trim();
+            } else if (element.tagName === 'FOOTER') {
+                // Pour le footer, on lit tout le contenu texte
+                contentToSpeak = element.innerText || element.textContent;
             }
             
-            if (contentToSpeak.trim() === "") return;
-            utterance = new SpeechSynthesisUtterance(contentToSpeak);
+            // Nettoyage des émojis avant lecture
+            const cleanContent = cleanTextForSpeech(contentToSpeak);
+
+            if (cleanContent.trim() === "") {
+                // Rien à lire (ou que des émojis), on enlève le highlight tout de suite
+                element.classList.remove('reading-highlight');
+                currentHighlightedElement = null;
+                return;
+            }
+
+            utterance = new SpeechSynthesisUtterance(cleanContent);
             
             const voices = synth.getVoices();
              let voice = null;
@@ -593,6 +718,15 @@
             }
             
             utterance.rate = currentRate;
+            
+            // Quand la lecture est finie, on enlève le surlignage
+            utterance.onend = () => {
+                if (currentHighlightedElement) {
+                    currentHighlightedElement.classList.remove('reading-highlight');
+                    currentHighlightedElement = null;
+                }
+            };
+
             synth.speak(utterance);
         }
 
@@ -640,6 +774,7 @@
                 nav_lexique: "LexiQ",
                 nav_hub: "Hub",
                 nav_veille: "Veille",
+                nav_start: "Start",
                 headerSubject: "🟧 Social & Paie (SP)",
                 betaWarning: "⚠️ Pour usage interne PAÏA (Phase Bêta)",
                 footerCopyrightLine1: "💫 PAÏA – Plateforme d’Actualisation & d’Information (IA) | By Mathilde Martine PAISLEY",
@@ -765,6 +900,7 @@
                 nav_lexique: "LexiQ",
                 nav_hub: "Hub",
                 nav_veille: "Monitoring",
+                nav_start: "Start",
                 headerSubject: "🟧 Social & Payroll (SP)",
                 betaWarning: "⚠️ For PAÏA internal use (Beta Phase)",
                 footerCopyrightLine1: "💫 PAÏA – Update & Information Platform (AI) | By Mathilde Martine PAISLEY",
@@ -891,6 +1027,7 @@
                 nav_lexique: "LexiQ",
                 nav_hub: "Hub",
                 nav_veille: "Überwachung",
+                nav_start: "Start",
                 headerSubject: "🟧 Soziales & Gehaltsabrechnung (SP)",
                 betaWarning: "⚠️ Für den internen Gebrauch von PAÏA (Beta-Phase)",
                 footerCopyrightLine1: "💫 PAÏA – Aktualisierungs- und Informationsplattform (KI) | Von Mathilde Martine PAISLEY",
@@ -1016,6 +1153,7 @@
                 nav_lexique: "LexiQ",
                 nav_hub: "Hub",
                 nav_veille: "Vigilancia",
+                nav_start: "Inicio",
                 headerSubject: "🟧 Social y Nómina (SP)",
                 betaWarning: "⚠️ Para uso interno de PAÏA (Fase Beta)",
                 footerCopyrightLine1: "💫 PAÏA – Plataforma de Actualización e Información (IA) | Por Mathilde Martine PAISLEY",
@@ -1141,6 +1279,7 @@
                 nav_lexique: "LexiQ",
                 nav_hub: "Hub",
                 nav_veille: "Monitoraggio",
+                nav_start: "Start",
                 headerSubject: "🟧 Sociale & Buste Paga (SP)",
                 betaWarning: "⚠️ Per uso interno PAÏA (Fase Beta)",
                 footerCopyrightLine1: "💫 PAÏA – Piattaforma di Aggiornamento e Informazione (IA) | Di Mathilde Martine PAISLEY",
@@ -1266,6 +1405,7 @@
                 nav_lexique: "LexiQ",
                 nav_hub: "Hub",
                 nav_veille: "مراقبة",
+                nav_start: "البداية",
                 headerSubject: "🟧 الشؤون الاجتماعية والرواتب (SP)",
                 betaWarning: "⚠️ للاستخدام الداخلي PAÏA (مرحلة بيتا)",
                 footerCopyrightLine1: "💫 PAÏA – منصة التحديث والمعلومات (الذكاء الاصطناعي) | بقلم Mathilde Martine PAISLEY",
@@ -1391,6 +1531,7 @@
                 nav_lexique: "LexiQ",
                 nav_hub: "Hub",
                 nav_veille: "监控",
+                nav_start: "开始",
                 headerSubject: "🟧 社会与薪资 (SP)",
                 betaWarning: "⚠️ 仅供 PAÏA 内部使用 (Beta 阶段)",
                 footerCopyrightLine1: "💫 PAÏA – 更新与信息平台 (AI) | Mathilde Martine PAISLEY 制作",
@@ -1516,6 +1657,7 @@
                 nav_lexique: "LexiQ",
                 nav_hub: "Hub",
                 nav_veille: "監視",
+                nav_start: "スタート",
                 headerSubject: "🟧 社会保険 & 給与 (SP)",
                 betaWarning: "⚠️ PAÏA 内部使用限定 (ベータ版)",
                 footerCopyrightLine1: "💫 PAÏA – 更新および情報プラットフォーム (AI) | Mathilde Martine PAISLEY 作成",
@@ -1641,6 +1783,7 @@
                 nav_lexique: "LexiQ",
                 nav_hub: "Hub",
                 nav_veille: "Monitoring",
+                nav_start: "Start",
                 headerSubject: "🟧 Kadry i Płace (SP)",
                 betaWarning: "⚠️ Do użytku wewnętrznego PAÏA (Faza Beta)",
                 footerCopyrightLine1: "💫 PAÏA – Platforma Aktualizacji i Informacji (AI) | Autorstwa Mathilde Martine PAISLEY",
